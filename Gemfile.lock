@@ -193,6 +193,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   less-rails
+  nokogiri
   oj
   pg
   rabl

@@ -1,2 +1,3 @@
-welcome_index GET /welcome/index(.:format) welcome#index
-         root     /                        welcome#index
+welcome_index GET  /welcome/index(.:format) welcome#index
+      opensrs POST /opensrs(.:format)       opensrs#index
+         root      /                        welcome#index

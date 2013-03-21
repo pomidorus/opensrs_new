@@ -1,6 +1,8 @@
 Opensrs::Application.routes.draw do
   get "welcome/index"
 
+  match 'opensrs' => 'opensrs#index', :via => :post
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -9,6 +9,8 @@ gem 'cancan'
 gem 'rabl'
 gem 'oj'
 
+gem 'nokogiri'
+
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

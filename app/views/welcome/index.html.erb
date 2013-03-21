@@ -19,4 +19,10 @@
 
 <section>
   <h2>GetInfoOrder</h2>
+
+  <%= form_tag '/opensrs', :authenticity_token => "cf50faa3fe97702ca1ae" do %>
+    <div><%= text_field_tag 'userlogin'  %></div>
+    <div><%= submit_tag 'Отправить' %></div>
+  <% end %>
+
 </section>
