@@ -1,0 +1,2 @@
+welcome_index GET /welcome/index(.:format) welcome#index
+         root     /                        welcome#index
