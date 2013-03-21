@@ -38,6 +38,6 @@ end
 
 
 group :production do
-  #gem 'therubyracer'
+  gem 'therubyracer'
   gem 'pg'
 end
