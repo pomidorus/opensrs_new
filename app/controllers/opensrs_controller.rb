@@ -8,7 +8,8 @@ class OpensrsController < ApplicationController
     puts request.headers["X-Signature"]
     xml = Nokogiri::XML(params[:xml])
     puts xml
-    render "layouts/_get_order_info", :formats => [:xml], :header => {'sss' => 'ddd'}
+    # render "layouts/_get_order_info", :formats => [:xml], :header => {'sss' => 'ddd'}
+    render "layouts/_get_parse_csr", :formats => [:xml], :header => {'sss' => 'ddd'}
   end
 
 end
