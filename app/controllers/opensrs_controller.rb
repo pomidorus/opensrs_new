@@ -49,7 +49,7 @@ def client_function(hash)
 end
 
 def authenticate_client_function(user,key)
-  puts "hello #{user}"
+  "hello #{user}"
 end
 
 class OpensrsController < ApplicationController
@@ -62,10 +62,17 @@ class OpensrsController < ApplicationController
 
     authenticate_client_function(username,signature)
 
+    Rails.logger.debug "#{authenticate_client_function(username,signature)}"
+
     opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
+
+    Rails.logger.debug "#{opensrs_request.inspect}"
+
     #Client function
     hash = client_function(opensrs_request)
     opensrs_response = OpenSRSResponse.new(opensrs_request,hash)
+    Rails.logger.debug "#{opensrs_response.response.inspect}"
+
 
     render "layouts/#{opensrs_response.response}", :formats => [:xml]
   end
