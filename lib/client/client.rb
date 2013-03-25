@@ -1,8 +1,4 @@
-require 'nokogiri'
 require 'opensrs'
-
-rspusername = 'username' # Your OpenSRS Reseller User Name
-private_key = 'privatekey' # Your Private Key Generated In The RWI
 
 OpenSRS::Server.xml_processor = :nokogiri
 
@@ -25,4 +21,4 @@ request = server.call(
 #puts request.inspect
 #puts request.response
 puts request.request_xml
-#puts request.response_xml
+puts request.response_xml
