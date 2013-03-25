@@ -11,6 +11,7 @@ gem 'oj'
 
 gem 'nokogiri'
 
+gem 'thin'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -36,6 +37,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'rack-test'
+  gem 'spork'
 end
 
 
