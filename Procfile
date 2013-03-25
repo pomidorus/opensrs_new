@@ -1,2 +1,1 @@
-web: bundle exec rails server thin -p 3000 -e development
-test: spork
+web: bundle exec rails server thin -p 34545 -e production

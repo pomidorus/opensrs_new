@@ -44,5 +44,5 @@ end
 group :production do
   gem 'therubyracer'
   gem 'pg'
-  #gem 'thin'
+  gem 'thin'
 end
