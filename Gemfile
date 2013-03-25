@@ -25,6 +25,8 @@ gem 'jquery-rails'
 gem 'debugger'
 gem 'unicorn'
 
+gem 'opensrs'
+
 
 group :test, :development do
   gem 'rspec-rails', '~> 2.9'

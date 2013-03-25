@@ -6,9 +6,9 @@ class OpensrsController < ApplicationController
   def index
     puts request.headers["X-Username"]
     puts request.headers["X-Signature"]
-    xml = Nokogiri::XML(params[:xml])
-    puts xml
-    render "layouts/_get_order_info", :formats => [:xml], :header => {'sss' => 'ddd'}
+    xml_body = request.body.read
+    puts xml_body
+    render "layouts/_get_order_info", :formats => [:xml]
   end
 
 end
