@@ -3,11 +3,34 @@ require "spec_helper"
 require 'opensrs'
 
 
+class OpenSRSRequest
+  attr :xml
+
+  def initialize(xml)
+    @xml = xml
+  end
+
+  def request_hash
+    request = Nokogiri::XML(xml)
+    rh = {}
+    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
+      rh[item['key']] = item.content unless item['key'] == "attributes"
+    end
+    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
+      rh[item['key']] = item.content
+    end
+    rh
+  end
+
+end
+
+
 describe "/opensrs" do
 
   describe "OrderInfo request" do
 
     context "request is correct" do
+      #let(:user) {Factory(:user)}
       let(:server_local) {OpenSRS::Server.new(:server   => "http://localhost:3000/opensrs",
                                               :username => "aseleznov",
                                               :password => "53cr3t",
@@ -20,6 +43,10 @@ describe "/opensrs" do
 
       before(:each) do
         OpenSRS::Server.xml_processor = :nokogiri
+      end
+
+      before(:all) do
+        User.create!({name: "aseleznov", signature: "2e5e7688aba0879ad1d6b48c724af427"})
       end
 
       def get_order_id(order_id)
@@ -44,11 +71,17 @@ describe "/opensrs" do
       it "signature is correct"
       it "authorization is correct"
 
-      it "body is correct"
 
-      it "action is GET_ORDER_INFO"
+      it "action is GET_ORDER_INFO" do
+        opensrs_request = OpenSRSRequest.new(get_order_id("34342323").request_xml).request_hash
+        opensrs_request["action"].should == "GET_ORDER_INFO"
+      end
+
       it "object is DOMAIN"
-      it "order_id is 3515690"
+      it "order_id is 3515690" do
+        opensrs_request = OpenSRSRequest.new(get_order_id("34342323").request_xml).request_hash
+        opensrs_request["order_id"].should == "34342323"
+      end
 
     end
 

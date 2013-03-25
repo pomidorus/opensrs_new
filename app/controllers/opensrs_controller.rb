@@ -8,25 +8,45 @@ class OpenSRSRequest
     @xml = xml
   end
 
+  def request_hash
+    request = Nokogiri::XML(xml)
+    rh = {}
+    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
+      rh[item['key']] = item.content unless item['key'] == "attributes"
+    end
+    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
+      rh[item['key']] = item.content
+    end
+    rh
+  end
+
+
 end
 
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
+  before_filter :authenticate_user
 
   def index
     username = request.headers["X-Username"]
     signature = request.headers["X-Signature"]
 
+    opensrs_request = OpenSRSRequest.new(request.body.read).request_hash
+    puts opensrs_request.inspect
 
-    # refactor to class
-    opensrs_response = Nokogiri::XML(request.body.read)
-    opensrs_response.xpath('//OPS_envelope/dt_assoc/item').each do |link|
-      puts link['key']
-      puts link.content
-    end
-
-    render "layouts/_get_order_info", :formats => [:xml]
+    render "layouts/order_info_response", :formats => [:xml]
   end
+
+  private
+  def authenticate_user
+    username = request.headers["X-Username"]
+    signature = request.headers["X-Signature"]
+    @current_user = User.find_by_signature(signature)
+      #unless @current_user
+      #  respond_with({:error => "Signature is invalid." })
+      #end
+  end
+
 
 end
 

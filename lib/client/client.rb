@@ -1,24 +1,85 @@
 require 'opensrs'
 
-OpenSRS::Server.xml_processor = :nokogiri
 
-server = OpenSRS::Server.new(
-  #:server   => "http://opensrs.herokuapp.com/opensrs",
-  :server   => "http://localhost:3000/opensrs",
-  :username => "aseleznov",
-  :password => "53cr3t",
-  :key      => "c633be3170c7fb3fb29e2f99b84be2410"
-)
+class OpenSRSRequest
+  attr :server, :username, :password, :key
 
-request = server.call(
-      :action => "GET_ORDER_INFO",
-      :object => "DOMAIN",
-      :attributes => {
-        :order_id => "3515690"
-      }
+  def initialize(server,username,password,key)
+    OpenSRS::Server.xml_processor = :nokogiri
+    @server, @username, @password, @key = server, username, password, key
+  end
+
+  def remote_server
+    OpenSRS::Server.new(
+      :server   => server,
+      :username => username,
+      :password => password,
+      :key      => key
     )
+  end
 
-puts request.headers
+  def request_order_info(order_id)
+    remote_server.call(
+          :action => "GET_ORDER_INFO",
+          :object => "DOMAIN",
+          :attributes => {
+            :order_id => order_id
+          }
+        )
+  end
+
+  def request_product_info(product_id)
+    remote_server.call(
+          :action => "GET_PRODUCT_INFO",
+          :object => "TRUST_SERVICE",
+          :attributes => {
+            :product_id => product_id
+          }
+        )
+  end
+
+
+end
+
+
+opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
+roi = opensrs_request.request_order_info("123242")
+rpi = opensrs_request.request_order_info("99")
+
+#puts request.inspect
+#puts request.response
+puts roi.request_xml
+puts rpi.request_xml
+
+#puts request.response_xml
+
+
+#server = OpenSRS::Server.new(
+#  #:server   => "http://opensrs.herokuapp.com/opensrs",
+#  :server   => "http://localhost:3000/opensrs",
+#  :username => "aseleznov",
+#  :password => "53cr3t",
+#  :key      => "c633be3170c7fb3fb29e2f99b84be2410"
+#)
+
+#request_order_info = server.call(
+#      :action => "GET_ORDER_INFO",
+#      :object => "DOMAIN",
+#      :attributes => {
+#        :order_id => "3515690"
+#      }
+#    )
+#
+#request_product_info = server.call(
+#      :action => "GET_ORDER_INFO",
+#      :object => "DOMAIN",
+#      :attributes => {
+#        :order_id => "3515690"
+#      }
+#    )
+
+
+#puts request.inspect
 #puts request.response
 #puts request.request_xml
 #puts request.response_xml
