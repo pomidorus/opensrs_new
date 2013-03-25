@@ -38,6 +38,36 @@ class OpenSRSRequest
         )
   end
 
+  def request_cancel_order(order_id)
+    remote_server.call(
+          :action => "CANCEL_ORDER",
+          :object => "TRUST_SERVICE",
+          :attributes => {
+            :order_id => order_id
+          }
+        )
+  end
+
+  def request_parse_csr(product_type, csr)
+    remote_server.call(
+          :action => "CANCEL_ORDER",
+          :object => "TRUST_SERVICE",
+          :attributes => {
+            :product_type => product_type,
+            :csr => csr
+          }
+        )
+  end
+
+  def request_register_ssl_cert(order_id)
+    remote_server.call(
+          :action => "GET_ORDER_INFO",
+          :object => "TRUST_SERVICE",
+          :attributes => {
+            :order_id => order_id
+          }
+        )
+  end
 
 end
 
