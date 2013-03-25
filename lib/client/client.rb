@@ -44,12 +44,13 @@ end
 
 opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 roi = opensrs_request.request_order_info("123242")
-rpi = opensrs_request.request_order_info("99")
+rpi = opensrs_request.request_product_info("99")
 
-#puts request.inspect
-#puts request.response
+puts "---------------------------------------------"
 puts roi.request_xml
+puts roi.response_xml
+puts "---------------------------------------------"
 puts rpi.request_xml
-#puts request.response_xml
+puts rpi.response_xml
 
 

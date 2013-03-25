@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'opensrs'
 
-class OpenSRSRequest
+class OpenSRSRequestParse
   attr :xml
 
   def initialize(xml)
@@ -19,8 +19,37 @@ class OpenSRSRequest
     end
     rh
   end
+end
+
+class OpenSRSResponse
+  attr :request_hash, :client_hash
+
+  def initialize(request_hash, client_hash)
+    @request_hash, @client_hash = request_hash, client_hash
+  end
 
 
+  def action
+    request_hash["action"]
+  end
+
+  def response
+    case action
+      when "GET_ORDER_INFO"
+        "order_info_response"
+      when "GET_PRODUCT_INFO"
+        "product_info_response"
+    end
+  end
+
+end
+
+def client_function(hash)
+  {}
+end
+
+def authenticate_client_function(user,key)
+  puts "hello #{user}"
 end
 
 class OpensrsController < ApplicationController
@@ -31,10 +60,14 @@ class OpensrsController < ApplicationController
     username = request.headers["X-Username"]
     signature = request.headers["X-Signature"]
 
-    opensrs_request = OpenSRSRequest.new(request.body.read).request_hash
-    puts opensrs_request.inspect
+    authenticate_client_function(username,signature)
 
-    render "layouts/order_info_response", :formats => [:xml]
+    opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
+    #Client function
+    hash = client_function(opensrs_request)
+    opensrs_response = OpenSRSResponse.new(opensrs_request,hash)
+
+    render "layouts/#{opensrs_response.response}", :formats => [:xml]
   end
 
   private
