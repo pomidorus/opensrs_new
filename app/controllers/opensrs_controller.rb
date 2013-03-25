@@ -1,28 +1,99 @@
 require 'nokogiri'
+require 'opensrs'
 
-class OpensrsController < ApplicationController
-  respond_to :xml, :only => :index
+class OpenSRSRequestParse
+  attr :xml
 
-  def index
-    puts request.headers["X-Username"]
-    puts request.headers["X-Signature"]
-    xml = Nokogiri::XML(params[:xml])
-    puts xml
-    # render "layouts/_get_order_info", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_parse_csr", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_trust_service_order", :formats => [:xml], :header => {'sss' => 'ddd'}
+  def initialize(xml)
+    @xml = xml
+  end
 
-    # renew ssl templates
-    # render "layouts/_get_renewal_order_for_a_quickssl_certificate", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id", :formats => [:xml], :header => {'sss' => 'ddd'}
-    # render "layouts/_get_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id", :formats => [:xml], :header => {'sss' => 'ddd'}
+  def request_hash
+    request = Nokogiri::XML(xml)
+    rh = {}
+    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
+      rh[item['key']] = item.content unless item['key'] == "attributes"
+    end
+    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
+      rh[item['key']] = item.content
+    end
+    rh
+  end
+end
 
-    render "layouts/_get_cancel_order", :formats => [:xml], :header => {'sss' => 'ddd'}
+class OpenSRSResponse
+  attr :request_hash, :client_hash
 
+  def initialize(request_hash, client_hash)
+    @request_hash, @client_hash = request_hash, client_hash
+  end
+
+
+  def action
+    request_hash["action"]
+  end
+
+  def response
+    case action
+      when "GET_ORDER_INFO"
+        "order_info_response"
+      when "GET_PRODUCT_INFO"
+        "product_info_response"
+    end
   end
 
 end
+
+def client_function(hash)
+  {}
+end
+
+def authenticate_client_function(user,key)
+  "hello #{user}"
+end
+
+class OpensrsController < ApplicationController
+  respond_to :xml, :only => :index
+  #before_filter :authenticate_user
+
+  def index
+    username = request.headers["X-Username"]
+    signature = request.headers["X-Signature"]
+
+    authenticate_client_function(username,signature)
+
+    Rails.logger.debug "#{authenticate_client_function(username,signature)}"
+
+    opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
+
+    Rails.logger.debug "#{opensrs_request.inspect}"
+
+    #Client function
+    hash = client_function(opensrs_request)
+    opensrs_response = OpenSRSResponse.new(opensrs_request,hash)
+    Rails.logger.debug "#{opensrs_response.response.inspect}"
+
+
+    render "layouts/#{opensrs_response.response}", :formats => [:xml]
+  end
+
+  #private
+  #def authenticate_user
+  #  username = request.headers["X-Username"]
+  #  signature = request.headers["X-Signature"]
+  #  @current_user = User.find_by_signature(signature)
+  #    #unless @current_user
+  #    #  respond_with({:error => "Signature is invalid." })
+  #    #end
+  #end
+
+
+end
+
+
+    #puts opensrs_response.at_css("item").text
+    #attributes = {:foo => {:bar => 'baz'}}
+    #xxml = OpenSRS::XmlProcessor::Nokogiri.build(attributes)
+    #puts xxml
+    #render :xml => xml_body
+    #OpenSRS::Server.xml_processor = :nokogiri

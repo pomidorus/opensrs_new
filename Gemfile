@@ -11,8 +11,6 @@ gem 'oj'
 
 gem 'nokogiri'
 
-gem 'thin'
-
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -25,9 +23,11 @@ gem 'jquery-rails'
 gem 'debugger'
 gem 'unicorn'
 
+gem 'opensrs'
+
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2.9'
+  gem 'rspec-rails'
 end
 
 
@@ -37,11 +37,12 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'rack-test'
-  gem 'spork'
+  #gem 'spork'
 end
 
 
 group :production do
   gem 'therubyracer'
   gem 'pg'
+  #gem 'thin'
 end
