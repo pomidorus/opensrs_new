@@ -39,6 +39,12 @@ class OpenSRSResponse
         "order_info_response"
       when "GET_PRODUCT_INFO"
         "product_info_response"
+      when "SW_REGISTER"
+        "sw_register_response"
+      when "CANCEL_ORDER"
+        "cancel_order_response"
+      when "PARSE_CSR"
+        "parse_csr_response"
     end
   end
 
