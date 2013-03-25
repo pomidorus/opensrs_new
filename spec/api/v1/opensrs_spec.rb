@@ -13,6 +13,9 @@ describe "/opensrs", :type => :api do
     @xml_request_parse_csr = File.read(File.join(Rails.root, 'spec','api','v1','parse_csr','request_parse_csr.xml'))
     @xml_response_parse_csr = File.read(File.join(Rails.root, 'spec','api','v1','parse_csr','response_parse_csr.xml'))
 
+    @xml_request_trust_service_order = File.read(File.join(Rails.root, 'spec','api','v1','register_ssl_cert','request_trust_service_order.xml'))
+    @xml_response_trust_service_order = File.read(File.join(Rails.root, 'spec','api','v1','register_ssl_cert','response_trust_service_order.xml'))
+
     @headers = {"X-Username" => "aseleznov", "X-Signature" => "password"}
   end
 
@@ -84,7 +87,27 @@ describe "/opensrs", :type => :api do
     end
   end
 
+  context 'get trust sevice order (register ssl cert)' do
+    it '200' do
+      post '/opensrs', {:xml => @xml_request_trust_service_order}, @headers
+      response.status.should equal(200)
+    end
 
+    it 'body' do
+      post '/opensrs', {:xml => @xml_request_trust_service_order}, @headers
+      response.body.should == @xml_response_trust_service_order
+    end
+
+    it 'username' do
+      post '/opensrs', {:xml => @xml_request_trust_service_order}, @headers
+      request.headers['X-Username'].should == "aseleznov"
+    end
+
+    it 'signature' do
+      post '/opensrs', {:xml => @xml_request_trust_service_order}, @headers
+      request.headers['X-Signature'].should  == "password"
+    end
+  end
 
 end
 

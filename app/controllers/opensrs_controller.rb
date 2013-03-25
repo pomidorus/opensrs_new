@@ -9,7 +9,8 @@ class OpensrsController < ApplicationController
     xml = Nokogiri::XML(params[:xml])
     puts xml
     # render "layouts/_get_order_info", :formats => [:xml], :header => {'sss' => 'ddd'}
-    render "layouts/_get_parse_csr", :formats => [:xml], :header => {'sss' => 'ddd'}
+    # render "layouts/_get_parse_csr", :formats => [:xml], :header => {'sss' => 'ddd'}
+    render "layouts/_get_trust_service_order", :formats => [:xml], :header => {'sss' => 'ddd'}
   end
 
 end
