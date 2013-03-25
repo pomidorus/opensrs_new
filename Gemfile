@@ -30,6 +30,16 @@ group :test, :development do
   gem 'rspec-rails'
 end
 
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+
+  gem 'quiet_assets'
+
+  gem 'thin'
+end
+
 
 group :test do
   gem 'capybara', '1.1.2'
@@ -37,7 +47,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'rack-test'
-  #gem 'spork'
+  gem 'spork'
 end
 
 
