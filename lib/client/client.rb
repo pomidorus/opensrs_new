@@ -18,7 +18,7 @@ request = server.call(
       }
     )
 
-#puts request.inspect
+puts request.headers
 #puts request.response
-puts request.request_xml
-puts request.response_xml
+#puts request.request_xml
+#puts request.response_xml

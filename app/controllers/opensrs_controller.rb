@@ -18,7 +18,6 @@ class OpensrsController < ApplicationController
     signature = request.headers["X-Signature"]
 
 
-
     # refactor to class
     opensrs_response = Nokogiri::XML(request.body.read)
     opensrs_response.xpath('//OPS_envelope/dt_assoc/item').each do |link|

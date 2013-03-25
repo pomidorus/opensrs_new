@@ -29,7 +29,7 @@ gem 'opensrs'
 
 
 group :test, :development do
-  gem 'rspec-rails', '~> 2.9'
+  gem 'rspec-rails'
 end
 
 
