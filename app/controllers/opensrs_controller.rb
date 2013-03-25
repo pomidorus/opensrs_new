@@ -54,7 +54,7 @@ end
 
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
-  before_filter :authenticate_user
+  #before_filter :authenticate_user
 
   def index
     username = request.headers["X-Username"]
@@ -70,15 +70,15 @@ class OpensrsController < ApplicationController
     render "layouts/#{opensrs_response.response}", :formats => [:xml]
   end
 
-  private
-  def authenticate_user
-    username = request.headers["X-Username"]
-    signature = request.headers["X-Signature"]
-    @current_user = User.find_by_signature(signature)
-      #unless @current_user
-      #  respond_with({:error => "Signature is invalid." })
-      #end
-  end
+  #private
+  #def authenticate_user
+  #  username = request.headers["X-Username"]
+  #  signature = request.headers["X-Signature"]
+  #  @current_user = User.find_by_signature(signature)
+  #    #unless @current_user
+  #    #  respond_with({:error => "Signature is invalid." })
+  #    #end
+  #end
 
 
 end
