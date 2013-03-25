@@ -39,6 +39,8 @@ describe "/opensrs", :type => :api do
     @xml_response_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id = File.read(File.join(Rails.root, 'spec','api','v1','renew_ssl','response_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id.xml'))
     # end tests for renew ssl
 
+    @xml_request_cancel_order = File.read(File.join(Rails.root, 'spec','api','v1','cancel_order','request_cancel_order.xml'))
+    @xml_response_cancel_order = File.read(File.join(Rails.root, 'spec','api','v1','cancel_order','response_cancel_order.xml'))
 
     @headers = {"X-Username" => "aseleznov", "X-Signature" => "password"}
   end
@@ -283,6 +285,28 @@ describe "/opensrs", :type => :api do
 
     it 'signature' do
       post '/opensrs', {:xml => @xml_request_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id}, @headers
+      request.headers['X-Signature'].should  == "password"
+    end
+  end
+
+  context 'get cancel order' do
+    it '200' do
+      post '/opensrs', {:xml => @xml_request_cancel_order}, @headers
+      response.status.should equal(200)
+    end
+
+    it 'body' do
+      post '/opensrs', {:xml => @xml_request_cancel_order}, @headers
+      response.body.should == @xml_response_cancel_order
+    end
+
+    it 'username' do
+      post '/opensrs', {:xml => @xml_request_cancel_order}, @headers
+      request.headers['X-Username'].should == "aseleznov"
+    end
+
+    it 'signature' do
+      post '/opensrs', {:xml => @xml_request_cancel_order}, @headers
       request.headers['X-Signature'].should  == "password"
     end
   end

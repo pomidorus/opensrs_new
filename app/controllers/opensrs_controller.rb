@@ -19,7 +19,9 @@ class OpensrsController < ApplicationController
     # render "layouts/_get_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate", :formats => [:xml], :header => {'sss' => 'ddd'}
     # render "layouts/_get_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order", :formats => [:xml], :header => {'sss' => 'ddd'}
     # render "layouts/_get_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id", :formats => [:xml], :header => {'sss' => 'ddd'}
-    render "layouts/_get_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id", :formats => [:xml], :header => {'sss' => 'ddd'}
+    # render "layouts/_get_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id", :formats => [:xml], :header => {'sss' => 'ddd'}
+
+    render "layouts/_get_cancel_order", :formats => [:xml], :header => {'sss' => 'ddd'}
 
   end
 
