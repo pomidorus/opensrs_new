@@ -61,8 +61,8 @@ describe "/opensrs" do
       end
 
       it "request body is correct" do
-        xml_response_cancel_order = File.read(File.join(Rails.root, 'spec','api','v2','patterns','parse_csr','response_parse_csr.xml'))
-        get_parse_csr("quickssl", @csr).request_xml.should == xml_response_cancel_order
+        xml_request_parse_csr = File.read(File.join(Rails.root, 'spec','api','v2','patterns','parse_csr','request_parse_csr.xml'))
+        get_parse_csr("quickssl", @csr).request_xml.should == xml_request_parse_csr
       end
 
 

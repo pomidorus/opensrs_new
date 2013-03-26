@@ -26,7 +26,7 @@ end
 
 describe "/opensrs" do
 
-  describe "Parse CSR request" do
+  describe "Register SSL cert request" do
 
     context "request is correct" do
       #let(:user) {Factory(:user)}
@@ -60,8 +60,8 @@ describe "/opensrs" do
       end
 
       it "request body is correct" do
-        xml_response_cancel_order = File.read(File.join(Rails.root, 'spec','api','v2','patterns','register_ssl_cert','response_trust_service_order.xml'))
-        get_register_ssl_cert("327").request_xml.should == xml_response_cancel_order
+        xml_request_register_ssl_cert = File.read(File.join(Rails.root, 'spec','api','v2','patterns','register_ssl_cert','request_trust_service_order.xml'))
+        get_register_ssl_cert("327").request_xml.should == xml_request_register_ssl_cert
       end
 
 
@@ -90,7 +90,7 @@ describe "/opensrs" do
   end
 
 
-  describe "Parse CSR response" do
+  describe "Register SSL cert response" do
 
     context "response is correct" do
 

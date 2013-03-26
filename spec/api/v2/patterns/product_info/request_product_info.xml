@@ -1,21 +1,2 @@
-<?xml version='1.0' encoding='UTF-8' standalone='no' ?>
-<!DOCTYPE OPS_envelope SYSTEM 'ops.dtd'>
-<OPS_envelope>
-   <header>
-      <version>0.9</version>
-   </header>
-   <body>
-      <data_block>
-         <dt_assoc>
-            <item key='protocol'>XCP</item>
-            <item key='action'>get_product_info</item>
-            <item key='object'>trust_service</item>
-            <item key='attributes'>
-               <dt_assoc>
-                  <item key='product_id'>99</item>
-               </dt_assoc>
-            </item>
-         </dt_assoc>
-      </data_block>
-   </body>
-</OPS_envelope>
+<?xml version="1.0"?>
+<OPS_envelope><header/><version/>0.9<body/><data_block/><dt_assoc><item key="protocol">XCP</item><item key="action">GET_PRODUCT_INFO</item><item key="object">TRUST_SERVICE</item><item key="attributes"><dt_assoc><item key="product_id">34342323</item></dt_assoc></item></dt_assoc></OPS_envelope>
