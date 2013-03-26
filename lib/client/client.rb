@@ -69,6 +69,39 @@ class OpenSRSRequest
         )
   end
 
+
+  def request_approver_list(domain, product_type)
+    remote_server.call(
+          :action => "QUERY_APPROVER_LIST",
+          :object => "TRUST_SERVICE",
+          :attributes => {
+            :domain => domain,
+            :product_type => product_type
+
+          }
+        )
+  end
+
+  def request_resend_approve_email(order_id)
+    remote_server.call(
+          :action => "RESEND_APPROVE_EMAIL",
+          :object => "TRUST_SERVICE",
+          :attributes => {
+            :order_id => order_id
+          }
+        )
+  end
+
+  def request_resend_cert_email(order_id)
+    remote_server.call(
+          :action => "RESEND_CERT_EMAIL",
+          :object => "TRUST_SERVICE",
+          :attributes => {
+            :order_id => order_id
+          }
+        )
+  end
+
 end
 
 
@@ -93,6 +126,10 @@ rpc = opensrs_request.request_parse_csr("quickssl",sslcert)
 
 rsc = opensrs_request.request_register_ssl_cert("2324434")
 
+ral =  opensrs_request.request_approver_list("www.mail.ru","quickssl")
+rsae = opensrs_request.request_resend_approve_email("1232")
+rrce = opensrs_request.request_resend_cert_email("232432")
+
 puts "---------------------------------------------"
 puts roi.request_xml
 puts roi.response_xml
@@ -109,4 +146,13 @@ puts "---------------------------------------------"
 puts rsc.request_xml
 puts rsc.response_xml
 
+puts "---------------------------------------------"
+puts ral.request_xml
+puts ral.response_xml
+puts "---------------------------------------------"
+puts rsae.request_xml
+puts rsae.response_xml
+puts "---------------------------------------------"
+puts rrce.request_xml
+puts rrce.response_xml
 
