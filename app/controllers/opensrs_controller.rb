@@ -64,7 +64,6 @@ class OpenSRSResponse
       when "GET_PRODUCT_INFO"
         "product_info_response"
       when "SW_REGISTER"
-        # "renew_ssl_response"
         return "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium" if reg_type == "upgrade"
         return "renew_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order" if reg_type == "new" && product_type == "quickssl"
         return "renew_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate" if reg_type == "new" && product_type == "securesite_ft"
@@ -110,7 +109,6 @@ class OpensrsController < ApplicationController
     # Rails.logger.debug "#{authenticate_client_function(username,signature)}"
 
     opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
-# _debug 'opensrs_request', opensrs_request
     # Rails.logger.debug "#{opensrs_request.inspect}"
 
     #Client function
@@ -118,7 +116,6 @@ class OpensrsController < ApplicationController
     opensrs_response = OpenSRSResponse.new(opensrs_request,hash)
     # Rails.logger.debug "#{opensrs_response.response.inspect}"
 
-_debug 'layouts', opensrs_response.response
     render "layouts/#{opensrs_response.response}", :formats => [:xml]
   end
 
