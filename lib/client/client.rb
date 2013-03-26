@@ -61,7 +61,7 @@ class OpenSRSRequest
 
   def request_register_ssl_cert(order_id)
     remote_server.call(
-          :action => "GET_ORDER_INFO",
+          :action => "SW_REGISTER",
           :object => "TRUST_SERVICE",
           :attributes => {
             :order_id => order_id

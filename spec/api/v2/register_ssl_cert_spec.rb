@@ -51,7 +51,7 @@ describe "/opensrs" do
 
       def get_register_ssl_cert(order_id)
         server_local.call(
-          :action => "GET_ORDER_INFO",
+          :action => "SW_REGISTER",
           :object => "TRUST_SERVICE",
           :attributes => {
             :order_id => order_id
@@ -70,9 +70,9 @@ describe "/opensrs" do
       it "authorization is correct"
 
 
-      it "action is GET_ORDER_INFO" do
+      it "action is SW_REGISTER" do
         opensrs_request = OpenSRSRequest.new(get_register_ssl_cert("327").request_xml).request_hash
-        opensrs_request["action"].should == "GET_ORDER_INFO"
+        opensrs_request["action"].should == "SW_REGISTER"
       end
 
       it "object is TRUST_SERVICE" do
