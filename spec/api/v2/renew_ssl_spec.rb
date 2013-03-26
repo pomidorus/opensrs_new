@@ -26,7 +26,7 @@ end
 
 describe "/opensrs" do
 
-  describe "CancelOrder request" do
+  describe "Parse CSR request" do
 
     context "request is correct" do
       #let(:user) {Factory(:user)}
@@ -45,22 +45,20 @@ describe "/opensrs" do
       end
 
       before(:all) do
+        @csr = '-----BEGIN CERTIFICATE REQUEST----- MIIBqTCCARICAQAwaTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAm9uMRAwDgYDVQ QH Ewd0b3JvbnRvMQ8wDQYDVQQKEwZ0dWNvd3MxCzAJBgNVBAsTAnFhMR0wGwYDVQ QD ExR3d3cucWFyZWdyZXNzaW9uLm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC gYEAz+hbqqnE5BSW0THf7txxsJxF8Vtca2uL52iutI1SRTm9J6NNtAjgMbL9upOm SFnObpWKriUIlvxKrecygGWkjiMeyU/F6auAS9/vwDdxYEVT2szK+Q2At1FgU433 Pds53v2J/vyB6SL+k/w54H2gF4ORpU1hjUggo7fM353TeeMCAwEAAaAAMA0GCSqG SIb3DQEBBAUAA4GBAIYvVThVeocN7N7HbsO/au9AXnx6LULQ5LMDWx6FlyBB5g9h 5HYZa6xieYCYDxYIsjLjR3qx1BWl9+0kSL2MW4EdDPzbcrZvHAtrw2/hPrm9EGA3 2w3a26W79N3clCkrahnpcNFLFyzU3CtZASJ+VuixGXTEkdiBAliqtGp+QBhf -----END CERTIFICATE REQUEST-----'
         # User.create!({name: "aseleznov", signature: "2e5e7688aba0879ad1d6b48c724af427"})
       end
 
-      def get_order_id(order_id)
+      def get_renew_ssl
         server_local.call(
-          :action => "CANCEL_ORDER",
+          :action => "SW_REGISTER",
           :object => "TRUST_SERVICE",
-          :attributes => {
-            :order_id => order_id
-          }
         )
       end
 
       it "request body is correct" do
-        xml_response_cancel_order = File.read(File.join(Rails.root, 'spec','api','v2','patterns','cancel_order','response_cancel_order.xml'))
-        get_order_id("578").request_xml.should == xml_response_cancel_order
+        xml_response_cancel_order = File.read(File.join(Rails.root, 'spec','api','v2','patterns','renew_ssl','renew_ssl.xml'))
+        get_renew_ssl.request_xml.should == xml_response_cancel_order
       end
 
 
@@ -69,19 +67,14 @@ describe "/opensrs" do
       it "authorization is correct"
 
 
-      it "action is CANCEL_ORDER" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("578").request_xml).request_hash
-        opensrs_request["action"].should == "CANCEL_ORDER"
+      it "action is SW_REGISTER" do
+        opensrs_request = OpenSRSRequest.new(get_renew_ssl.request_xml).request_hash
+        opensrs_request["action"].should == "SW_REGISTER"
       end
 
       it "object is TRUST_SERVICE" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("578").request_xml).request_hash
+        opensrs_request = OpenSRSRequest.new(get_renew_ssl.request_xml).request_hash
         opensrs_request["object"].should == "TRUST_SERVICE"
-      end
-
-      it "order_id is 578" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("578").request_xml).request_hash
-        opensrs_request["order_id"].should == "578"
       end
 
     end
@@ -89,7 +82,7 @@ describe "/opensrs" do
   end
 
 
-  describe "CancelOrder response" do
+  describe "Parse CSR response" do
 
     context "response is correct" do
 

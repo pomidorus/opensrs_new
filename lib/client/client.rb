@@ -69,6 +69,12 @@ class OpenSRSRequest
         )
   end
 
+  def request_renew_ssl
+    remote_server.call(
+          :action => "SW_REGISTER",
+          :object => "TRUST_SERVICE",
+        )
+  end
 
   def request_approver_list(domain, product_type)
     remote_server.call(

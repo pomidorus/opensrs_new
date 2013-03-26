@@ -76,7 +76,11 @@ describe "/opensrs" do
         opensrs_request["action"].should == "GET_ORDER_INFO"
       end
 
-      it "object is DOMAIN"
+      it "object is DOMAIN" do
+        opensrs_request = OpenSRSRequest.new(get_order_id("34342323").request_xml).request_hash
+        opensrs_request["object"].should == "DOMAIN"
+      end
+
       it "order_id is 3515690" do
         opensrs_request = OpenSRSRequest.new(get_order_id("34342323").request_xml).request_hash
         opensrs_request["order_id"].should == "34342323"

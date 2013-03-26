@@ -76,7 +76,10 @@ describe "/opensrs" do
         opensrs_request["action"].should == "PARSE_CSR"
       end
 
-      it "object is TRUST_SERVICE"
+      it "object is TRUST_SERVICE" do
+        opensrs_request = OpenSRSRequest.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
+        opensrs_request["object"].should == "TRUST_SERVICE"
+      end
 
       it "product_type is quickssl" do
         opensrs_request = OpenSRSRequest.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
