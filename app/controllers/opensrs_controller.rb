@@ -40,8 +40,7 @@ class OpenSRSResponse
   def response
     case action
       when "GET_ORDER_INFO"
-        "order_info_response" if object == "DOMAIN"
-        "register_ssl_cert_response" if object == "TRUST_SERVICE"
+        "order_info_response"
       when "GET_PRODUCT_INFO"
         "product_info_response"
       when "SW_REGISTER"
