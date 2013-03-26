@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE OPS_envelope SYSTEM "ops.dtd">
+<OPS_envelope>
+  <header>
+    <version>0.9</version>
+  </header>
+  <body>
+    <data_block>
+      <dt_assoc>
+        <item key="protocol">XCP</item>
+        <item key="action">sw_register</item>
+        <item key="object">trust_service</item>
+        <item key="attributes">
+          <dt_assoc>
+            <item key="special_instructions">none</item>
+            <item key="csr">-----BEGIN CERTIFICATE REQUEST----- MIIC1zCCAb8CAQAwgZExHjAcBgNVBAMTFTEzMjA3MDU2NzN0ZXN0aW5nLmNvbTEL MAkGA1UEBhMCQ0ExEDAOBgNVBAgTB09udGFyaW8xEDAOBgNVBAcTB1Rvcm9udG 8x DzANBgNVBAoTBlR1Y293czELMAkGA1UECxMCUUExIDAeBgkqhkiG9w0BCQEWEXFh Zml2ZUB0dWNvd3MuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA vfz5BS7X70AFyqvk05RSe5dsxB8e0aTVkj8YixqPULcMxcNSos/hF9CkWKyYD2iPg8O511Gzw3VA+TWDp+Een1HCyW1uRnnQ/Yepq0J0H4a0kPXh5Mb01WxGVwD5zor m1QM0gqIW8KTPgUCfi0P+CQkw5TZ2yqJWjcyNwakv/seg2opqUra06jkcdCDliGkW RJfGgJPM1B2fonduruveWDvIiga3+sbfAoBKajX71NgHZtQXZgHZLU2obPU1lvms ZUZGavARcUVt043sJvgZG9xMX8hf0LoT4BLrJ1TK7JWf5Be5ZAkq0Y42Lf1V198/ JKNeMJHPeTvpxkrT0W/R4wIDAQABoAAwDQYJKoZIhvcNAQEEBQADggEBAIqzgz3z 5JzscIq6XszzrJw79ampGPSz7JE35pjoPAjk7vsjbxnRTAVfLHeSMyjXTFBZB60h lyFO0Ft4KQ8Fj7eKtCoMR2mvhx1UtaoRqJ9y9RJmTJfHmdfHrNa4hLIQqDreE5Tj U4ngidNTTc91qaRrPhAC471BAn7/Ob+ltleIiUuk/ySkh29lR5qQqSTX0FXjsVrN G9gIHn4KAra3W+SgWGJHpVQrCWqqyPDQ7/dj6x1pEli8izkZv33Xw6386nFhSkB0 EH2LCtmzTJNgUicXzbRu4/UXgMJgaFU77fCzCtOBwMTz+ALWIo0NTPwNp5JE/dw0 /GOjMZgid2nuuMY=-----END CERTIFICATE REQUEST-----</item>
+            <item key="reg_type">new</item>
+            <item key="period">1</item>
+            <item key="product_type">securesite_ft</item>
+            <item key="server_type">apachessl</item>
+            <item key='contact_set'>... see "Contact Set"</item>
+            <item key="handle">process</item>
+            <item key="server_count">1</item>
+            <item key="approver_email">admin@example.org</item>
+          </dt_assoc>
+        </item>
+      </dt_assoc>
+    </data_block>
+  </body>
+</OPS_envelope>
