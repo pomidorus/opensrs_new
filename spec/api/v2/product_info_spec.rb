@@ -26,7 +26,7 @@ end
 
 describe "/opensrs" do
 
-  describe "OrderInfo request" do
+  describe "ProductInfo request" do
 
     context "request is correct" do
       #let(:user) {Factory(:user)}
@@ -48,18 +48,19 @@ describe "/opensrs" do
         # User.create!({name: "aseleznov", signature: "2e5e7688aba0879ad1d6b48c724af427"})
       end
 
-      def get_order_id(order_id)
+      def get_product_id(product_id)
         server_local.call(
-              :action => "GET_ORDER_INFO",
-              :object => "DOMAIN",
+              :action => "GET_PRODUCT_INFO",
+              :object => "TRUST_SERVICE",
               :attributes => {
-                :order_id => order_id
+                :product_id => product_id
               }
             )
       end
 
       it "request body is correct" do
-        get_order_id("34342323").request_xml.should == "<?xml version=\"1.0\"?>\n<OPS_envelope><header/><version/>0.9<body/><data_block/><dt_assoc><item key=\"protocol\">XCP</item><item key=\"action\">GET_ORDER_INFO</item><item key=\"object\">DOMAIN</item><item key=\"attributes\"><dt_assoc><item key=\"order_id\">34342323</item></dt_assoc></item></dt_assoc></OPS_envelope>\n"
+        xml_request_product_info = File.read(File.join(Rails.root, 'spec','api','v2','patterns','product_info','request_product_info.xml'))
+        get_product_id("34342323").request_xml.should == xml_request_product_info
       end
 
 
@@ -71,19 +72,19 @@ describe "/opensrs" do
       it "authorization is correct"
 
 
-      it "action is GET_ORDER_INFO" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("34342323").request_xml).request_hash
-        opensrs_request["action"].should == "GET_ORDER_INFO"
+      it "action is GET_PRODUCT_INFO" do
+        opensrs_request = OpenSRSRequest.new(get_product_id("34342323").request_xml).request_hash
+        opensrs_request["action"].should == "GET_PRODUCT_INFO"
       end
 
-      it "object is DOMAIN" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("34342323").request_xml).request_hash
-        opensrs_request["object"].should == "DOMAIN"
+      it "object is TRUST_SERVICE" do
+        opensrs_request = OpenSRSRequest.new(get_product_id("34342323").request_xml).request_hash
+        opensrs_request["object"].should == "TRUST_SERVICE"
       end
 
-      it "order_id is 3515690" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("34342323").request_xml).request_hash
-        opensrs_request["order_id"].should == "34342323"
+      it "product_id is 3515690" do
+        opensrs_request = OpenSRSRequest.new(get_product_id("34342323").request_xml).request_hash
+        opensrs_request["product_id"].should == "34342323"
       end
 
     end
@@ -91,7 +92,7 @@ describe "/opensrs" do
   end
 
 
-  describe "OrderInfo response" do
+  describe "ProductInfo response" do
 
     context "response is correct" do
 

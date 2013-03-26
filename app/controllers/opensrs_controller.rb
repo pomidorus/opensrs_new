@@ -33,14 +33,19 @@ class OpenSRSResponse
     request_hash["action"]
   end
 
+  def object
+    request_hash["object"]
+  end
+
   def response
     case action
       when "GET_ORDER_INFO"
-        "order_info_response"
+        "order_info_response" if object == "DOMAIN"
+        "register_ssl_cert_response" if object == "TRUST_SERVICE"
       when "GET_PRODUCT_INFO"
         "product_info_response"
       when "SW_REGISTER"
-        "sw_register_response"
+        "renew_ssl_response"
       when "CANCEL_ORDER"
         "cancel_order_response"
       when "PARSE_CSR"

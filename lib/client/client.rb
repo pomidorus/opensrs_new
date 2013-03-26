@@ -50,7 +50,7 @@ class OpenSRSRequest
 
   def request_parse_csr(product_type, csr)
     remote_server.call(
-          :action => "CANCEL_ORDER",
+          :action => "PARSE_CSR",
           :object => "TRUST_SERVICE",
           :attributes => {
             :product_type => product_type,
@@ -69,6 +69,12 @@ class OpenSRSRequest
         )
   end
 
+  def request_renew_ssl
+    remote_server.call(
+          :action => "SW_REGISTER",
+          :object => "TRUST_SERVICE",
+        )
+  end
 
   def request_approver_list(domain, product_type)
     remote_server.call(
