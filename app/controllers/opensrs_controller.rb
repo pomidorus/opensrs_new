@@ -45,6 +45,12 @@ class OpenSRSResponse
         "cancel_order_response"
       when "PARSE_CSR"
         "parse_csr_response"
+      when "QUERY_APPROVER_LIST"
+        "approver_list_response"
+      when "RESEND_APPROVE_EMAIL"
+        "resend_approve_email"
+      when "RESEND_CERT_EMAIL"
+        "resend_certificate_email"
     end
   end
 
