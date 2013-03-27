@@ -103,33 +103,14 @@ class OpensrsController < ApplicationController
   def index
     username = request.headers["X-Username"]
     signature = request.headers["X-Signature"]
-
+    #Client function for auth
     authenticate_client_function(username,signature)
-
-    # Rails.logger.debug "#{authenticate_client_function(username,signature)}"
-
     opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
-    # Rails.logger.debug "#{opensrs_request.inspect}"
-
     #Client function
     hash = client_function(opensrs_request)
     opensrs_response = OpenSRSResponse.new(opensrs_request,hash)
-    # Rails.logger.debug "#{opensrs_response.response.inspect}"
-
     render "layouts/#{opensrs_response.response}", :formats => [:xml]
   end
-
-  #private
-  #def authenticate_user
-  #  username = request.headers["X-Username"]
-  #  signature = request.headers["X-Signature"]
-  #  @current_user = User.find_by_signature(signature)
-  #    #unless @current_user
-  #    #  respond_with({:error => "Signature is invalid." })
-  #    #end
-  #end
-
-
 end
 
 
@@ -139,3 +120,16 @@ end
     #puts xxml
     #render :xml => xml_body
     #OpenSRS::Server.xml_processor = :nokogiri
+
+    # Rails.logger.debug "#{authenticate_client_function(username,signature)}"
+  #private
+  #def authenticate_user
+  #  username = request.headers["X-Username"]
+  #  signature = request.headers["X-Signature"]
+  #  @current_user = User.find_by_signature(signature)
+  #    #unless @current_user
+  #    #  respond_with({:error => "Signature is invalid." })
+  #    #end
+  #end
+    # Rails.logger.debug "#{opensrs_request.inspect}"
+    # Rails.logger.debug "#{opensrs_response.response.inspect}"
