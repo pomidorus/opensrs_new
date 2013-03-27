@@ -36,6 +36,12 @@ class OpenSRSResponse
     @request_hash, @client_hash = request_hash, client_hash
   end
 
+  def client_data
+    {}
+  end
+
+  def render_layout
+  end
 
   def action
     request_hash[SRS_ACTION]
@@ -115,10 +121,8 @@ class OpensrsController < ApplicationController
     authenticate_client_function(username,signature)
     opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
     #Client function
-    hash = client_function(opensrs_request)
-
-    #
-    opensrs_response = OpenSRSResponse.new(opensrs_request,hash)
+    opensrs_response = OpenSRSResponse.new(opensrs_request,client_function(opensrs_request))
+    client_data = opensrs_response.client_data
     render "layouts/#{opensrs_response.response}", :formats => [:xml]
   end
 end
