@@ -69,12 +69,85 @@ class OpenSRSRequest
         )
   end
 
-  def request_renew_ssl
-    remote_server.call(
-          :action => "SW_REGISTER",
-          :object => "TRUST_SERVICE",
-        )
+
+  # renew queries
+  def get_renew_ssl_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium
+    server_local.call(
+      :action => "SW_REGISTER",
+      :object => "TRUST_SERVICE",
+      :attributes => {
+        :reg_type => 'upgrade'
+      }
+    )
   end
+
+  def get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order
+    server_local.call(
+      :action => "SW_REGISTER",
+      :object => "TRUST_SERVICE",
+      :attributes => {
+        :reg_type => 'new',
+        :product_type => 'quickssl'
+      }
+    )
+  end
+
+  def get_renew_ssl_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate
+    server_local.call(
+      :action => "SW_REGISTER",
+      :object => "TRUST_SERVICE",
+      :attributes => {
+        :reg_type => 'new',
+        :product_type => 'securesite_ft'
+      }
+    )
+  end
+
+  def get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate
+    server_local.call(
+      :action => "SW_REGISTER",
+      :object => "TRUST_SERVICE",
+      :attributes => {
+        :reg_type => 'new',
+        :product_type => 'malwarescan'
+      }
+    )
+  end
+
+  def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(order_id)
+    server_local.call(
+      :action => "SW_REGISTER",
+      :object => "TRUST_SERVICE",
+      :attributes => {
+        :reg_type => 'renew',
+        :order_id => order_id
+      }
+    )
+  end
+
+  def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id(inventory_item_id)
+    server_local.call(
+      :action => "SW_REGISTER",
+      :object => "TRUST_SERVICE",
+      :attributes => {
+        :reg_type => 'renew',
+        :inventory_item_id => inventory_item_id
+      }
+    )
+  end
+
+  def get_renew_ssl_renewal_order_for_a_quickssl_certificate(product_id)
+    server_local.call(
+      :action => "SW_REGISTER",
+      :object => "TRUST_SERVICE",
+      :attributes => {
+        :reg_type => 'renew',
+        :product_id => product_id
+      }
+    )
+  end
+
+
 
   def request_approver_list(domain, product_type)
     remote_server.call(
