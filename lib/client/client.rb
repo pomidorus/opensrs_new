@@ -163,6 +163,16 @@ puts "---------------------------------------------"
 puts grs_test.request_xml
 puts grs_test.response_xml
 
+
+action = "GET_ORDER_INFO"
+object = "DOMAIN"
+attributes = { order_id: '123746' }
+grs_test = opensrs_request.request_api(action,object,attributes)
+puts "---------------------------------------------"
+puts grs_test.request_xml
+puts grs_test.response_xml
+
+
 #attributes = { reg_type: 'new', product_type: 'quickssl' }
 #grs = opensrs_request.renew_ssl(attributes)
 #puts "---------------------------------------------"

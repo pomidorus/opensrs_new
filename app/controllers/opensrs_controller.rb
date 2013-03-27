@@ -24,21 +24,29 @@ end
 class OpenSRSResponse
   attr :request_hash, :client_hash
 
+  SRS_ACTION = "action"
+  SRS_OBJECT = "object"
+  SRS_REG_TYPE = "reg_type"
+  GET_ORDER_INFO = "GET_ORDER_INFO"
+  GET_ORDER_INFO_RESPONSE = "order_info_response"
+
+  ACTION_RESPONSE = {GET_ORDER_INFO => GET_ORDER_INFO_RESPONSE}
+
   def initialize(request_hash, client_hash)
     @request_hash, @client_hash = request_hash, client_hash
   end
 
 
   def action
-    request_hash["action"]
+    request_hash[SRS_ACTION]
   end
 
   def object
-    request_hash["object"]
+    request_hash[SRS_OBJECT]
   end
 
   def reg_type
-    request_hash["reg_type"]
+    request_hash[SRS_REG_TYPE]
   end
 
   def product_type
@@ -59,8 +67,8 @@ class OpenSRSResponse
 
   def response
     case action
-      when "GET_ORDER_INFO"
-        "order_info_response"
+      when GET_ORDER_INFO
+        ACTION_RESPONSE[GET_ORDER_INFO]
       when "GET_PRODUCT_INFO"
         "product_info_response"
       when "SW_REGISTER"
@@ -108,6 +116,8 @@ class OpensrsController < ApplicationController
     opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
     #Client function
     hash = client_function(opensrs_request)
+
+    #
     opensrs_response = OpenSRSResponse.new(opensrs_request,hash)
     render "layouts/#{opensrs_response.response}", :formats => [:xml]
   end
