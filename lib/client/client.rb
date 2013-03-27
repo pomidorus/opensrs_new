@@ -18,6 +18,7 @@ class OpenSRSRequest
     )
   end
 
+  #TODO: Refactor to one function
 
   def request_api(action,object,attributes)
     remote_server.call(
