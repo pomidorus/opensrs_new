@@ -2,28 +2,6 @@
 require "spec_helper"
 require 'opensrs'
 
-class OpenSRSRequest
-  attr :xml
-
-  def initialize(xml)
-    @xml = xml
-  end
-
-  def request_hash
-    request = Nokogiri::XML(xml)
-    rh = {}
-    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content unless item['key'] == "attributes"
-    end
-    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content
-    end
-    rh
-  end
-
-end
-
-
 describe "/opensrs" do
 
   describe "Parse CSR request" do
@@ -72,17 +50,17 @@ describe "/opensrs" do
 
 
       it "action is PARSE_CSR" do
-        opensrs_request = OpenSRSRequest.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
         opensrs_request["action"].should == "PARSE_CSR"
       end
 
       it "object is TRUST_SERVICE" do
-        opensrs_request = OpenSRSRequest.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
         opensrs_request["object"].should == "TRUST_SERVICE"
       end
 
       it "product_type is quickssl" do
-        opensrs_request = OpenSRSRequest.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_parse_csr("quickssl", @csr).request_xml).request_hash
         opensrs_request["product_type"].should == "quickssl"
       end
 

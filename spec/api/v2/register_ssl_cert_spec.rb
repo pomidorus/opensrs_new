@@ -2,28 +2,6 @@
 require "spec_helper"
 require 'opensrs'
 
-class OpenSRSRequest
-  attr :xml
-
-  def initialize(xml)
-    @xml = xml
-  end
-
-  def request_hash
-    request = Nokogiri::XML(xml)
-    rh = {}
-    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content unless item['key'] == "attributes"
-    end
-    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content
-    end
-    rh
-  end
-
-end
-
-
 describe "/opensrs" do
 
   describe "Register SSL cert request" do
@@ -71,17 +49,17 @@ describe "/opensrs" do
 
 
       it "action is SW_REGISTER" do
-        opensrs_request = OpenSRSRequest.new(get_register_ssl_cert("327").request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_register_ssl_cert("327").request_xml).request_hash
         opensrs_request["action"].should == "SW_REGISTER"
       end
 
       it "object is TRUST_SERVICE" do
-        opensrs_request = OpenSRSRequest.new(get_register_ssl_cert("327").request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_register_ssl_cert("327").request_xml).request_hash
         opensrs_request["object"].should == "TRUST_SERVICE"
       end
 
       it "order_id is 327" do
-        opensrs_request = OpenSRSRequest.new(get_register_ssl_cert("327").request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_register_ssl_cert("327").request_xml).request_hash
         opensrs_request["order_id"].should == "327"
       end
 

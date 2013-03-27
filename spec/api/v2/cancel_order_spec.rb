@@ -2,28 +2,6 @@
 require "spec_helper"
 require 'opensrs'
 
-class OpenSRSRequest
-  attr :xml
-
-  def initialize(xml)
-    @xml = xml
-  end
-
-  def request_hash
-    request = Nokogiri::XML(xml)
-    rh = {}
-    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content unless item['key'] == "attributes"
-    end
-    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content
-    end
-    rh
-  end
-
-end
-
-
 describe "/opensrs" do
 
   describe "CancelOrder request" do
@@ -70,17 +48,17 @@ describe "/opensrs" do
 
 
       it "action is CANCEL_ORDER" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("578").request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_order_id("578").request_xml).request_hash
         opensrs_request["action"].should == "CANCEL_ORDER"
       end
 
       it "object is TRUST_SERVICE" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("578").request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_order_id("578").request_xml).request_hash
         opensrs_request["object"].should == "TRUST_SERVICE"
       end
 
       it "order_id is 578" do
-        opensrs_request = OpenSRSRequest.new(get_order_id("578").request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_order_id("578").request_xml).request_hash
         opensrs_request["order_id"].should == "578"
       end
 

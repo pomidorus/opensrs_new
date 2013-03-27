@@ -2,28 +2,6 @@
 require "spec_helper"
 require 'opensrs'
 
-class OpenSRSRequest
-  attr :xml
-
-  def initialize(xml)
-    @xml = xml
-  end
-
-  def request_hash
-    request = Nokogiri::XML(xml)
-    rh = {}
-    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content unless item['key'] == "attributes"
-    end
-    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content
-    end
-    rh
-  end
-
-end
-
-
 describe "/opensrs" do
 
   describe "Renew SSL request" do
@@ -161,7 +139,7 @@ describe "/opensrs" do
       end
 
       it "order_id is 123321" do
-        opensrs_request = OpenSRSRequest.new(get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id('123321').request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id('123321').request_xml).request_hash
         opensrs_request["order_id"].should == "123321"
       end
 
@@ -171,7 +149,7 @@ describe "/opensrs" do
       end
 
       it "inventory_item_id is 384972" do
-        opensrs_request = OpenSRSRequest.new(get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id('384972').request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id('384972').request_xml).request_hash
         opensrs_request["inventory_item_id"].should == "384972"
       end
 
@@ -181,7 +159,7 @@ describe "/opensrs" do
       end
 
       it "product_id is 87328957" do
-        opensrs_request = OpenSRSRequest.new(get_renew_ssl_renewal_order_for_a_quickssl_certificate('87328957').request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_renew_ssl_renewal_order_for_a_quickssl_certificate('87328957').request_xml).request_hash
         opensrs_request["product_id"].should == "87328957"
       end
 
@@ -191,12 +169,12 @@ describe "/opensrs" do
 
 
       it "action is SW_REGISTER" do
-        opensrs_request = OpenSRSRequest.new(get_renew_ssl.request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_renew_ssl.request_xml).request_hash
         opensrs_request["action"].should == "SW_REGISTER"
       end
 
       it "object is TRUST_SERVICE" do
-        opensrs_request = OpenSRSRequest.new(get_renew_ssl.request_xml).request_hash
+        opensrs_request = OpenSRSRequestParse.new(get_renew_ssl.request_xml).request_hash
         opensrs_request["object"].should == "TRUST_SERVICE"
       end
 
