@@ -27,7 +27,7 @@ describe OpenSRSRequestParse do
   end
 
   it "request_hash is valid" do
-    rh = {action: "GET_ORDER_INFO"}
+    rh = {"protocol"=>"XCP", "action"=>"GET_ORDER_INFO", "object"=>"DOMAIN", "order_id"=>"34342323"}
     OpenSRSRequestParse.new(xml_getOrderInfo).request_hash.should == rh
   end
 
