@@ -121,18 +121,22 @@ class OpenSRSClient < SslProxy
     end
 
     def cancel_order(order_number)
-
+     {
+        domain_name: 'example.ru',
+        order_id: order_number,
+        state: 'Moscow'
+      }
     end
 
     def parse_csr(domain_name)
-      return {
-          domain_name: 'example.ru',
-          country: 'RU',
-          email: '',
-          locality: 'Moscow',
-          organization: 'ZAO Example',
-          organization_unit: 'IT',
-          state: 'Moscow'
+      {
+        domain_name: 'example.ru',
+        country: 'RU',
+        email: '',
+        locality: 'Moscow',
+        organization: 'ZAO Example',
+        organization_unit: 'IT',
+        state: 'Moscow'
       }
     end
 
@@ -225,7 +229,7 @@ class OpenSRSResponse
     request_hash["product_id"]
   end
 
-  def response(item_open_srs_client=nil)
+  def response(item_open_srs_client)
     result = {}
     case action
       when GET_ORDER_INFO
@@ -243,9 +247,10 @@ class OpenSRSResponse
         result[:layout] = "renew_renewal_order_for_a_quickssl_certificate" if reg_type == "renew" && !product_id.blank?
         result[:layout] = "register_ssl_cert_response"
       when "CANCEL_ORDER"
+        result[:data] = item_open_srs_client.cancel_order(@request_hash["order_id"])
         result[:layout] = "cancel_order_response"
       when "PARSE_CSR"
-        result[:data] = item_open_srs_client.parse_csr(@request_hash[:domain_name])
+        result[:data] = item_open_srs_client.parse_csr(@request_hash["domain_name"])
         result[:layout] = "parse_csr_response"
       when "QUERY_APPROVER_LIST"
         result[:layout] = "approver_list_response"

@@ -15,9 +15,9 @@
         <item key='response_code'>200</item>
         <item key='attributes'>
           <dt_assoc>
-            <item key='domain'><%= @data[:domain_name] %></item>
-            <item key='order_id'><%= @data[:order_id] %></item>
-            <item key='state'><%= @data[:state] %></item>
+            <item key='domain'>example.ru</item>
+            <item key='order_id'>578</item>
+            <item key='state'>Moscow</item>
           </dt_assoc>
         </item>
       </dt_assoc>
