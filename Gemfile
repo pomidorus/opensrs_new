@@ -45,6 +45,7 @@ group :test do
   gem 'launchy'
   gem 'rack-test'
   gem 'spork'
+  gem 'guard-rspec'
 end
 
 

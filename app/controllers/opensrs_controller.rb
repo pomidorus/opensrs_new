@@ -83,7 +83,7 @@ class SslProxy
 
 end
 
-class OpenSRS < SslProxy
+class OpenSRSClient < SslProxy
     attr :request, :username, :signature
 
     def authenticate?
@@ -95,7 +95,9 @@ class OpenSRS < SslProxy
       @request, @username, @signature = request, username, signature
     end
 
+    def response
 
+    end
 
     def product_info(code)
       return {
@@ -254,14 +256,6 @@ class OpenSRSResponse
 
 end
 
-def client_function(hash)
-  {}
-end
-
-def authenticate_client_function(user,key)
-  "hello #{user}"
-end
-
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
 
@@ -269,8 +263,9 @@ class OpensrsController < ApplicationController
     username = request.headers["X-Username"]
     signature = request.headers["X-Signature"]
 
-    opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
-    opensrs = OpenSRS.new(opensrs_request,username,signature)
+    opensrs_request_hash = OpenSRSRequestParse.new(request.body.read).request_hash
+    opensrs_request = OpenSRSResponse.new(opensrs_request_hash)
+    opensrs = OpenSRSClient.new(opensrs_request,username,signature)
     response_hash = opensrs.response if opensrs.authenticate?
     render "layouts/#{OpenSRSResponse.new(opensrs_request).response}", :formats => [:xml]
   end
