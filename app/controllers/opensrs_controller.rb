@@ -101,24 +101,25 @@ class OpenSRSClient < SslProxy
 
     def product_info(code)
       {
-          :code => :string,
-          :name => :string,
-          :price => :decimal,
-          :certificate_type => %w{standart wildcard ucc code_signing},
-          :validation_type => %w{ov dv},
-          :is_ev => :boolean,
-          :is_sgc => :boolean,
-          :issuer_organization_name => :string,
-          :is_free => :boolean,
-          :discontinued => :boolean,
-          :is_email_validated => :boolean,
-          :domain_name => 'example.ru'
+        :code => :string,
+        :name => :string,
+        :price => :decimal,
+        :certificate_type => %w{standart wildcard ucc code_signing},
+        :validation_type => %w{ov dv},
+        :is_ev => :boolean,
+        :is_sgc => :boolean,
+        :issuer_organization_name => :string,
+        :is_free => :boolean,
+        :discontinued => :boolean,
+        :is_email_validated => :boolean,
+        :domain_name => 'example.ru'
       }
-
     end
 
     def order_info(order_number)
-
+      {
+        :order_id => order_number
+      }
     end
 
     def cancel_order(order_number)
@@ -235,12 +236,16 @@ class OpenSRSResponse
 
   def response(item_open_srs_client)
     result = {}
+
     case action
       when GET_ORDER_INFO
+        result[:data] = item_open_srs_client.order_info(@request_hash["order_id"])
         result[:layout] = ACTION_RESPONSE[GET_ORDER_INFO]
+
       when "GET_PRODUCT_INFO"
         result[:data] = item_open_srs_client.product_info('some code')
         result[:layout] = "product_info_response"
+
       when "SW_REGISTER"
         if reg_type == "upgrade"
           result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium"
@@ -261,19 +266,25 @@ class OpenSRSResponse
           result[:data] = item_open_srs_client.register_ssl_cert(@request_hash["order_id"])
           result[:layout] = "register_ssl_cert_response"
         end
+
       when "CANCEL_ORDER"
         result[:data] = item_open_srs_client.cancel_order(@request_hash["order_id"])
         result[:layout] = "cancel_order_response"
+
       when "PARSE_CSR"
         result[:data] = item_open_srs_client.parse_csr(@request_hash["domain_name"])
         result[:layout] = "parse_csr_response"
+
       when "QUERY_APPROVER_LIST"
         result[:layout] = "approver_list_response"
+
       when "RESEND_APPROVE_EMAIL"
         result[:layout] = "resend_approve_email"
+
       when "RESEND_CERT_EMAIL"
         result[:layout] = "resend_certificate_email"
     end
+
     result
   end
 
@@ -292,6 +303,7 @@ class OpensrsController < ApplicationController
       command = OpenSRSResponse.new(opensrs_request_hash).response(opensrs)
 
       response_hash = opensrs.response # at this moment always empty
+
       # data for layout
       @data = command[:data]
       _debug 'data', @data
