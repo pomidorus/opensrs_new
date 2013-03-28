@@ -2,85 +2,84 @@ require 'nokogiri'
 require 'opensrs'
 
 
-#ssl_certificate = {
-#        :nomenclature_id => :integer,
-#
-#        :csr => :text,
-#
-#        :common_name => :string,
-#        :validation_email => :string,
-#
-#        :additional_domains => :text,
-#        :additional_validation_emails => :text,
-#
-#        :country => :string,
-#        :zip => :string,
-#        :stateorprovincename => :string,
-#        :city => :string,
-#        :street1 => :string,
-#        :street2 => :string,
-#        :organisation_name => :string,
-#        :organisation_unit => :string,
-#
-#        :server_count => :integer,
-#        :domain_count => :integer,
-#        :ssl_server_software_id => :integer,
-#
-#        :duration => :integer,
-#        :valid_from => :date,
-#        :valid_to => :date,
-#
-#        :issuer_order_number => :string,
-#        :provider_order_number => :string,
-#        :serial_number => :string,
-#
-#        :certificate_state => :string,
-#        :issuer_order_date => :datetime,
-#        :issuer_order_state => :string,
-#        :issuer_order_state_additional => :string, #только для Comodo
-#        :issuer_order_state_minor_code => :string, #только для Comodo
-#        :issuer_order_state_minor_name => :string, #только для Comodo
-#
-#        :issued_dt => :datetime,
-#        :our_sell_price => :decimal,
-#        :our_sell_currency => :string,
-#
-#        :admin_contact_person_id => :integer,
-#        :tech_contact_person_id => :integer,
-#        :callback_contact_person_id => :integer,
-#
-#        :approver_notified_date => :datetime,
-#        :approver_confirm_date => :datetime,
-#
-#        :organisation_phone => :string,
-#        :organisation_fax => :string,
-#
-#        :provider_id => :integer,
-#
-#        :company_number => :string,
-#        :dcv_method => :string,
-#    }
+# ssl_certificate = {
+#   :nomenclature_id => :integer,
 
+#   :csr => :text,
 
-#contact_person = {
-#        :first_name => :string,
-#        :last_name => :string,
-#        :phone => :string,
-#        :fax => :string,
-#        :email => :string,
-#        :title => :string,
-#        :organization_name => :string,
-#        :address_line_1 => :string,
-#        :address_line_2 => :string,
-#        :city => :string,
-#        :region => :string,
-#        :postal_code => :string,
-#        :country => :string,
-#        :country_id => :integer
-#    }
+#   :common_name => :string,
+#   :validation_email => :string,
+
+#   :additional_domains => :text,
+#   :additional_validation_emails => :text,
+
+#   :country => :string,
+#   :zip => :string,
+#   :stateorprovincename => :string,
+#   :city => :string,
+#   :street1 => :string,
+#   :street2 => :string,
+#   :organisation_name => :string,
+#   :organisation_unit => :string,
+
+#   :server_count => :integer,
+#   :domain_count => :integer,
+#   :ssl_server_software_id => :integer,
+
+#   :duration => :integer,
+#   :valid_from => :date,
+#   :valid_to => :date,
+
+#   :issuer_order_number => :string,
+#   :provider_order_number => :string,
+#   :serial_number => :string,
+
+#   :certificate_state => :string,
+#   :issuer_order_date => :datetime,
+#   :issuer_order_state => :string,
+#   :issuer_order_state_additional => :string, #только для Comodo
+#   :issuer_order_state_minor_code => :string, #только для Comodo
+#   :issuer_order_state_minor_name => :string, #только для Comodo
+
+#   :issued_dt => :datetime,
+#   :our_sell_price => :decimal,
+#   :our_sell_currency => :string,
+
+#   :admin_contact_person_id => :integer,
+#   :tech_contact_person_id => :integer,
+#   :callback_contact_person_id => :integer,
+
+#   :approver_notified_date => :datetime,
+#   :approver_confirm_date => :datetime,
+
+#   :organisation_phone => :string,
+#   :organisation_fax => :string,
+
+#   :provider_id => :integer,
+
+#   :company_number => :string,
+#   :dcv_method => :string,
+# }
+
+# contact_person = {
+#   :first_name => :string,
+#   :last_name => :string,
+#   :phone => :string,
+#   :fax => :string,
+#   :email => :string,
+#   :title => :string,
+#   :organization_name => :string,
+#   :address_line_1 => :string,
+#   :address_line_2 => :string,
+#   :city => :string,
+#   :region => :string,
+#   :postal_code => :string,
+#   :country => :string,
+#   :country_id => :integer
+# }
 
 class SslProxy
-
+  # empty
 end
 
 class OpenSRSClient < SslProxy
@@ -264,10 +263,10 @@ class OpensrsController < ApplicationController
     signature = request.headers["X-Signature"]
 
     opensrs_request_hash = OpenSRSRequestParse.new(request.body.read).request_hash
-    opensrs_request = OpenSRSResponse.new(opensrs_request_hash)
-    opensrs = OpenSRSClient.new(opensrs_request,username,signature)
+    opensrs = OpenSRSClient.new(opensrs_request_hash,username,signature)
     response_hash = opensrs.response if opensrs.authenticate?
-    render "layouts/#{OpenSRSResponse.new(opensrs_request).response}", :formats => [:xml]
+
+    render "layouts/#{OpenSRSResponse.new(opensrs_request_hash).response}", :formats => [:xml]
   end
 end
 
