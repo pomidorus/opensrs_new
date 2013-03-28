@@ -17,7 +17,7 @@
                <dt_assoc>
                   <item key='product_type'>truebizid_wildcard</item>
                   <item key='issue_date'>2010-09-14-04:00</item>
-                  <item key='domain'><%= @data[:domain_name] %></item>
+                  <item key='domain'>example.ru</item>
                   <item key='product_id'>99</item>
                   <item key='contact_email'>qafive@example.com</item>
                   <item key='start_date'>2010-09-13-04:00</item>

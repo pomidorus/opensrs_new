@@ -100,7 +100,7 @@ class OpenSRSClient < SslProxy
     end
 
     def product_info(code)
-      return {
+      {
           :code => :string,
           :name => :string,
           :price => :decimal,
@@ -112,6 +112,7 @@ class OpenSRSClient < SslProxy
           :is_free => :boolean,
           :discontinued => :boolean,
           :is_email_validated => :boolean,
+          :domain_name => 'example.ru'
       }
 
     end
@@ -238,6 +239,7 @@ class OpenSRSResponse
       when GET_ORDER_INFO
         result[:layout] = ACTION_RESPONSE[GET_ORDER_INFO]
       when "GET_PRODUCT_INFO"
+        result[:data] = item_open_srs_client.product_info('some code')
         result[:layout] = "product_info_response"
       when "SW_REGISTER"
         if reg_type == "upgrade"
@@ -256,7 +258,7 @@ class OpenSRSResponse
         elsif reg_type == "renew" && !product_id.blank?
           result[:layout] = "renew_renewal_order_for_a_quickssl_certificate"
         else
-          result[:data] = item_open_srs_client.cancel_order(@request_hash["order_id"])
+          result[:data] = item_open_srs_client.register_ssl_cert(@request_hash["order_id"])
           result[:layout] = "register_ssl_cert_response"
         end
       when "CANCEL_ORDER"
