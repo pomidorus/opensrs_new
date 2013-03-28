@@ -87,6 +87,7 @@ class OpenSRSClient < SslProxy
 
     def authenticate?
       # code for authentication
+      false
       true
     end
 
@@ -224,7 +225,8 @@ class OpenSRSResponse
     request_hash["product_id"]
   end
 
-  def response
+  def response(item_open_srs_client=nil)
+    result = {}
     case action
       when GET_ORDER_INFO
         ACTION_RESPONSE[GET_ORDER_INFO]
@@ -243,7 +245,8 @@ class OpenSRSResponse
       when "CANCEL_ORDER"
         "cancel_order_response"
       when "PARSE_CSR"
-        "parse_csr_response"
+        result[:data] = item_open_srs_client.parse_csr(@request_hash[:domain_name])
+        result[:layout] = "parse_csr_response"
       when "QUERY_APPROVER_LIST"
         "approver_list_response"
       when "RESEND_APPROVE_EMAIL"
@@ -251,6 +254,7 @@ class OpenSRSResponse
       when "RESEND_CERT_EMAIL"
         "resend_certificate_email"
     end
+    result
   end
 
 end
@@ -264,9 +268,17 @@ class OpensrsController < ApplicationController
 
     opensrs_request_hash = OpenSRSRequestParse.new(request.body.read).request_hash
     opensrs = OpenSRSClient.new(opensrs_request_hash,username,signature)
-    response_hash = opensrs.response if opensrs.authenticate?
+    if opensrs.authenticate?
+      command = OpenSRSResponse.new(opensrs_request_hash).response(opensrs)
 
-    render "layouts/#{OpenSRSResponse.new(opensrs_request_hash).response}", :formats => [:xml]
+      response_hash = opensrs.response # at this moment always empty
+      # data for layout
+      @data = command[:data]
+      _debug 'data', @data
+      render "layouts/#{command[:layout]}", :formats => [:xml]
+    else
+      render "layouts/bad_authorization", :formats => [:xml]
+    end
   end
 end
 

@@ -17,16 +17,16 @@
           <dt_assoc>
             <item key='csr_data'>
               <dt_assoc>
-                <item key='country'>US</item>
-                <item key='organization_unit'>QA</item>
+                <item key='country'>RU</item>
+                <item key='organization_unit'>IT</item>
                 <item key='valid_true_domain'>1</item>
-                <item key='state'>CA</item>
-                <item key='locality'>Santa Clara</item>
-                <item key='email'/>
-                <item key='domain'>www.example.com</item>
+                <item key='state'>Moscow</item>
+                <item key='locality'>Moscow</item>
+                <item key='email'></item>
+                <item key='domain'>example.ru</item>
                 <item key='valid_quick_domain'>1</item>
                 <item key='has_bad_extensions'>0</item>
-                <item key='organization'>Example Inc.</item>
+                <item key='organization'>ZAO Example</item>
               </dt_assoc>
             </item>
           </dt_assoc>
