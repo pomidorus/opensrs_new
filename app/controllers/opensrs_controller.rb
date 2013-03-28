@@ -1,6 +1,160 @@
 require 'nokogiri'
 require 'opensrs'
 
+
+#ssl_certificate = {
+#        :nomenclature_id => :integer,
+#
+#        :csr => :text,
+#
+#        :common_name => :string,
+#        :validation_email => :string,
+#
+#        :additional_domains => :text,
+#        :additional_validation_emails => :text,
+#
+#        :country => :string,
+#        :zip => :string,
+#        :stateorprovincename => :string,
+#        :city => :string,
+#        :street1 => :string,
+#        :street2 => :string,
+#        :organisation_name => :string,
+#        :organisation_unit => :string,
+#
+#        :server_count => :integer,
+#        :domain_count => :integer,
+#        :ssl_server_software_id => :integer,
+#
+#        :duration => :integer,
+#        :valid_from => :date,
+#        :valid_to => :date,
+#
+#        :issuer_order_number => :string,
+#        :provider_order_number => :string,
+#        :serial_number => :string,
+#
+#        :certificate_state => :string,
+#        :issuer_order_date => :datetime,
+#        :issuer_order_state => :string,
+#        :issuer_order_state_additional => :string, #только для Comodo
+#        :issuer_order_state_minor_code => :string, #только для Comodo
+#        :issuer_order_state_minor_name => :string, #только для Comodo
+#
+#        :issued_dt => :datetime,
+#        :our_sell_price => :decimal,
+#        :our_sell_currency => :string,
+#
+#        :admin_contact_person_id => :integer,
+#        :tech_contact_person_id => :integer,
+#        :callback_contact_person_id => :integer,
+#
+#        :approver_notified_date => :datetime,
+#        :approver_confirm_date => :datetime,
+#
+#        :organisation_phone => :string,
+#        :organisation_fax => :string,
+#
+#        :provider_id => :integer,
+#
+#        :company_number => :string,
+#        :dcv_method => :string,
+#    }
+
+
+#contact_person = {
+#        :first_name => :string,
+#        :last_name => :string,
+#        :phone => :string,
+#        :fax => :string,
+#        :email => :string,
+#        :title => :string,
+#        :organization_name => :string,
+#        :address_line_1 => :string,
+#        :address_line_2 => :string,
+#        :city => :string,
+#        :region => :string,
+#        :postal_code => :string,
+#        :country => :string,
+#        :country_id => :integer
+#    }
+
+class SslProxy
+
+end
+
+class OpenSRSClient < SslProxy
+    attr :request, :username, :signature
+
+    def authenticate?
+      # code for authentication
+      true
+    end
+
+    def initialize(request, username, signature)
+      @request, @username, @signature = request, username, signature
+    end
+
+    def response
+
+    end
+
+    def product_info(code)
+      return {
+          :code => :string,
+          :name => :string,
+          :price => :decimal,
+          :certificate_type => %w{standart wildcard ucc code_signing},
+          :validation_type => %w{ov dv},
+          :is_ev => :boolean,
+          :is_sgc => :boolean,
+          :issuer_organization_name => :string,
+          :is_free => :boolean,
+          :discontinued => :boolean,
+          :is_email_validated => :boolean,
+      }
+
+    end
+
+    def order_info(order_number)
+
+    end
+
+    def cancel_order(order_number)
+
+    end
+
+    def parse_csr(domain_name)
+      return {
+          domain_name: 'example.ru',
+          country: 'RU',
+          email: '',
+          locality: 'Moscow',
+          organization: 'ZAO Example',
+          organization_unit: 'IT',
+          state: 'Moscow'
+      }
+    end
+
+    def register_ssl_cert(order_number)
+
+    end
+
+    def approver_list(order_number)
+
+    end
+
+    def resend_approve_email(order_number)
+
+    end
+
+    def resend_cert_email(order_number)
+
+    end
+
+  end
+
+
 class OpenSRSRequestParse
   attr :xml
 
@@ -22,7 +176,7 @@ class OpenSRSRequestParse
 end
 
 class OpenSRSResponse
-  attr :request_hash, :client_hash
+  attr :request_hash
 
   SRS_ACTION = "action"
   SRS_OBJECT = "object"
@@ -32,8 +186,8 @@ class OpenSRSResponse
 
   ACTION_RESPONSE = {GET_ORDER_INFO => GET_ORDER_INFO_RESPONSE}
 
-  def initialize(request_hash, client_hash)
-    @request_hash, @client_hash = request_hash, client_hash
+  def initialize(request_hash)
+    @request_hash = request_hash
   end
 
   def client_data
@@ -102,30 +256,24 @@ class OpenSRSResponse
 
 end
 
-def client_function(hash)
-  {}
-end
-
-def authenticate_client_function(user,key)
-  "hello #{user}"
-end
-
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
-  #before_filter :authenticate_user
 
   def index
     username = request.headers["X-Username"]
     signature = request.headers["X-Signature"]
-    #Client function for auth
-    authenticate_client_function(username,signature)
-    opensrs_request = OpenSRSRequestParse.new(request.body.read).request_hash
-    #Client function
-    opensrs_response = OpenSRSResponse.new(opensrs_request,client_function(opensrs_request))
-    client_data = opensrs_response.client_data
-    render "layouts/#{opensrs_response.response}", :formats => [:xml]
+
+    opensrs_request_hash = OpenSRSRequestParse.new(request.body.read).request_hash
+    opensrs_request = OpenSRSResponse.new(opensrs_request_hash)
+    opensrs = OpenSRSClient.new(opensrs_request,username,signature)
+    response_hash = opensrs.response if opensrs.authenticate?
+    render "layouts/#{OpenSRSResponse.new(opensrs_request).response}", :formats => [:xml]
   end
 end
+
+  #before_filter :authenticate_user
+    #opensrs_response = OpenSRSResponse.new(opensrs_request)
+    #client_data = opensrs_response.client_data
 
 
     #puts opensrs_response.at_css("item").text
