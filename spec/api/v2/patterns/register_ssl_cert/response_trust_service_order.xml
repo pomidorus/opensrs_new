@@ -61,10 +61,10 @@
                 </item>
               </dt_array>
             </item>
-            <item key='order_id'><%= @data[:order_id] %></item>
+            <item key='order_id'>327</item>
             <item key='state'>completed</item>
             <item key='product_type'>truebizid</item>
-            <item key='domain'><%= @data[:domain_name] %></item>
+            <item key='domain'>example.ru</item>
             <item key='product_id'>194</item>
             <item key='contact_email'>qafive@example.com</item>
             <item key='contact_set'>

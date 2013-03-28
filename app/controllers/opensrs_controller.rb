@@ -141,7 +141,10 @@ class OpenSRSClient < SslProxy
     end
 
     def register_ssl_cert(order_number)
-
+     {
+        domain_name: 'example.ru',
+        order_id: order_number,
+      }
     end
 
     def approver_list(order_number)
@@ -237,15 +240,25 @@ class OpenSRSResponse
       when "GET_PRODUCT_INFO"
         result[:layout] = "product_info_response"
       when "SW_REGISTER"
-        result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium" if reg_type == "upgrade"
-        result[:layout] = "renew_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order" if reg_type == "new" && product_type == "quickssl"
-        result[:layout] = "renew_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate" if reg_type == "new" && product_type == "securesite_ft"
-        result[:layout] = "renew_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate" if reg_type == "new" && product_type == "malwarescan"
+        if reg_type == "upgrade"
+          result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium"
+        elsif reg_type == "new" && product_type == "quickssl"
+          result[:layout] = "renew_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order"
+        elsif reg_type == "new" && product_type == "securesite_ft"
+          result[:layout] = "renew_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate"
+        elsif reg_type == "new" && product_type == "malwarescan"
+          result[:layout] = "renew_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate"
 
-        result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id" if reg_type == "renew" && !order_id.blank?
-        result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id" if reg_type == "renew" && !inventory_item_id.blank?
-        result[:layout] = "renew_renewal_order_for_a_quickssl_certificate" if reg_type == "renew" && !product_id.blank?
-        result[:layout] = "register_ssl_cert_response"
+        elsif reg_type == "renew" && !order_id.blank?
+          result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id"
+        elsif reg_type == "renew" && !inventory_item_id.blank?
+          result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id"
+        elsif reg_type == "renew" && !product_id.blank?
+          result[:layout] = "renew_renewal_order_for_a_quickssl_certificate"
+        else
+          result[:data] = item_open_srs_client.cancel_order(@request_hash["order_id"])
+          result[:layout] = "register_ssl_cert_response"
+        end
       when "CANCEL_ORDER"
         result[:data] = item_open_srs_client.cancel_order(@request_hash["order_id"])
         result[:layout] = "cancel_order_response"
