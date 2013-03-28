@@ -8,7 +8,7 @@ describe "/opensrs" do
 
     context "request is correct" do
       #let(:user) {Factory(:user)}
-      let(:server_local) {OpenSRS::Server.new(:server   => "http://localhost:5000/opensrs",
+      let(:server_local) {OpenSRS::Server.new(:server   => "http://localhost:3000/opensrs",
                                               :username => "aseleznov",
                                               :password => "53cr3t",
                                               :key      => "c633be3170c7fb3fb29e2f99b84be2410" )}
