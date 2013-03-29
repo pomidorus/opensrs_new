@@ -9,12 +9,14 @@
       <dt_assoc>
         <item key='protocol'>XCP</item>
         <item key='action'>REPLY</item>
-        <item key='object'>TRUST_SERVICE</item> <item key='response_code'>200</item>
+        <item key='object'>TRUST_SERVICE</item>
+        <item key='response_code'>200</item>
         <item key='response_text'>Command completed successfully.</item>
         <item key='is_success'>1</item>
         <item key='attributes'>
           <dt_assoc>
-            <item key='special_instructions'>Test ABC</item> <item key='period'>1</item>
+            <item key='special_instructions'>Test ABC</item>
+            <item key='period'>1</item>
             <item key='notes_list'>
               <dt_array>
                 <item key='0'>
@@ -76,7 +78,7 @@
                     <item key='title'>Director</item>
                     <item key='address1'>32 Oak Street</item>
                     <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
+                    <item key='address3'></item>
                     <item key='city'>Santa Clara</item>
                     <item key='state'>CA</item>
                     <item key='country'>US</item>
@@ -95,7 +97,7 @@
                     <item key='org_name'>Example Inc.</item>
                     <item key='address1'>32 Oak Street</item>
                     <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
+                    <item key='address3'></item>
                     <item key='city'>Santa Clara</item>
                     <item key='state'>CA</item>
                     <item key='country'>US</item>
@@ -111,7 +113,7 @@
                     <item key='duns'>12345</item>
                     <item key='address1'>32 Oak Street</item>
                     <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
+                    <item key='address3'></item>
                     <item key='city'>Santa Clara</item>
                     <item key='state'>CA</item>
                     <item key='postal_code'>90210</item>
@@ -125,10 +127,10 @@
                     <item key='first_name'>Bill</item>
                     <item key='last_name'>Burton</item>
                     <item key='org_name'>Example Inc.</item>
-                    <item key='title'/>
+                    <item key='title'></item>
                     <item key='address1'>32 Oak Street</item>
                     <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
+                    <item key='address3'></item>
                     <item key='city'>Santa Clara</item>
                     <item key='state'>CA</item>
                     <item key='postal_code'>90210</item>

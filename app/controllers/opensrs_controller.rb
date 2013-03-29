@@ -122,6 +122,7 @@ class OpenSRSClient < SslProxy
       }
     end
 
+    # shaman complete
     def cancel_order(order_number)
      {
         domain_name: 'example.ru',
@@ -130,6 +131,7 @@ class OpenSRSClient < SslProxy
       }
     end
 
+    # shaman complete
     def parse_csr(domain_name)
       {
         domain_name: 'example.ru',
@@ -138,14 +140,136 @@ class OpenSRSClient < SslProxy
         locality: 'Moscow',
         organization: 'ZAO Example',
         organization_unit: 'IT',
-        state: 'Moscow'
+        state: 'Moscow',
+        valid_true_domain: true,
+        valid_quick_domain: true,
+        has_bad_extensions: false
       }
     end
 
+    # shaman complete
     def register_ssl_cert(order_number)
      {
-        domain_name: 'example.ru',
-        order_id: order_number,
+        :domain_name => 'example.ru',
+        :order_id => order_number,
+        :state => 'completed',
+        :product_type => 'truebizid',
+        :product_id => 194,
+        :contact_email => 'qafive@example.com',
+        :csr => self.csr,
+        :reg_type => 'new',
+        :price => 99.0,
+        :server_type => 'apachessl',
+        :supplier_order_id => 141777,
+        :special_instructions => 'Test ABC',
+        :period => 1,
+        :notes_list =>
+          {
+         0 =>
+              {
+                :date => '2010-09-20T15:02:43.000- 04:00',
+                :type => 'order_processed',
+                :note => 'Order id [780] has been processed, supplierOrderId is [141777].'
+              },
+            1 =>
+              {
+                :date => '2010-09-20T15:02:43.000- 04:00',
+                :type => 'order_created',
+                :note => 'Order id [780] has been created.'
+              },
+            2 =>
+              {
+                :date => '2010-09-20T15:02:43.000- 04:00',
+                :type => 'money_held',
+                :note => 'Money has been held for order id [780].'
+              },
+            3 =>
+              {
+                :date => '2010-09-20T15:26:20.000- 04:00',
+                :type => 'supplier_product_created',
+                :note => 'The supplier product has been created for order id [780].'
+              },
+            4 =>
+              {
+                :date => '2010-09-20T15:26:20.000- 04:00',
+                :type => 'money_charged',
+                :note => 'The money has been charged for order id [780].'
+              },
+            5 =>
+              {
+                :date => '2010-09-20T15:26:21.000- 04:00',
+                :type => 'order_completed',
+                :note => 'The order with the id [780] has been completed and product has been created with product id [194].'
+              }
+          },
+        :contact_set =>
+          {
+            :admin =>
+              {
+                :first_name => 'Adler',
+                :last_name => 'Adams',
+                :title => 'Director',
+                :address1 => '32 Oak Street',
+                :address2 => 'Suite 100',
+                :address3 => nil,
+                :city => 'Santa Clara',
+                :state => 'CA',
+                :country => 'US',
+                :postal_code => 90210,
+                :org_name => 'Example Inc.',
+                :email => 'adams@example.com',
+                :phone => '+1.4165550123x1812',
+                :fax => '+1.4165550125'
+              },
+            :tech =>
+              {
+                :first_name => 'Tim',
+                :last_name => 'Tucker',
+                :title => 'Director',
+                :org_name => 'Example Inc.',
+                :address1 => '32 Oak Street',
+                :address2 => 'Suite 100',
+                :address3 => nil,
+                :city => 'Santa Clara',
+                :state => 'CA',
+                :country => 'US',
+                :postal_code => 90210,
+                :phone => '+1.4165550123x1243',
+                :fax => '+1.41655501255',
+                :email => 'tucker@example.com'
+              },
+            :organization =>
+              {
+                :org_name => 'Example Inc.',
+                :duns => 12345,
+                :address1 => '32 Oak Street',
+                :address2 => 'Suite 100',
+                :address3 => nil,
+                :city => 'Santa Clara',
+                :state => 'CA',
+                :postal_code => 90210,
+                :country => 'US',
+                :phone => '+1.4165550123',
+                :fax => '+1.4165550125'
+              },
+            :billing =>
+              {
+                :first_name => 'Bill',
+                :last_name => 'Burton',
+                :org_name => 'Example Inc.',
+                :title => nil,
+                :address1 => '32 Oak Street',
+                :address2 => 'Suite 100',
+                :address3 => nil,
+                :city => 'Santa Clara',
+                :state => 'CA',
+                :postal_code => '90210',
+                :country => 'US',
+                :phone => '+1.4165550123x1248',
+                :fax => '+1.4165550125',
+                :email => 'burton@example.com',
+              }
+          }
       }
     end
 
@@ -159,6 +283,10 @@ class OpenSRSClient < SslProxy
 
     def resend_cert_email(order_number)
 
+    end
+
+    def csr
+      '-----BEGIN CERTIFICATE REQUEST----- MIIC2jCCAcICAQAwgZQxITAfBgNVBAMTGHRydWViaXoucWFyZWdyZXNzaW9uLm9y ZzELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAk9OMRAwDgYDVQQHEwdUb3JvbnRvMQ 8w DQYDVQQKEwZUdWNvd3MxEDAOBgNVBAsTB1FBIERlcHQxIDAeBgkqhkiG9w0BCQE WEXFhZml2ZUB0dWNvd3MuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC AQEAo+4AzMq3JeXV5KlAD3BBOGdAOuJYBW3Bz1BooLPX4MGefxqzfVcR8KLGg5MS PLqdiY4Sqc+/tK8qabpHttdbAZ1WBvgYmviMkhRjpSrbVjOca0CmydPCVsXu5nnE HMEZODrzhpuHHIzrkclBpGAqEhf9v1g4OFt1sInVB0o8NpeT10aFyvX2HbtsJyfZ S4RMsP+XjVWzWZ+8v2bH6gapJ0tzXvTKwXzhUzElvVqpldpzO0FgnJtHmfJ/EOs5 gntzVIxzP12ZKFf0dYYUj0OKWU+aQodlic2oVxETyWKCoX5W7jQgpTV/vAF7nQY8 Y9VtV6SE5yQRYPJutDTk2PouEwIDAQABoAAwDQYJKoZIhvcNAQEEBQADggEBAAUr DUNxyrYpt3t9r0GCIiIDVyQdJvY4tQUFIEJdxcvRo2TUcrgiWPyntGc1OCtUFE9Z 2JX4BNEmFVN1jUdBzh6/0loAA36iGYWTSB6CPVe5+y+dcgbViWcNV4or7FOslzRH /Eu0CquMGmGtSdaT/DNIrJvM2iGOtuhFBhFyru61YMoeaQLU12i5XvK7bR4wHrG6 8DwlwUdzBRqiaq32rM/ZF2KmMzfLFKug1Hubt3OBQHSKwXz3CR7hrJSzf1q3lF/w HD47TC982HXaUuskI+E0LcuR/qprLkvAO6hKT60CP+V/yNwcBu79Zjeg1MsAmH/W SzFmc1swYutlFBxmyLU= -----END CERTIFICATE REQUEST-----'
     end
 
   end
@@ -306,7 +434,7 @@ class OpensrsController < ApplicationController
 
       # data for layout
       @data = command[:data]
-      _debug 'data', @data
+
       render "layouts/#{command[:layout]}", :formats => [:xml]
     else
       render "layouts/bad_authorization", :formats => [:xml]

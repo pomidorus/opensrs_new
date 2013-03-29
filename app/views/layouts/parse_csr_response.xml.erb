@@ -19,13 +19,13 @@
               <dt_assoc>
                 <item key='country'><%= @data[:country] %></item>
                 <item key='organization_unit'><%= @data[:organization_unit] %></item>
-                <item key='valid_true_domain'>1</item>
+                <item key='valid_true_domain'><%= bool_to_i @data[:valid_true_domain] %></item>
                 <item key='state'><%= @data[:state] %></item>
                 <item key='locality'><%= @data[:locality] %></item>
                 <item key='email'><%= @data[:email] %></item>
                 <item key='domain'><%= @data[:domain_name] %></item>
-                <item key='valid_quick_domain'>1</item>
-                <item key='has_bad_extensions'>0</item>
+                <item key='valid_quick_domain'><%= bool_to_i @data[:valid_quick_domain] %></item>
+                <item key='has_bad_extensions'><%= bool_to_i @data[:has_bad_extensions] %></item>
                 <item key='organization'><%= @data[:organization] %></item>
               </dt_assoc>
             </item>

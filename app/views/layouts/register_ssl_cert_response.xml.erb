@@ -9,142 +9,115 @@
       <dt_assoc>
         <item key='protocol'>XCP</item>
         <item key='action'>REPLY</item>
-        <item key='object'>TRUST_SERVICE</item> <item key='response_code'>200</item>
+        <item key='object'>TRUST_SERVICE</item>
+        <item key='response_code'>200</item>
         <item key='response_text'>Command completed successfully.</item>
         <item key='is_success'>1</item>
         <item key='attributes'>
           <dt_assoc>
-            <item key='special_instructions'>Test ABC</item> <item key='period'>1</item>
+            <item key='special_instructions'><%= @data[:special_instructions] %></item>
+            <item key='period'><%= @data[:period] %></item>
             <item key='notes_list'>
               <dt_array>
-                <item key='0'>
+                <% @data[:notes_list].sort.each do |key, data| %>
+                <item key='<%= key %>'>
                   <dt_assoc>
-                    <item key='date'>2010-09-20T15:02:43.000- 04:00</item>
-                    <item key='type'>order_processed</item>
-                    <item key='note'>Order id [780] has been processed, supplierOrderId is [141777].</item>
+                    <item key='date'><%= data[:date] %></item>
+                    <item key='type'><%= data[:type] %></item>
+                    <item key='note'><%= data[:note] %></item>
                   </dt_assoc>
                 </item>
-                <item key='1'>
-                  <dt_assoc>
-                    <item key='date'>2010-09-20T15:02:43.000- 04:00</item>
-                    <item key='type'>order_created</item>
-                    <item key='note'>Order id [780] has been created.</item>
-                  </dt_assoc>
-                </item>
-                <item key='2'>
-                  <dt_assoc>
-                    <item key='date'>2010-09-20T15:02:43.000- 04:00</item>
-                    <item key='type'>money_held</item>
-                    <item key='note'>Money has been held for order id [780].</item>
-                  </dt_assoc>
-                </item>
-                <item key='3'>
-                  <dt_assoc>
-                    <item key='date'>2010-09-20T15:26:20.000- 04:00</item>
-                    <item key='type'>supplier_product_created</item>
-                    <item key='note'>The supplier product has been created for order id [780].</item>
-                  </dt_assoc>
-                </item>
-                <item key='4'>
-                  <dt_assoc>
-                    <item key='date'>2010-09-20T15:26:20.000- 04:00</item>
-                    <item key='type'>money_charged</item>
-                    <item key='note'>The money has been charged for order id [780].</item>
-                  </dt_assoc>
-                </item>
-                <item key='5'>
-                  <dt_assoc>
-                    <item key='date'>2010-09-20T15:26:21.000- 04:00</item>
-                    <item key='type'>order_completed</item>
-                    <item key='note'>The order with the id [780] has been completed and product has been created with product id [194].</item>
-                  </dt_assoc>
-                </item>
+                <% end %>
               </dt_array>
             </item>
             <item key='order_id'><%= @data[:order_id] %></item>
-            <item key='state'>completed</item>
-            <item key='product_type'>truebizid</item>
+            <item key='state'><%= @data[:state] %></item>
+            <item key='product_type'><%= @data[:product_type] %></item>
             <item key='domain'><%= @data[:domain_name] %></item>
-            <item key='product_id'>194</item>
-            <item key='contact_email'>qafive@example.com</item>
+            <item key='product_id'><%= @data[:product_id] %></item>
+            <item key='contact_email'><%= @data[:contact_email] %></item>
             <item key='contact_set'>
               <dt_assoc>
+                <% admin = @data[:contact_set][:admin] %>
                 <item key='admin'>
                   <dt_assoc>
-                    <item key='first_name'>Adler</item>
-                    <item key='last_name'>Adams</item>
-                    <item key='title'>Director</item>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='country'>US</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='email'>adams@example.com</item>
-                    <item key='phone'>+1.4165550123x1812</item>
-                    <item key='fax'>+1.4165550125</item>
+                    <item key='first_name'><%= admin[:first_name] %></item>
+                    <item key='last_name'><%= admin[:last_name] %></item>
+                    <item key='title'><%= admin[:title] %></item>
+                    <item key='address1'><%= admin[:address1] %></item>
+                    <item key='address2'><%= admin[:address2] %></item>
+                    <item key='address3'><%= admin[:address3] %></item>
+                    <item key='city'><%= admin[:city] %></item>
+                    <item key='state'><%= admin[:state] %></item>
+                    <item key='country'><%= admin[:country] %></item>
+                    <item key='postal_code'><%= admin[:postal_code] %></item>
+                    <item key='org_name'><%= admin[:org_name] %></item>
+                    <item key='email'><%= admin[:email] %></item>
+                    <item key='phone'><%= admin[:phone] %></item>
+                    <item key='fax'><%= admin[:fax] %></item>
                   </dt_assoc>
                 </item>
+                <% tech = @data[:contact_set][:tech] %>
                 <item key='tech'>
                   <dt_assoc>
-                    <item key='first_name'>Tim</item>
-                    <item key='last_name'>Tucker</item>
-                    <item key='title'>Director</item>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='country'>US</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='phone'>+1.4165550123x1243</item>
-                    <item key='fax'>+1.41655501255</item>
-                    <item key='email'>tucker@example.com</item>
+                    <item key='first_name'><%= tech[:first_name] %></item>
+                    <item key='last_name'><%= tech[:last_name] %></item>
+                    <item key='title'><%= tech[:title] %></item>
+                    <item key='org_name'><%= tech[:org_name] %></item>
+                    <item key='address1'><%= tech[:address1] %></item>
+                    <item key='address2'><%= tech[:address2] %></item>
+                    <item key='address3'><%= tech[:address3] %></item>
+                    <item key='city'><%= tech[:city] %></item>
+                    <item key='state'><%= tech[:state] %></item>
+                    <item key='country'><%= tech[:country] %></item>
+                    <item key='postal_code'><%= tech[:postal_code] %></item>
+                    <item key='phone'><%= tech[:phone] %></item>
+                    <item key='fax'><%= tech[:fax] %></item>
+                    <item key='email'><%= tech[:email] %></item>
                   </dt_assoc>
                 </item>
+                <% organization = @data[:contact_set][:organization] %>
                 <item key='organization'>
                   <dt_assoc>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='duns'>12345</item>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='country'>US</item>
-                    <item key='phone'>+1.4165550123</item>
-                    <item key='fax'>+1.4165550125</item>
+                    <item key='org_name'><%= organization[:org_name] %></item>
+                    <item key='duns'><%= organization[:duns] %></item>
+                    <item key='address1'><%= organization[:address1] %></item>
+                    <item key='address2'><%= organization[:address2] %></item>
+                    <item key='address3'><%= organization[:address3] %></item>
+                    <item key='city'><%= organization[:city] %></item>
+                    <item key='state'><%= organization[:state] %></item>
+                    <item key='postal_code'><%= organization[:postal_code] %></item>
+                    <item key='country'><%= organization[:country] %></item>
+                    <item key='phone'><%= organization[:phone] %></item>
+                    <item key='fax'><%= organization[:fax] %></item>
                   </dt_assoc>
                 </item>
+                <% billing = @data[:contact_set][:billing] %>
                 <item key='billing'>
                   <dt_assoc>
-                    <item key='first_name'>Bill</item>
-                    <item key='last_name'>Burton</item>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='title'/>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='country'>US</item>
-                    <item key='phone'>+1.4165550123x1248</item>
-                    <item key='fax'>+1.4165550125</item>
-                    <item key='email'>burton@example.com</item>
+                    <item key='first_name'><%= billing[:first_name] %></item>
+                    <item key='last_name'><%= billing[:last_name] %></item>
+                    <item key='org_name'><%= billing[:org_name] %></item>
+                    <item key='title'><%= billing[:title] %></item>
+                    <item key='address1'><%= billing[:address1] %></item>
+                    <item key='address2'><%= billing[:address2] %></item>
+                    <item key='address3'><%= billing[:address3] %></item>
+                    <item key='city'><%= billing[:city] %></item>
+                    <item key='state'><%= billing[:state] %></item>
+                    <item key='postal_code'><%= billing[:postal_code] %></item>
+                    <item key='country'><%= billing[:country] %></item>
+                    <item key='phone'><%=billing[:phone]  %></item>
+                    <item key='fax'><%=billing[:fax]  %></item>
+                    <item key='email'><%= billing[:email] %></item>
                   </dt_assoc>
                 </item>
               </dt_assoc>
             </item>
-            <item key='csr'>-----BEGIN CERTIFICATE REQUEST----- MIIC2jCCAcICAQAwgZQxITAfBgNVBAMTGHRydWViaXoucWFyZWdyZXNzaW9uLm9y ZzELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAk9OMRAwDgYDVQQHEwdUb3JvbnRvMQ 8w DQYDVQQKEwZUdWNvd3MxEDAOBgNVBAsTB1FBIERlcHQxIDAeBgkqhkiG9w0BCQE WEXFhZml2ZUB0dWNvd3MuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC AQEAo+4AzMq3JeXV5KlAD3BBOGdAOuJYBW3Bz1BooLPX4MGefxqzfVcR8KLGg5MS PLqdiY4Sqc+/tK8qabpHttdbAZ1WBvgYmviMkhRjpSrbVjOca0CmydPCVsXu5nnE HMEZODrzhpuHHIzrkclBpGAqEhf9v1g4OFt1sInVB0o8NpeT10aFyvX2HbtsJyfZ S4RMsP+XjVWzWZ+8v2bH6gapJ0tzXvTKwXzhUzElvVqpldpzO0FgnJtHmfJ/EOs5 gntzVIxzP12ZKFf0dYYUj0OKWU+aQodlic2oVxETyWKCoX5W7jQgpTV/vAF7nQY8 Y9VtV6SE5yQRYPJutDTk2PouEwIDAQABoAAwDQYJKoZIhvcNAQEEBQADggEBAAUr DUNxyrYpt3t9r0GCIiIDVyQdJvY4tQUFIEJdxcvRo2TUcrgiWPyntGc1OCtUFE9Z 2JX4BNEmFVN1jUdBzh6/0loAA36iGYWTSB6CPVe5+y+dcgbViWcNV4or7FOslzRH /Eu0CquMGmGtSdaT/DNIrJvM2iGOtuhFBhFyru61YMoeaQLU12i5XvK7bR4wHrG6 8DwlwUdzBRqiaq32rM/ZF2KmMzfLFKug1Hubt3OBQHSKwXz3CR7hrJSzf1q3lF/w HD47TC982HXaUuskI+E0LcuR/qprLkvAO6hKT60CP+V/yNwcBu79Zjeg1MsAmH/W SzFmc1swYutlFBxmyLU= -----END CERTIFICATE REQUEST-----</item>
-            <item key='reg_type'>new</item>
-            <item key='price'>99.0</item>
-            <item key='server_type'>apachessl</item>
-            <item key='supplier_order_id'>141777</item>
+            <item key='csr'><%= @data[:csr] %></item>
+            <item key='reg_type'><%= @data[:reg_type] %></item>
+            <item key='price'><%= @data[:price] %></item>
+            <item key='server_type'><%= @data[:server_type] %></item>
+            <item key='supplier_order_id'><%= @data[:supplier_order_id] %></item>
           </dt_assoc>
         </item>
       </dt_assoc>
