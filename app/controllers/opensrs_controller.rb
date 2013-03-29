@@ -1,82 +1,81 @@
 require 'nokogiri'
 require 'opensrs'
 
+ssl_certificate = {
+  :nomenclature_id => :integer,
 
-# ssl_certificate = {
-#   :nomenclature_id => :integer,
+  :csr => :text,
 
-#   :csr => :text,
+  :common_name => :string,
+  :validation_email => :string,
 
-#   :common_name => :string,
-#   :validation_email => :string,
+  :additional_domains => :text,
+  :additional_validation_emails => :text,
 
-#   :additional_domains => :text,
-#   :additional_validation_emails => :text,
+  :country => :string,
+  :zip => :string,
+  :stateorprovincename => :string,
+  :city => :string,
+  :street1 => :string,
+  :street2 => :string,
+  :organisation_name => :string,
+  :organisation_unit => :string,
 
-#   :country => :string,
-#   :zip => :string,
-#   :stateorprovincename => :string,
-#   :city => :string,
-#   :street1 => :string,
-#   :street2 => :string,
-#   :organisation_name => :string,
-#   :organisation_unit => :string,
+  :server_count => :integer,
+  :domain_count => :integer,
+  :ssl_server_software_id => :integer,
 
-#   :server_count => :integer,
-#   :domain_count => :integer,
-#   :ssl_server_software_id => :integer,
+  :duration => :integer,
+  :valid_from => :date,
+  :valid_to => :date,
 
-#   :duration => :integer,
-#   :valid_from => :date,
-#   :valid_to => :date,
+  :issuer_order_number => :string,
+  :provider_order_number => :string,
+  :serial_number => :string,
 
-#   :issuer_order_number => :string,
-#   :provider_order_number => :string,
-#   :serial_number => :string,
+  :certificate_state => :string,
+  :issuer_order_date => :datetime,
+  :issuer_order_state => :string,
+  :issuer_order_state_additional => :string, #только для Comodo
+  :issuer_order_state_minor_code => :string, #только для Comodo
+  :issuer_order_state_minor_name => :string, #только для Comodo
 
-#   :certificate_state => :string,
-#   :issuer_order_date => :datetime,
-#   :issuer_order_state => :string,
-#   :issuer_order_state_additional => :string, #только для Comodo
-#   :issuer_order_state_minor_code => :string, #только для Comodo
-#   :issuer_order_state_minor_name => :string, #только для Comodo
+  :issued_dt => :datetime,
+  :our_sell_price => :decimal,
+  :our_sell_currency => :string,
 
-#   :issued_dt => :datetime,
-#   :our_sell_price => :decimal,
-#   :our_sell_currency => :string,
+  :admin_contact_person_id => :integer,
+  :tech_contact_person_id => :integer,
+  :callback_contact_person_id => :integer,
 
-#   :admin_contact_person_id => :integer,
-#   :tech_contact_person_id => :integer,
-#   :callback_contact_person_id => :integer,
+  :approver_notified_date => :datetime,
+  :approver_confirm_date => :datetime,
 
-#   :approver_notified_date => :datetime,
-#   :approver_confirm_date => :datetime,
+  :organisation_phone => :string,
+  :organisation_fax => :string,
 
-#   :organisation_phone => :string,
-#   :organisation_fax => :string,
+  :provider_id => :integer,
 
-#   :provider_id => :integer,
+  :company_number => :string,
+  :dcv_method => :string,
+}
 
-#   :company_number => :string,
-#   :dcv_method => :string,
-# }
-
-# contact_person = {
-#   :first_name => :string,
-#   :last_name => :string,
-#   :phone => :string,
-#   :fax => :string,
-#   :email => :string,
-#   :title => :string,
-#   :organization_name => :string,
-#   :address_line_1 => :string,
-#   :address_line_2 => :string,
-#   :city => :string,
-#   :region => :string,
-#   :postal_code => :string,
-#   :country => :string,
-#   :country_id => :integer
-# }
+contact_person = {
+  :first_name => :string,
+  :last_name => :string,
+  :phone => :string,
+  :fax => :string,
+  :email => :string,
+  :title => :string,
+  :organization_name => :string,
+  :address_line_1 => :string,
+  :address_line_2 => :string,
+  :city => :string,
+  :region => :string,
+  :postal_code => :string,
+  :country => :string,
+  :country_id => :integer
+}
 
 class SslProxy
   # empty
@@ -122,7 +121,6 @@ class OpenSRSClient < SslProxy
       }
     end
 
-    # shaman complete
     def cancel_order(order_number)
      {
         domain_name: 'example.ru',
@@ -131,8 +129,7 @@ class OpenSRSClient < SslProxy
       }
     end
 
-    # shaman complete
-    def parse_csr(domain_name)
+    def parse_csr(product_type, csr)
       {
         domain_name: 'example.ru',
         country: 'RU',
@@ -147,7 +144,6 @@ class OpenSRSClient < SslProxy
       }
     end
 
-    # shaman complete
     def register_ssl_cert(order_number)
      {
         :domain_name => 'example.ru',
@@ -165,7 +161,7 @@ class OpenSRSClient < SslProxy
         :period => 1,
         :notes_list =>
           {
-         0 =>
+            0 =>
               {
                 :date => '2010-09-20T15:02:43.000- 04:00',
                 :type => 'order_processed',
@@ -273,6 +269,63 @@ class OpenSRSClient < SslProxy
       }
     end
 
+    def renew_an_order_to_upgrade(attributes)
+      {
+        :domain_name => 'example.com',
+        :order_id => 5597,
+        :state => 'awaiting-approval'
+      }
+    end
+
+    def get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order(base_order_id, csr, admin)
+      {
+        :domain_name => 'example.com',
+        :order_id => 8279,
+        :state => 'awaiting-approval'
+      }
+    end
+
+    def get_renew_ssl_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate(attributes)
+      {
+        :domain_name => "example.com",
+        :order_id => 7737,
+        :state => "awaiting-approval"
+      }
+    end
+
+    def get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate(attributes)
+      {
+        :domain_name => "example.com",
+        :order_id => 6854,
+        :state => "awaiting-approval"
+      }
+    end
+
+    def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(attributes)
+      {
+        :domain_name => "example.com",
+        :order_id => attributes["order_id"],
+        :state => "awaiting-approval"
+      }
+    end
+
+    def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id(attributes)
+      {
+        :domain_name => "certtest.example.org",
+        :order_id => 8310,
+        :state => "awaiting-approval"
+      }
+    end
+
+    def get_renew_ssl_renewal_order_for_a_quickssl_certificate(attributes)
+      {
+        :domain_name => "example.com",
+        :order_id => 8321,
+        :state => "awaiting-approval"
+      }
+
+    end
+
     def approver_list(order_number)
 
     end
@@ -308,7 +361,35 @@ class OpenSRSRequestParse
     request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
       rh[item['key']] = item.content
     end
+
+    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
+      rh[item['key']] = item.content
+    end
+    rh['full'] = xml_node_to_hash(request.root)
     rh
+  end
+
+  def xml_node_to_hash(node)
+    # If we are at the root of the document, start the hash
+    if node.element?
+
+        if node.children.count == 1 && node.children.first.name.to_s == 'text'
+          return node.children.first.content.to_s
+        end
+
+        result_hash = {}
+        node.children.each do |child|
+          result = xml_node_to_hash(child)
+          if child['key'].blank?
+            result_hash[child.name.to_s] = result
+          else
+            result_hash[child['key']] = result
+          end
+        end
+        return result_hash
+    else
+      return node.content.to_s
+    end
   end
 end
 
@@ -376,19 +457,33 @@ class OpenSRSResponse
 
       when "SW_REGISTER"
         if reg_type == "upgrade"
+          result[:data] = item_open_srs_client.renew_an_order_to_upgrade(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium"
+
+
         elsif reg_type == "new" && product_type == "quickssl"
+          result[:data] = item_open_srs_client.get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order(@request_hash["base_order_id"],@request_hash["csr"],@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"]["contact_set"]["dt_assoc"]["admin"]["dt_assoc"])
           result[:layout] = "renew_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order"
+
         elsif reg_type == "new" && product_type == "securesite_ft"
+          result[:data] = item_open_srs_client.get_renew_ssl_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate"
+
         elsif reg_type == "new" && product_type == "malwarescan"
+          result[:data] = item_open_srs_client.get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate"
 
+
         elsif reg_type == "renew" && !order_id.blank?
+          result[:data] = item_open_srs_client.get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id"
+
         elsif reg_type == "renew" && !inventory_item_id.blank?
+          result[:data] = item_open_srs_client.get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id"
+
         elsif reg_type == "renew" && !product_id.blank?
+          result[:data] = item_open_srs_client.get_renew_ssl_renewal_order_for_a_quickssl_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_renewal_order_for_a_quickssl_certificate"
         else
           result[:data] = item_open_srs_client.register_ssl_cert(@request_hash["order_id"])
@@ -400,7 +495,7 @@ class OpenSRSResponse
         result[:layout] = "cancel_order_response"
 
       when "PARSE_CSR"
-        result[:data] = item_open_srs_client.parse_csr(@request_hash["domain_name"])
+        result[:data] = item_open_srs_client.parse_csr(@request_hash["product_type"], @request_hash["csr"])
         result[:layout] = "parse_csr_response"
 
       when "QUERY_APPROVER_LIST"
