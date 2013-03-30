@@ -83,8 +83,9 @@ class SslProxy
 end
 
 class OpenSRSClient < SslProxy
-    attr :request, :username, :signature
+    attr :request, :username, :signature, :response
 
+    # authenticate function
     def authenticate?
       # code for authentication
       false
@@ -93,10 +94,11 @@ class OpenSRSClient < SslProxy
 
     def initialize(request, username, signature)
       @request, @username, @signature = request, username, signature
+      @response =  OpenSRSResponse.new(request)
     end
 
     def response
-
+      @response.response
     end
 
     def product_info(code)
@@ -116,11 +118,11 @@ class OpenSRSClient < SslProxy
       }
     end
 
-    def order_info(order_number)
-      {
-        :order_id => order_number
-      }
-    end
+    #def order_info(order_number)
+    #  {
+    #    :order_id => order_number
+    #  }
+    #end
 
     def cancel_order(order_number)
      {
@@ -444,19 +446,95 @@ class OpenSRSResponse
     request_hash["product_id"]
   end
 
-  def response(item_open_srs_client)
+
+  def order_info(order_id)
+
+    #client_function(order_id)
+
+    {
+     :order_id => order_id,
+     owner: {
+              first_name: "Owen",
+              last_name: "Ottway",
+              org_name: "Example Inc.",
+              address1: "32 Oak St.",
+              address2: "Suite 500",
+              address3: "",
+              city: "Santa Clara",
+              state: "CA",
+              country: "US",
+              postal_code: "90210",
+              phone: "+1.4165550123x1902",
+              fax: "+1.4165550124",
+              email: "owner@example.com"
+            },
+     admin: {
+              first_name: "Owen",
+              last_name: "Ottway",
+              org_name: "Example Inc.",
+              address1: "32 Oak St.",
+              address2: "Suite 500",
+              address3: "",
+              city: "Santa Clara",
+              state: "CA",
+              country: "US",
+              postal_code: "90210",
+              phone: "+1.4165550123x1902",
+              fax: "+1.4165550124",
+              email: "owner@example.com"
+            },
+     billing: {
+               first_name: "Owen",
+               last_name: "Ottway",
+               org_name: "Example Inc.",
+               address1: "32 Oak St.",
+               address2: "Suite 500",
+               address3: "",
+               city: "Santa Clara",
+               state: "CA",
+               country: "US",
+               postal_code: "90210",
+               phone: "+1.4165550123x1902",
+               fax: "+1.4165550124",
+               email: "owner@example.com"
+              },
+     tech: {
+             first_name: "Owen",
+             last_name: "Ottway",
+             org_name: "Example Inc.",
+             address1: "32 Oak St.",
+             address2: "Suite 500",
+             address3: "",
+             city: "Santa Clara",
+             state: "CA",
+             country: "US",
+             postal_code: "90210",
+             phone: "+1.4165550123x1902",
+             fax: "+1.4165550124",
+             email: "owner@example.com"
+           },
+     comments: "",
+     reg_domain: "",
+     domain: "",
+     transfer_notes: [{timestamp: "05-OCT-2007 17:07:42", note: "Transfer Request message sent to owner@example.com"}]
+    }
+  end
+
+
+  #def response(item_open_srs_client)
+  def response
     result = {}
 
     case action
-      when GET_ORDER_INFO
-        result[:data] = item_open_srs_client.order_info(@request_hash["order_id"])
+    when GET_ORDER_INFO
+        result[:data] = order_info(@request_hash["order_id"])
         result[:layout] = ACTION_RESPONSE[GET_ORDER_INFO]
 
-      when "GET_PRODUCT_INFO"
+    when "GET_PRODUCT_INFO"
         result[:data] = item_open_srs_client.product_info('some code')
         result[:layout] = "product_info_response"
 
-      when "SW_REGISTER"
+    when "SW_REGISTER"
         if reg_type == "upgrade"
           result[:data] = item_open_srs_client.renew_an_order_to_upgrade(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium"
@@ -491,21 +569,21 @@ class OpenSRSResponse
           result[:layout] = "register_ssl_cert_response"
         end
 
-      when "CANCEL_ORDER"
+    when "CANCEL_ORDER"
         result[:data] = item_open_srs_client.cancel_order(@request_hash["order_id"])
         result[:layout] = "cancel_order_response"
 
-      when "PARSE_CSR"
+    when "PARSE_CSR"
         result[:data] = item_open_srs_client.parse_csr(@request_hash["product_type"], @request_hash["csr"])
         result[:layout] = "parse_csr_response"
 
-      when "QUERY_APPROVER_LIST"
+    when "QUERY_APPROVER_LIST"
         result[:layout] = "approver_list_response"
 
-      when "RESEND_APPROVE_EMAIL"
+    when "RESEND_APPROVE_EMAIL"
         result[:layout] = "resend_approve_email"
 
-      when "RESEND_CERT_EMAIL"
+    when "RESEND_CERT_EMAIL"
         result[:layout] = "resend_certificate_email"
     end
 
@@ -517,21 +595,24 @@ end
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
 
+  SIGNATURE = "X-Signature"
+  USERNAME = "X-Username"
+
   def index
-    username = request.headers["X-Username"]
-    signature = request.headers["X-Signature"]
+    username = request.headers[USERNAME]
+    signature = request.headers[SIGNATURE]
 
     opensrs_request_hash = OpenSRSRequestParse.new(request.body.read).request_hash
     opensrs = OpenSRSClient.new(opensrs_request_hash,username,signature)
+
     if opensrs.authenticate?
-      command = OpenSRSResponse.new(opensrs_request_hash).response(opensrs)
-
+      #command = OpenSRSResponse.new(opensrs_request_hash).response(opensrs)
       response_hash = opensrs.response # at this moment always empty
-
+      p response_hash
       # data for layout
-      @data = command[:data]
-
-      render "layouts/#{command[:layout]}", :formats => [:xml]
+      @data = response_hash[:data]
+      p @data
+      render "layouts/#{response_hash[:layout]}", :formats => [:xml]
     else
       render "layouts/bad_authorization", :formats => [:xml]
     end
