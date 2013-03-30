@@ -9,6 +9,7 @@ class OpenSRSRequest
     @server, @username, @password, @key = server, username, password, key
   end
 
+  # init remote server
   def remote_server
     OpenSRS::Server.new(
       :server   => server,
@@ -18,56 +19,13 @@ class OpenSRSRequest
     )
   end
 
-  #TODO: Refactor to one function
-
+  # request api with parameters
   def request_api(action,object,attributes)
     remote_server.call(
           :action => action,
           :object => object,
           :attributes => attributes
         )
-  end
-
-
-
-  def cancel_order(order_id)
-    remote_server.call(
-          :action => "CANCEL_ORDER",
-          :object => "TRUST_SERVICE",
-          :attributes => {
-            :order_id => order_id
-          }
-        )
-  end
-
-  def parse_csr(product_type, csr)
-    remote_server.call(
-          :action => "PARSE_CSR",
-          :object => "TRUST_SERVICE",
-          :attributes => {
-            :product_type => product_type,
-            :csr => csr
-          }
-        )
-  end
-
-  def register_ssl_cert(order_id)
-    remote_server.call(
-          :action => "SW_REGISTER",
-          :object => "TRUST_SERVICE",
-          :attributes => {
-            :order_id => order_id
-          }
-        )
-  end
-
-
-  def renew_ssl(attributes)
-    remote_server.call(
-      :action => "SW_REGISTER",
-      :object => "TRUST_SERVICE",
-      :attributes => attributes
-    )
   end
 
 end
@@ -154,3 +112,45 @@ puts api.request_xml
 puts api.response_xml
 
 
+
+
+  #
+  #def cancel_order(order_id)
+  #  remote_server.call(
+  #        :action => "CANCEL_ORDER",
+  #        :object => "TRUST_SERVICE",
+  #        :attributes => {
+  #          :order_id => order_id
+  #        }
+  #      )
+  #end
+  #
+  #def parse_csr(product_type, csr)
+  #  remote_server.call(
+  #        :action => "PARSE_CSR",
+  #        :object => "TRUST_SERVICE",
+  #        :attributes => {
+  #          :product_type => product_type,
+  #          :csr => csr
+  #        }
+  #      )
+  #end
+  #
+  #def register_ssl_cert(order_id)
+  #  remote_server.call(
+  #        :action => "SW_REGISTER",
+  #        :object => "TRUST_SERVICE",
+  #        :attributes => {
+  #          :order_id => order_id
+  #        }
+  #      )
+  #end
+  #
+  #
+  #def renew_ssl(attributes)
+  #  remote_server.call(
+  #    :action => "SW_REGISTER",
+  #    :object => "TRUST_SERVICE",
+  #    :attributes => attributes
+  #  )
+  #end
