@@ -77,6 +77,7 @@ contact_person = {
   :country_id => :integer
 }
 
+# empty class for client class SslProxy
 class SslProxy
   # empty
 end
