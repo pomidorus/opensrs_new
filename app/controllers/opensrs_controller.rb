@@ -448,14 +448,12 @@ class OpenSRSResponse
 
 
   def order_info(order_id)
-
     #client_function(order_id)
-
+    #response client function
     {
-     :order_id => order_id,
      owner: {
-              first_name: "Owen",
-              last_name: "Ottway",
+              first_name: "Andrey",
+              last_name: "Seleznov",
               org_name: "Example Inc.",
               address1: "32 Oak St.",
               address2: "Suite 500",
@@ -469,8 +467,8 @@ class OpenSRSResponse
               email: "owner@example.com"
             },
      admin: {
-              first_name: "Owen",
-              last_name: "Ottway",
+              first_name: "Dalay",
+              last_name: "Lama",
               org_name: "Example Inc.",
               address1: "32 Oak St.",
               address2: "Suite 500",
@@ -516,7 +514,30 @@ class OpenSRSResponse
      comments: "",
      reg_domain: "",
      domain: "",
-     transfer_notes: [{timestamp: "05-OCT-2007 17:07:42", note: "Transfer Request message sent to owner@example.com"}]
+     transfer_notes: [{timestamp: "05-OCT-2007 17:07:42", note: "Transfer Request message sent to owner@example.com"}],
+     affiliate_id: "",
+     order_date: "1083590189",
+     status: "completed",
+     f_lock_domain: "0",
+     forwarding_email: "",
+     flag_saved_ns_fields: "1",
+     processed_date: "",
+     id: "3515690",
+     encoding_type: "undef",
+     flag_saved_tech_fields: "1",
+     completed_date: "1083590192",
+     f_auto_renew: "Y",
+     fqdn1: "ns1.systemdns.com",
+     fqdn2: "ns2.systemdns.com",
+     fqdn3: "",
+     fqdn4: "",
+     fqdn5: "",
+     fqdn6: "",
+     reg_type: "new",
+     notes: [{note: "RSP Note: testing first note", timestamp: "27-OCT-2007 11:15:03"},{note: "RSP Note: testing first note", timestamp: "27-OCT-2007 11:15:03"}],
+     master_order_id: "0",
+     period: "1",
+     cost: "15"
     }
   end
 
@@ -608,7 +629,6 @@ class OpensrsController < ApplicationController
     if opensrs.authenticate?
       #command = OpenSRSResponse.new(opensrs_request_hash).response(opensrs)
       response_hash = opensrs.response # at this moment always empty
-      p response_hash
       # data for layout
       @data = response_hash[:data]
       p @data
