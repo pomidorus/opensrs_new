@@ -101,29 +101,6 @@ class OpenSRSClient < SslProxy
       @response.response
     end
 
-    def product_info(code)
-      {
-        :code => :string,
-        :name => :string,
-        :price => :decimal,
-        :certificate_type => %w{standart wildcard ucc code_signing},
-        :validation_type => %w{ov dv},
-        :is_ev => :boolean,
-        :is_sgc => :boolean,
-        :issuer_organization_name => :string,
-        :is_free => :boolean,
-        :discontinued => :boolean,
-        :is_email_validated => :boolean,
-        :domain_name => 'example.ru'
-      }
-    end
-
-    #def order_info(order_number)
-    #  {
-    #    :order_id => order_number
-    #  }
-    #end
-
     def cancel_order(order_number)
      {
         domain_name: 'example.ru',
@@ -329,18 +306,6 @@ class OpenSRSClient < SslProxy
 
     end
 
-    def approver_list(order_number)
-
-    end
-
-    def resend_approve_email(order_number)
-
-    end
-
-    def resend_cert_email(order_number)
-
-    end
-
     def csr
       '-----BEGIN CERTIFICATE REQUEST----- MIIC2jCCAcICAQAwgZQxITAfBgNVBAMTGHRydWViaXoucWFyZWdyZXNzaW9uLm9y ZzELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAk9OMRAwDgYDVQQHEwdUb3JvbnRvMQ 8w DQYDVQQKEwZUdWNvd3MxEDAOBgNVBAsTB1FBIERlcHQxIDAeBgkqhkiG9w0BCQE WEXFhZml2ZUB0dWNvd3MuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC AQEAo+4AzMq3JeXV5KlAD3BBOGdAOuJYBW3Bz1BooLPX4MGefxqzfVcR8KLGg5MS PLqdiY4Sqc+/tK8qabpHttdbAZ1WBvgYmviMkhRjpSrbVjOca0CmydPCVsXu5nnE HMEZODrzhpuHHIzrkclBpGAqEhf9v1g4OFt1sInVB0o8NpeT10aFyvX2HbtsJyfZ S4RMsP+XjVWzWZ+8v2bH6gapJ0tzXvTKwXzhUzElvVqpldpzO0FgnJtHmfJ/EOs5 gntzVIxzP12ZKFf0dYYUj0OKWU+aQodlic2oVxETyWKCoX5W7jQgpTV/vAF7nQY8 Y9VtV6SE5yQRYPJutDTk2PouEwIDAQABoAAwDQYJKoZIhvcNAQEEBQADggEBAAUr DUNxyrYpt3t9r0GCIiIDVyQdJvY4tQUFIEJdxcvRo2TUcrgiWPyntGc1OCtUFE9Z 2JX4BNEmFVN1jUdBzh6/0loAA36iGYWTSB6CPVe5+y+dcgbViWcNV4or7FOslzRH /Eu0CquMGmGtSdaT/DNIrJvM2iGOtuhFBhFyru61YMoeaQLU12i5XvK7bR4wHrG6 8DwlwUdzBRqiaq32rM/ZF2KmMzfLFKug1Hubt3OBQHSKwXz3CR7hrJSzf1q3lF/w HD47TC982HXaUuskI+E0LcuR/qprLkvAO6hKT60CP+V/yNwcBu79Zjeg1MsAmH/W SzFmc1swYutlFBxmyLU= -----END CERTIFICATE REQUEST-----'
     end
@@ -402,10 +367,31 @@ class OpenSRSResponse
   SRS_ACTION = "action"
   SRS_OBJECT = "object"
   SRS_REG_TYPE = "reg_type"
+  SRS_ORDER_ID = "order_id"
+  SRS_PRODUCT_ID = "product_id"
+  SRS_PRODUCT_TYPE = "product_type"
+  SRS_DOMAIN = "domain"
+
   GET_ORDER_INFO = "GET_ORDER_INFO"
   GET_ORDER_INFO_RESPONSE = "order_info_response"
+  GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
+  GET_PRODUCT_INFO_RESPONSE = "product_info_response"
+  QUERY_APPROVER_LIST = "QUERY_APPROVER_LIST"
+  RESEND_APPROVE_EMAIL = "RESEND_APPROVE_EMAIL"
+  RESEND_CERT_EMAIL = "RESEND_CERT_EMAIL"
+  QUERY_APPROVER_LIST_RESPONSE = "approver_list_response"
+  RESEND_APPROVE_EMAIL_RESPONSE = "resend_approve_email"
+  RESEND_CERT_EMAIL_RESPONSE = "resend_certificate_email"
 
-  ACTION_RESPONSE = {GET_ORDER_INFO => GET_ORDER_INFO_RESPONSE}
+
+  ACTION_RESPONSE = {
+      GET_ORDER_INFO => GET_ORDER_INFO_RESPONSE,
+      GET_PRODUCT_INFO => GET_PRODUCT_INFO_RESPONSE,
+      QUERY_APPROVER_LIST => QUERY_APPROVER_LIST_RESPONSE,
+      RESEND_APPROVE_EMAIL => RESEND_APPROVE_EMAIL_RESPONSE,
+      RESEND_CERT_EMAIL => RESEND_CERT_EMAIL_RESPONSE
+  }
+
 
   def initialize(request_hash)
     @request_hash = request_hash
@@ -430,12 +416,16 @@ class OpenSRSResponse
     request_hash[SRS_REG_TYPE]
   end
 
+  def domain
+    request_hash[SRS_DOMAIN]
+  end
+
   def product_type
-    request_hash["product_type"]
+    request_hash[SRS_PRODUCT_TYPE]
   end
 
   def order_id
-    request_hash["order_id"]
+    request_hash[SRS_ORDER_ID]
   end
 
   def inventory_item_id
@@ -443,13 +433,66 @@ class OpenSRSResponse
   end
 
   def product_id
-    request_hash["product_id"]
+    request_hash[SRS_PRODUCT_ID]
   end
 
+
+  def approver_list(domain, product_type)
+    #client_function(domain, product_type)
+    #response client function
+    p "domain #{domain}"
+    {
+
+    }
+  end
+
+  def resend_approve_email(order_id)
+    #client_function(order_id)
+    #response client function
+    p "order_id #{order_id}"
+
+  end
+
+  def resend_cert_email(order_id)
+    #client_function(order_id)
+    #response client function
+    p "order_id #{order_id}"
+
+  end
+
+  def product_info(product_id)
+    #client_function(product_id)
+    #response client function
+    p "product_id #{product_id}"
+    {
+      product_type: "truebizid_wildcard",
+      issue_date: "2010-09-14-04:00",
+      domain: "www.mail.ru",
+      product_id: "23",
+      contact_email: "qafive@example.com",
+      start_date: "2010-09-13-04:00",
+      expiry_date: "2010-09-22-04:00",
+      is_renewable: "0",
+      state: "expired"
+      #:code => :string,
+      #:name => :string,
+      #:price => :decimal,
+      #:certificate_type => %w{standart wildcard ucc code_signing},
+      #:validation_type => %w{ov dv},
+      #:is_ev => :boolean,
+      #:is_sgc => :boolean,
+      #:issuer_organization_name => :string,
+      #:is_free => :boolean,
+      #:discontinued => :boolean,
+      #:is_email_validated => :boolean,
+      #:domain_name => 'example.ru'
+    }
+  end
 
   def order_info(order_id)
     #client_function(order_id)
     #response client function
+    p "order_id #{order_id}"
     {
      owner: {
               first_name: "Andrey",
@@ -548,18 +591,24 @@ class OpenSRSResponse
 
     case action
     when GET_ORDER_INFO
-        result[:data] = order_info(@request_hash["order_id"])
-        result[:layout] = ACTION_RESPONSE[GET_ORDER_INFO]
+      result[:data], result[:layout] = order_info(order_id), ACTION_RESPONSE[GET_ORDER_INFO]
 
-    when "GET_PRODUCT_INFO"
-        result[:data] = item_open_srs_client.product_info('some code')
-        result[:layout] = "product_info_response"
+    when GET_PRODUCT_INFO
+      result[:data], result[:layout] = product_info(product_id), ACTION_RESPONSE[GET_PRODUCT_INFO]
+
+    when QUERY_APPROVER_LIST
+      result[:data], result[:layout] = approver_list(domain, product_type), ACTION_RESPONSE[QUERY_APPROVER_LIST]
+
+    when RESEND_APPROVE_EMAIL
+      result[:layout] = ACTION_RESPONSE[RESEND_APPROVE_EMAIL]
+
+    when RESEND_CERT_EMAIL
+      result[:layout] = ACTION_RESPONSE[RESEND_CERT_EMAIL]
 
     when "SW_REGISTER"
         if reg_type == "upgrade"
           result[:data] = item_open_srs_client.renew_an_order_to_upgrade(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium"
-
 
         elsif reg_type == "new" && product_type == "quickssl"
           result[:data] = item_open_srs_client.get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order(@request_hash["base_order_id"],@request_hash["csr"],@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"]["contact_set"]["dt_assoc"]["admin"]["dt_assoc"])
@@ -572,7 +621,6 @@ class OpenSRSResponse
         elsif reg_type == "new" && product_type == "malwarescan"
           result[:data] = item_open_srs_client.get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
           result[:layout] = "renew_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate"
-
 
         elsif reg_type == "renew" && !order_id.blank?
           result[:data] = item_open_srs_client.get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
@@ -597,15 +645,6 @@ class OpenSRSResponse
     when "PARSE_CSR"
         result[:data] = item_open_srs_client.parse_csr(@request_hash["product_type"], @request_hash["csr"])
         result[:layout] = "parse_csr_response"
-
-    when "QUERY_APPROVER_LIST"
-        result[:layout] = "approver_list_response"
-
-    when "RESEND_APPROVE_EMAIL"
-        result[:layout] = "resend_approve_email"
-
-    when "RESEND_CERT_EMAIL"
-        result[:layout] = "resend_certificate_email"
     end
 
     result

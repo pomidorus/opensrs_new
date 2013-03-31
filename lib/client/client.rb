@@ -69,13 +69,13 @@ opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov"
 #puts api.response_xml
 
 
-action = "GET_ORDER_INFO"
-object = "DOMAIN"
-attributes = { order_id: '123746' }
-api = opensrs_request.request_api(action,object,attributes)
-puts "------GET_ORDER_INFO---------------------------------------"
-puts api.request_xml
-puts api.response_xml
+#action = "GET_ORDER_INFO"
+#object = "DOMAIN"
+#attributes = { order_id: '123746' }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------GET_ORDER_INFO---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
 
 
 #action = "GET_PRODUCT_INFO"
@@ -85,14 +85,16 @@ puts api.response_xml
 #puts "------GET_PRODUCT_INFO---------------------------------------"
 #puts api.request_xml
 #puts api.response_xml
-#
-#action = "QUERY_APPROVER_LIST"
-#object = "TRUST_SERVICE"
-#attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------QUERY_APPROVER_LIST---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+
+
+action = "QUERY_APPROVER_LIST"
+object = "TRUST_SERVICE"
+attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------QUERY_APPROVER_LIST---------------------------------------"
+puts api.request_xml
+puts api.response_xml
+
 #
 #action = "RESEND_APPROVE_EMAIL"
 #object = "TRUST_SERVICE"

@@ -85,49 +85,39 @@
                            </dt_array>
                         </item>
                         <item key='affiliate_id'><%= @data[:affiliate_id] %></item>
-                        <item key='order_date'><%= @data[:affiliate_id] %></item>
-                        <item key='status'><%= @data[:affiliate_id] %></item>
-                        <item key='f_lock_domain'><%= @data[:affiliate_id] %></item>
-                        <item key='forwarding_email'><%= @data[:affiliate_id] %></item>
-                        <item key='flag_saved_ns_fields'><%= @data[:affiliate_id] %></item>
-                        <item key='processed_date'><%= @data[:affiliate_id] %></item>
-                        <item key='id'><%= @data[:affiliate_id] %></item>
-                        <item key='encoding_type'><%= @data[:affiliate_id] %></item>
-                        <item key='flag_saved_tech_fields'><%= @data[:affiliate_id] %></item>
-                        <item key='completed_date'><%= @data[:affiliate_id] %></item>
-                        <item key='f_auto_renew'><%= @data[:affiliate_id] %></item>
-                        <item key='fqdn1'><%= @data[:affiliate_id] %></item>
-                        <item key='fqdn2'><%= @data[:affiliate_id] %></item>
-                        <item key='fqdn3'><%= @data[:affiliate_id] %></item>
-                        <item key='fqdn4'><%= @data[:affiliate_id] %></item>
-                        <item key='fqdn5'><%= @data[:affiliate_id] %></item>
-                        <item key='fqdn6'><%= @data[:affiliate_id] %></item>
-                        <item key='reg_type'><%= @data[:affiliate_id] %></item>
+                        <item key='order_date'><%= @data[:order_date] %></item>
+                        <item key='status'><%= @data[:status] %></item>
+                        <item key='f_lock_domain'><%= @data[:f_lock_domain] %></item>
+                        <item key='forwarding_email'><%= @data[:forwarding_email] %></item>
+                        <item key='flag_saved_ns_fields'><%= @data[:flag_saved_ns_fields] %></item>
+                        <item key='processed_date'><%= @data[:processed_date] %></item>
+                        <item key='id'><%= @data[:id] %></item>
+                        <item key='encoding_type'><%= @data[:encoding_type] %></item>
+                        <item key='flag_saved_tech_fields'><%= @data[:flag_saved_tech_fields] %></item>
+                        <item key='completed_date'><%= @data[:completed_date] %></item>
+                        <item key='f_auto_renew'><%= @data[:f_auto_renew] %></item>
+                        <item key='fqdn1'><%= @data[:fqdn1] %></item>
+                        <item key='fqdn2'><%= @data[:fqdn2] %></item>
+                        <item key='fqdn3'><%= @data[:fqdn3] %></item>
+                        <item key='fqdn4'><%= @data[:fqdn4] %></item>
+                        <item key='fqdn5'><%= @data[:fqdn5] %></item>
+                        <item key='fqdn6'><%= @data[:fqdn6] %></item>
+                        <item key='reg_type'><%= @data[:reg_type] %></item>
                         <item key='notes'>
                            <dt_array>
-                              <item key='0'>
+                           <% @data[:notes].each_with_index do |item, index| %>
+                              <item key='<%= index %>'>
                                  <dt_assoc>
-                                    <item key='note'>RSP Note: testing first note</item>
-                                    <item key='timestamp'>27-OCT-2007 11:15:03</item>
+                                    <item key='timestamp'><%= item[:timestamp] %></item>
+                                    <item key='note'><%= item[:note] %></item>
                                  </dt_assoc>
                               </item>
-                              <item key='1'>
-                                 <dt_assoc>
-                                    <item key='note'>RSP Note: testing second note</item>
-                                    <item key='timestamp'>27-OCT-2007 11:15:05</item>
-                                 </dt_assoc>
-                              </item>
-                              <item key='2'>
-                                 <dt_assoc>
-                                    <item key='note'>RSP Note: testing third note</item>
-                                    <item key='timestamp'>27-OCT-2007 11:15:07</item>
-                                 </dt_assoc>
-                              </item>
+                           <% end %>
                            </dt_array>
                         </item>
-                        <item key='master_order_id'>0</item>
-                        <item key='period'>1</item>
-                        <item key='cost'>15</item>
+                        <item key='master_order_id'><%= @data[:master_order_id] %></item>
+                        <item key='period'><%= @data[:period] %></item>
+                        <item key='cost'><%= @data[:cost] %></item>
                      </dt_assoc>
                   </item>
                </dt_assoc>
