@@ -69,47 +69,74 @@ opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov"
 #puts api.response_xml
 
 
-action = "GET_ORDER_INFO"
-object = "DOMAIN"
-attributes = { order_id: '123746' }
-api = opensrs_request.request_api(action,object,attributes)
-puts "------GET_ORDER_INFO---------------------------------------"
-puts api.request_xml
-puts api.response_xml
+#action = "GET_ORDER_INFO"
+#object = "DOMAIN"
+#attributes = { order_id: '123746' }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------GET_ORDER_INFO---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
+#
+#
+#action = "GET_PRODUCT_INFO"
+#object = "TRUST_SERVICE"
+#attributes = { product_id: '123746' }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------GET_PRODUCT_INFO---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
+#
+#
+#action = "QUERY_APPROVER_LIST"
+#object = "TRUST_SERVICE"
+#attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------QUERY_APPROVER_LIST---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
+#
+#
+#action = "RESEND_APPROVE_EMAIL"
+#object = "TRUST_SERVICE"
+#attributes = { order_id: '123432' }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------RESEND_APPROVE_EMAIL---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
+#
+#
+#action = "RESEND_CERT_EMAIL"
+#object = "TRUST_SERVICE"
+#attributes = { order_id: '12' }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------RESEND_CERT_EMAIL---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
 
+#action = "CANCEL_ORDER"
+#object = "TRUST_SERVICE"
+#attributes = { order_id: '12' }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------CANCEL_ORDER---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
 
-action = "GET_PRODUCT_INFO"
+sslcert = %q(-----BEGIN CERTIFICATE REQUEST----- MIIBqTCCARICAQAwaTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAm9uMRAwDgYDVQQH
+Ewd0b3JvbnRvMQ8wDQYDVQQKEwZ0dWNvd3MxCzAJBgNVBAsTAnFhMR0wGwYDVQQD
+ExR3d3cucWFyZWdyZXNzaW9uLm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
+gYEAz+hbqqnE5BSW0THf7txxsJxF8Vtca2uL52iutI1SRTm9J6NNtAjgMbL9upOm
+SFnObpWKriUIlvxKrecygGWkjiMeyU/F6auAS9/vwDdxYEVT2szK+Q2At1FgU433
+Pds53v2J/vyB6SL+k/w54H2gF4ORpU1hjUggo7fM353TeeMCAwEAAaAAMA0GCSqG
+SIb3DQEBBAUAA4GBAIYvVThVeocN7N7HbsO/au9AXnx6LULQ5LMDWx6FlyBB5g9h
+5HYZa6xieYCYDxYIsjLjR3qx1BWl9+0kSL2MW4EdDPzbcrZvHAtrw2/hPrm9EGA3
+2w3a26W79N3clCkrahnpcNFLFyzU3CtZASJ+VuixGXTEkdiBAliqtGp+QBhf -----END
+CERTIFICATE REQUEST-----)
+
+action = "PARSE_CSR"
 object = "TRUST_SERVICE"
-attributes = { product_id: '123746' }
+attributes = { product_type: 'quickssl', csr: sslcert }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------GET_PRODUCT_INFO---------------------------------------"
-puts api.request_xml
-puts api.response_xml
-
-
-action = "QUERY_APPROVER_LIST"
-object = "TRUST_SERVICE"
-attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
-api = opensrs_request.request_api(action,object,attributes)
-puts "------QUERY_APPROVER_LIST---------------------------------------"
-puts api.request_xml
-puts api.response_xml
-
-
-action = "RESEND_APPROVE_EMAIL"
-object = "TRUST_SERVICE"
-attributes = { order_id: '123432' }
-api = opensrs_request.request_api(action,object,attributes)
-puts "------RESEND_APPROVE_EMAIL---------------------------------------"
-puts api.request_xml
-puts api.response_xml
-
-
-action = "RESEND_CERT_EMAIL"
-object = "TRUST_SERVICE"
-attributes = { order_id: '12' }
-api = opensrs_request.request_api(action,object,attributes)
-puts "------RESEND_CERT_EMAIL---------------------------------------"
+puts "------PARSE_CSR---------------------------------------"
 puts api.request_xml
 puts api.response_xml
 

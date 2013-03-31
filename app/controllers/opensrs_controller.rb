@@ -101,29 +101,6 @@ class OpenSRSClient < SslProxy
       @response.response
     end
 
-    def cancel_order(order_number)
-     {
-        domain_name: 'example.ru',
-        order_id: order_number,
-        state: 'Moscow'
-      }
-    end
-
-    def parse_csr(product_type, csr)
-      {
-        domain_name: 'example.ru',
-        country: 'RU',
-        email: '',
-        locality: 'Moscow',
-        organization: 'ZAO Example',
-        organization_unit: 'IT',
-        state: 'Moscow',
-        valid_true_domain: true,
-        valid_quick_domain: true,
-        has_bad_extensions: false
-      }
-    end
-
     def register_ssl_cert(order_number)
      {
         :domain_name => 'example.ru',
@@ -437,6 +414,31 @@ class OpenSRSResponse
   end
 
 
+  def parse_csr(product_type, csr)
+    {
+      domain_name: 'example.ru',
+      country: 'RU',
+      email: '',
+      locality: 'Moscow',
+      organization: 'ZAO Example',
+      organization_unit: 'IT',
+      state: 'Moscow',
+      valid_true_domain: true,
+      valid_quick_domain: true,
+      has_bad_extensions: false
+    }
+  end
+
+
+  def cancel_order(order_id)
+   {
+      domain_name: "example.ru",
+      order_id: "5555",
+      state: "Moscow"
+    }
+  end
+
+
   def approver_list(domain, product_type)
     #client_function(domain, product_type)
     #response client function
@@ -649,12 +651,10 @@ class OpenSRSResponse
         end
 
     when "CANCEL_ORDER"
-        result[:data] = item_open_srs_client.cancel_order(@request_hash["order_id"])
-        result[:layout] = "cancel_order_response"
+        result[:data], result[:layout] = cancel_order(order_id), "cancel_order_response"
 
     when "PARSE_CSR"
-        result[:data] = item_open_srs_client.parse_csr(@request_hash["product_type"], @request_hash["csr"])
-        result[:layout] = "parse_csr_response"
+        result[:data], result[:layout] = parse_csr(product_type, @request_hash["csr"]), "parse_csr_response"
     end
 
     result
