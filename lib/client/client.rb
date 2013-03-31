@@ -69,22 +69,22 @@ opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov"
 #puts api.response_xml
 
 
-#action = "GET_ORDER_INFO"
-#object = "DOMAIN"
-#attributes = { order_id: '123746' }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------GET_ORDER_INFO---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+action = "GET_ORDER_INFO"
+object = "DOMAIN"
+attributes = { order_id: '123746' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------GET_ORDER_INFO---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 
 
-#action = "GET_PRODUCT_INFO"
-#object = "TRUST_SERVICE"
-#attributes = { product_id: '123746' }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------GET_PRODUCT_INFO---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+action = "GET_PRODUCT_INFO"
+object = "TRUST_SERVICE"
+attributes = { product_id: '123746' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------GET_PRODUCT_INFO---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 
 
 action = "QUERY_APPROVER_LIST"
@@ -95,25 +95,23 @@ puts "------QUERY_APPROVER_LIST---------------------------------------"
 puts api.request_xml
 puts api.response_xml
 
-#
-#action = "RESEND_APPROVE_EMAIL"
-#object = "TRUST_SERVICE"
-#attributes = { order_id: '123432' }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------RESEND_APPROVE_EMAIL---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
-#
-#
-#action = "RESEND_CERT_EMAIL"
-#object = "TRUST_SERVICE"
-#attributes = { order_id: '12' }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------RESEND_CERT_EMAIL---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+
+action = "RESEND_APPROVE_EMAIL"
+object = "TRUST_SERVICE"
+attributes = { order_id: '123432' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------RESEND_APPROVE_EMAIL---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 
 
+action = "RESEND_CERT_EMAIL"
+object = "TRUST_SERVICE"
+attributes = { order_id: '12' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------RESEND_CERT_EMAIL---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 
 
   #

@@ -17,69 +17,15 @@
            <dt_assoc>
              <item key='approver_list'>
                <dt_array>
-                 <item key='0'>
-                   <dt_assoc>
-                     <item key='email'>qafive@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>MANUAL</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='1'>
-                   <dt_assoc>
-                     <item key='email'>ottway@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>MANUAL</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='2'>
-                   <dt_assoc>
-                     <item key='email'>admin@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>GENERIC</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='3'>
-                   <dt_assoc>
-                     <item key='email'>administrator@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>GENERIC</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='4'>
-                   <dt_assoc>
-                     <item key='email'>hostmaster@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>GENERIC</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='5'>
-                   <dt_assoc>
-                     <item key='email'>root@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>GENERIC</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='6'>
-                   <dt_assoc>
-                     <item key='email'>webmaster@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>GENERIC</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='7'>
-                   <dt_assoc>
-                     <item key='email'>postmaster@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>GENERIC</item>
-                   </dt_assoc>
-                 </item>
-                 <item key='8'>
-                   <dt_assoc>
-                     <item key='email'>support@example.com</item>
-                     <item key='domain'>example.com</item>
-                     <item key='type'>MANUAL</item>
-                   </dt_assoc>
-                 </item>
+                 <% @data[:approver_list].each_with_index do |item, index| %>
+                    <item key='<%= index %>'>
+                      <dt_assoc>
+                        <item key='email'><%= item[:email] %></item>
+                        <item key='domain'><%= item[:domain] %></item>
+                        <item key='type'><%= item[:type] %></item>
+                      </dt_assoc>
+                    </item>
+                 <% end %>
                </dt_array>
              </item>
            </dt_assoc>

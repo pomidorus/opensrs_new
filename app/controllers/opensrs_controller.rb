@@ -442,7 +442,13 @@ class OpenSRSResponse
     #response client function
     p "domain #{domain}"
     {
-
+      approver_list: [
+        {email: "qafive@example.com", domain: "example.com", type: "MANUAL"},
+        {email: "ottway@example.com", domain: "example.com", type: "MANUAL"},
+        {email: "qafive@example.com", domain: "example.com", type: "MANUAL"},
+        {email: "admin@example.com", domain: "example.com", type: "MANUAL"},
+        {email: "qafive@example.com", domain: "example.com", type: "MANUAL"}
+      ]
     }
   end
 
@@ -450,14 +456,18 @@ class OpenSRSResponse
     #client_function(order_id)
     #response client function
     p "order_id #{order_id}"
-
+    {
+      order_id: "1111"
+    }
   end
 
   def resend_cert_email(order_id)
     #client_function(order_id)
     #response client function
     p "order_id #{order_id}"
-
+    {
+      order_id: "2222"
+    }
   end
 
   def product_info(product_id)
@@ -600,10 +610,10 @@ class OpenSRSResponse
       result[:data], result[:layout] = approver_list(domain, product_type), ACTION_RESPONSE[QUERY_APPROVER_LIST]
 
     when RESEND_APPROVE_EMAIL
-      result[:layout] = ACTION_RESPONSE[RESEND_APPROVE_EMAIL]
+      result[:data], result[:layout] = resend_approve_email(order_id), ACTION_RESPONSE[RESEND_APPROVE_EMAIL]
 
     when RESEND_CERT_EMAIL
-      result[:layout] = ACTION_RESPONSE[RESEND_CERT_EMAIL]
+      result[:data], result[:layout] = resend_cert_email(order_id), ACTION_RESPONSE[RESEND_CERT_EMAIL]
 
     when "SW_REGISTER"
         if reg_type == "upgrade"
