@@ -101,191 +101,67 @@ class OpenSRSClient < SslProxy
       @response.response
     end
 
-    def register_ssl_cert(order_number)
-     {
-        :domain_name => 'example.ru',
-        :order_id => order_number,
-        :state => 'completed',
-        :product_type => 'truebizid',
-        :product_id => 194,
-        :contact_email => 'qafive@example.com',
-        :csr => self.csr,
-        :reg_type => 'new',
-        :price => 99.0,
-        :server_type => 'apachessl',
-        :supplier_order_id => 141777,
-        :special_instructions => 'Test ABC',
-        :period => 1,
-        :notes_list =>
-          {
-            0 =>
-              {
-                :date => '2010-09-20T15:02:43.000- 04:00',
-                :type => 'order_processed',
-                :note => 'Order id [780] has been processed, supplierOrderId is [141777].'
-              },
-            1 =>
-              {
-                :date => '2010-09-20T15:02:43.000- 04:00',
-                :type => 'order_created',
-                :note => 'Order id [780] has been created.'
-              },
-            2 =>
-              {
-                :date => '2010-09-20T15:02:43.000- 04:00',
-                :type => 'money_held',
-                :note => 'Money has been held for order id [780].'
-              },
-            3 =>
-              {
-                :date => '2010-09-20T15:26:20.000- 04:00',
-                :type => 'supplier_product_created',
-                :note => 'The supplier product has been created for order id [780].'
-              },
-            4 =>
-              {
-                :date => '2010-09-20T15:26:20.000- 04:00',
-                :type => 'money_charged',
-                :note => 'The money has been charged for order id [780].'
-              },
-            5 =>
-              {
-                :date => '2010-09-20T15:26:21.000- 04:00',
-                :type => 'order_completed',
-                :note => 'The order with the id [780] has been completed and product has been created with product id [194].'
-              }
-          },
-        :contact_set =>
-          {
-            :admin =>
-              {
-                :first_name => 'Adler',
-                :last_name => 'Adams',
-                :title => 'Director',
-                :address1 => '32 Oak Street',
-                :address2 => 'Suite 100',
-                :address3 => nil,
-                :city => 'Santa Clara',
-                :state => 'CA',
-                :country => 'US',
-                :postal_code => 90210,
-                :org_name => 'Example Inc.',
-                :email => 'adams@example.com',
-                :phone => '+1.4165550123x1812',
-                :fax => '+1.4165550125'
-              },
-            :tech =>
-              {
-                :first_name => 'Tim',
-                :last_name => 'Tucker',
-                :title => 'Director',
-                :org_name => 'Example Inc.',
-                :address1 => '32 Oak Street',
-                :address2 => 'Suite 100',
-                :address3 => nil,
-                :city => 'Santa Clara',
-                :state => 'CA',
-                :country => 'US',
-                :postal_code => 90210,
-                :phone => '+1.4165550123x1243',
-                :fax => '+1.41655501255',
-                :email => 'tucker@example.com'
-              },
-            :organization =>
-              {
-                :org_name => 'Example Inc.',
-                :duns => 12345,
-                :address1 => '32 Oak Street',
-                :address2 => 'Suite 100',
-                :address3 => nil,
-                :city => 'Santa Clara',
-                :state => 'CA',
-                :postal_code => 90210,
-                :country => 'US',
-                :phone => '+1.4165550123',
-                :fax => '+1.4165550125'
-              },
-            :billing =>
-              {
-                :first_name => 'Bill',
-                :last_name => 'Burton',
-                :org_name => 'Example Inc.',
-                :title => nil,
-                :address1 => '32 Oak Street',
-                :address2 => 'Suite 100',
-                :address3 => nil,
-                :city => 'Santa Clara',
-                :state => 'CA',
-                :postal_code => '90210',
-                :country => 'US',
-                :phone => '+1.4165550123x1248',
-                :fax => '+1.4165550125',
-                :email => 'burton@example.com',
-              }
-          }
-      }
-    end
 
-    def renew_an_order_to_upgrade(attributes)
-      {
-        :domain_name => 'example.com',
-        :order_id => 5597,
-        :state => 'awaiting-approval'
-      }
-    end
+    #def renew_an_order_to_upgrade(attributes)
+    #  {
+    #    :domain_name => 'example.com',
+    #    :order_id => 5597,
+    #    :state => 'awaiting-approval'
+    #  }
+    #end
+    #
+    #def get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order(base_order_id, csr, admin)
+    #  {
+    #    :domain_name => 'example.com',
+    #    :order_id => 8279,
+    #    :state => 'awaiting-approval'
+    #  }
+    #end
+    #
+    #def get_renew_ssl_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate(attributes)
+    #  {
+    #    :domain_name => "example.com",
+    #    :order_id => 7737,
+    #    :state => "awaiting-approval"
+    #  }
+    #end
+    #
+    #def get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate(attributes)
+    #  {
+    #    :domain_name => "example.com",
+    #    :order_id => 6854,
+    #    :state => "awaiting-approval"
+    #  }
+    #end
+    #
+    #def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(attributes)
+    #  {
+    #    :domain_name => "example.com",
+    #    :order_id => attributes["order_id"],
+    #    :state => "awaiting-approval"
+    #  }
+    #end
+    #
+    #def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id(attributes)
+    #  {
+    #    :domain_name => "certtest.example.org",
+    #    :order_id => 8310,
+    #    :state => "awaiting-approval"
+    #  }
+    #end
+    #
+    #def get_renew_ssl_renewal_order_for_a_quickssl_certificate(attributes)
+    #  {
+    #    :domain_name => "example.com",
+    #    :order_id => 8321,
+    #    :state => "awaiting-approval"
+    #  }
+    #
+    #end
 
-    def get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order(base_order_id, csr, admin)
-      {
-        :domain_name => 'example.com',
-        :order_id => 8279,
-        :state => 'awaiting-approval'
-      }
-    end
-
-    def get_renew_ssl_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate(attributes)
-      {
-        :domain_name => "example.com",
-        :order_id => 7737,
-        :state => "awaiting-approval"
-      }
-    end
-
-    def get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate(attributes)
-      {
-        :domain_name => "example.com",
-        :order_id => 6854,
-        :state => "awaiting-approval"
-      }
-    end
-
-    def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(attributes)
-      {
-        :domain_name => "example.com",
-        :order_id => attributes["order_id"],
-        :state => "awaiting-approval"
-      }
-    end
-
-    def get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id(attributes)
-      {
-        :domain_name => "certtest.example.org",
-        :order_id => 8310,
-        :state => "awaiting-approval"
-      }
-    end
-
-    def get_renew_ssl_renewal_order_for_a_quickssl_certificate(attributes)
-      {
-        :domain_name => "example.com",
-        :order_id => 8321,
-        :state => "awaiting-approval"
-      }
-
-    end
-
-    def csr
-      '-----BEGIN CERTIFICATE REQUEST----- MIIC2jCCAcICAQAwgZQxITAfBgNVBAMTGHRydWViaXoucWFyZWdyZXNzaW9uLm9y ZzELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAk9OMRAwDgYDVQQHEwdUb3JvbnRvMQ 8w DQYDVQQKEwZUdWNvd3MxEDAOBgNVBAsTB1FBIERlcHQxIDAeBgkqhkiG9w0BCQE WEXFhZml2ZUB0dWNvd3MuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC AQEAo+4AzMq3JeXV5KlAD3BBOGdAOuJYBW3Bz1BooLPX4MGefxqzfVcR8KLGg5MS PLqdiY4Sqc+/tK8qabpHttdbAZ1WBvgYmviMkhRjpSrbVjOca0CmydPCVsXu5nnE HMEZODrzhpuHHIzrkclBpGAqEhf9v1g4OFt1sInVB0o8NpeT10aFyvX2HbtsJyfZ S4RMsP+XjVWzWZ+8v2bH6gapJ0tzXvTKwXzhUzElvVqpldpzO0FgnJtHmfJ/EOs5 gntzVIxzP12ZKFf0dYYUj0OKWU+aQodlic2oVxETyWKCoX5W7jQgpTV/vAF7nQY8 Y9VtV6SE5yQRYPJutDTk2PouEwIDAQABoAAwDQYJKoZIhvcNAQEEBQADggEBAAUr DUNxyrYpt3t9r0GCIiIDVyQdJvY4tQUFIEJdxcvRo2TUcrgiWPyntGc1OCtUFE9Z 2JX4BNEmFVN1jUdBzh6/0loAA36iGYWTSB6CPVe5+y+dcgbViWcNV4or7FOslzRH /Eu0CquMGmGtSdaT/DNIrJvM2iGOtuhFBhFyru61YMoeaQLU12i5XvK7bR4wHrG6 8DwlwUdzBRqiaq32rM/ZF2KmMzfLFKug1Hubt3OBQHSKwXz3CR7hrJSzf1q3lF/w HD47TC982HXaUuskI+E0LcuR/qprLkvAO6hKT60CP+V/yNwcBu79Zjeg1MsAmH/W SzFmc1swYutlFBxmyLU= -----END CERTIFICATE REQUEST-----'
-    end
+    #def csr
+    #  '-----BEGIN CERTIFICATE REQUEST----- MIIC2jCCAcICAQAwgZQxITAfBgNVBAMTGHRydWViaXoucWFyZWdyZXNzaW9uLm9y ZzELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAk9OMRAwDgYDVQQHEwdUb3JvbnRvMQ 8w DQYDVQQKEwZUdWNvd3MxEDAOBgNVBAsTB1FBIERlcHQxIDAeBgkqhkiG9w0BCQE WEXFhZml2ZUB0dWNvd3MuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC AQEAo+4AzMq3JeXV5KlAD3BBOGdAOuJYBW3Bz1BooLPX4MGefxqzfVcR8KLGg5MS PLqdiY4Sqc+/tK8qabpHttdbAZ1WBvgYmviMkhRjpSrbVjOca0CmydPCVsXu5nnE HMEZODrzhpuHHIzrkclBpGAqEhf9v1g4OFt1sInVB0o8NpeT10aFyvX2HbtsJyfZ S4RMsP+XjVWzWZ+8v2bH6gapJ0tzXvTKwXzhUzElvVqpldpzO0FgnJtHmfJ/EOs5 gntzVIxzP12ZKFf0dYYUj0OKWU+aQodlic2oVxETyWKCoX5W7jQgpTV/vAF7nQY8 Y9VtV6SE5yQRYPJutDTk2PouEwIDAQABoAAwDQYJKoZIhvcNAQEEBQADggEBAAUr DUNxyrYpt3t9r0GCIiIDVyQdJvY4tQUFIEJdxcvRo2TUcrgiWPyntGc1OCtUFE9Z 2JX4BNEmFVN1jUdBzh6/0loAA36iGYWTSB6CPVe5+y+dcgbViWcNV4or7FOslzRH /Eu0CquMGmGtSdaT/DNIrJvM2iGOtuhFBhFyru61YMoeaQLU12i5XvK7bR4wHrG6 8DwlwUdzBRqiaq32rM/ZF2KmMzfLFKug1Hubt3OBQHSKwXz3CR7hrJSzf1q3lF/w HD47TC982HXaUuskI+E0LcuR/qprLkvAO6hKT60CP+V/yNwcBu79Zjeg1MsAmH/W SzFmc1swYutlFBxmyLU= -----END CERTIFICATE REQUEST-----'
+    #end
 
   end
 
@@ -306,36 +182,35 @@ class OpenSRSRequestParse
     request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
       rh[item['key']] = item.content
     end
-
-    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content
-    end
-    rh['full'] = xml_node_to_hash(request.root)
+    #request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
+    #  rh[item['key']] = item.content
+    #end
+    #rh['full'] = xml_node_to_hash(request.root)
     rh
   end
 
-  def xml_node_to_hash(node)
-    # If we are at the root of the document, start the hash
-    if node.element?
-
-        if node.children.count == 1 && node.children.first.name.to_s == 'text'
-          return node.children.first.content.to_s
-        end
-
-        result_hash = {}
-        node.children.each do |child|
-          result = xml_node_to_hash(child)
-          if child['key'].blank?
-            result_hash[child.name.to_s] = result
-          else
-            result_hash[child['key']] = result
-          end
-        end
-        return result_hash
-    else
-      return node.content.to_s
-    end
-  end
+  #def xml_node_to_hash(node)
+  #  # If we are at the root of the document, start the hash
+  #  if node.element?
+  #
+  #      if node.children.count == 1 && node.children.first.name.to_s == 'text'
+  #        return node.children.first.content.to_s
+  #      end
+  #
+  #      result_hash = {}
+  #      node.children.each do |child|
+  #        result = xml_node_to_hash(child)
+  #        if child['key'].blank?
+  #          result_hash[child.name.to_s] = result
+  #        else
+  #          result_hash[child['key']] = result
+  #        end
+  #      end
+  #      return result_hash
+  #  else
+  #    return node.content.to_s
+  #  end
+  #end
 end
 
 class OpenSRSResponse
@@ -350,25 +225,26 @@ class OpenSRSResponse
   SRS_DOMAIN = "domain"
 
   GET_ORDER_INFO = "GET_ORDER_INFO"
-  GET_ORDER_INFO_RESPONSE = "order_info_response"
   GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
-  GET_PRODUCT_INFO_RESPONSE = "product_info_response"
   QUERY_APPROVER_LIST = "QUERY_APPROVER_LIST"
   RESEND_APPROVE_EMAIL = "RESEND_APPROVE_EMAIL"
   RESEND_CERT_EMAIL = "RESEND_CERT_EMAIL"
+  SW_REGISTER = "SW_REGISTER"
+
   QUERY_APPROVER_LIST_RESPONSE = "approver_list_response"
   RESEND_APPROVE_EMAIL_RESPONSE = "resend_approve_email"
   RESEND_CERT_EMAIL_RESPONSE = "resend_certificate_email"
+  GET_ORDER_INFO_RESPONSE = "order_info_response"
+  GET_PRODUCT_INFO_RESPONSE = "product_info_response"
 
 
   ACTION_RESPONSE = {
-      GET_ORDER_INFO => GET_ORDER_INFO_RESPONSE,
-      GET_PRODUCT_INFO => GET_PRODUCT_INFO_RESPONSE,
-      QUERY_APPROVER_LIST => QUERY_APPROVER_LIST_RESPONSE,
-      RESEND_APPROVE_EMAIL => RESEND_APPROVE_EMAIL_RESPONSE,
-      RESEND_CERT_EMAIL => RESEND_CERT_EMAIL_RESPONSE
+    GET_ORDER_INFO => GET_ORDER_INFO_RESPONSE,
+    GET_PRODUCT_INFO => GET_PRODUCT_INFO_RESPONSE,
+    QUERY_APPROVER_LIST => QUERY_APPROVER_LIST_RESPONSE,
+    RESEND_APPROVE_EMAIL => RESEND_APPROVE_EMAIL_RESPONSE,
+    RESEND_CERT_EMAIL => RESEND_CERT_EMAIL_RESPONSE
   }
-
 
   def initialize(request_hash)
     @request_hash = request_hash
@@ -597,6 +473,102 @@ class OpenSRSResponse
   end
 
 
+  def register_ssl_hash
+   {
+      domain_name: 'example.ru',
+      order_id: "3333",
+      state: 'completed',
+      product_type: 'truebizid',
+      product_id: 194,
+      contact_email: 'qafive@example.com',
+      csr: '-----BEGIN CERTIFICATE REQUEST----- MIIC2jCCAcICAQAwgZQxITAfBgNVBAMTGHRydWViaXoucWFyZWdyZXNzaW9uLm9y ZzELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAk9OMRAwDgYDVQQHEwdUb3JvbnRvMQ 8w DQYDVQQKEwZUdWNvd3MxEDAOBgNVBAsTB1FBIERlcHQxIDAeBgkqhkiG9w0BCQE WEXFhZml2ZUB0dWNvd3MuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC AQEAo+4AzMq3JeXV5KlAD3BBOGdAOuJYBW3Bz1BooLPX4MGefxqzfVcR8KLGg5MS PLqdiY4Sqc+/tK8qabpHttdbAZ1WBvgYmviMkhRjpSrbVjOca0CmydPCVsXu5nnE HMEZODrzhpuHHIzrkclBpGAqEhf9v1g4OFt1sInVB0o8NpeT10aFyvX2HbtsJyfZ S4RMsP+XjVWzWZ+8v2bH6gapJ0tzXvTKwXzhUzElvVqpldpzO0FgnJtHmfJ/EOs5 gntzVIxzP12ZKFf0dYYUj0OKWU+aQodlic2oVxETyWKCoX5W7jQgpTV/vAF7nQY8 Y9VtV6SE5yQRYPJutDTk2PouEwIDAQABoAAwDQYJKoZIhvcNAQEEBQADggEBAAUr DUNxyrYpt3t9r0GCIiIDVyQdJvY4tQUFIEJdxcvRo2TUcrgiWPyntGc1OCtUFE9Z 2JX4BNEmFVN1jUdBzh6/0loAA36iGYWTSB6CPVe5+y+dcgbViWcNV4or7FOslzRH /Eu0CquMGmGtSdaT/DNIrJvM2iGOtuhFBhFyru61YMoeaQLU12i5XvK7bR4wHrG6 8DwlwUdzBRqiaq32rM/ZF2KmMzfLFKug1Hubt3OBQHSKwXz3CR7hrJSzf1q3lF/w HD47TC982HXaUuskI+E0LcuR/qprLkvAO6hKT60CP+V/yNwcBu79Zjeg1MsAmH/W SzFmc1swYutlFBxmyLU= -----END CERTIFICATE REQUEST-----',
+      reg_type: 'new',
+      price: 99.0,
+      server_type: 'apachessl',
+      supplier_order_id: 141777,
+      special_instructions: 'Test ABC',
+      period: 1,
+      notes_list: [
+        {date: '2010-09-20T15:02:43.000- 04:00', type: 'order_processed', note: 'Order id [780] has been processed, supplierOrderId is [141777].'},
+        {date: '2010-09-20T15:02:43.000- 04:00', type: 'order_processed', note: 'Order id [780] has been processed, supplierOrderId is [141777].'}
+      ],
+      contact_set:
+        {
+          :admin =>
+            {
+              :first_name => 'Adler',
+              :last_name => 'Adams',
+              :title => 'Director',
+              :address1 => '32 Oak Street',
+              :address2 => 'Suite 100',
+              :address3 => nil,
+              :city => 'Santa Clara',
+              :state => 'CA',
+              :country => 'US',
+              :postal_code => 90210,
+              :org_name => 'Example Inc.',
+              :email => 'adams@example.com',
+              :phone => '+1.4165550123x1812',
+              :fax => '+1.4165550125'
+            },
+          :tech =>
+            {
+              :first_name => 'Tim',
+              :last_name => 'Tucker',
+              :title => 'Director',
+              :org_name => 'Example Inc.',
+              :address1 => '32 Oak Street',
+              :address2 => 'Suite 100',
+              :address3 => nil,
+              :city => 'Santa Clara',
+              :state => 'CA',
+              :country => 'US',
+              :postal_code => 90210,
+              :phone => '+1.4165550123x1243',
+              :fax => '+1.41655501255',
+              :email => 'tucker@example.com'
+            },
+          :organization =>
+            {
+              :org_name => 'Example Inc.',
+              :duns => 12345,
+              :address1 => '32 Oak Street',
+              :address2 => 'Suite 100',
+              :address3 => nil,
+              :city => 'Santa Clara',
+              :state => 'CA',
+              :postal_code => 90210,
+              :country => 'US',
+              :phone => '+1.4165550123',
+              :fax => '+1.4165550125'
+            },
+          :billing =>
+            {
+              :first_name => 'Bill',
+              :last_name => 'Burton',
+              :org_name => 'Example Inc.',
+              :title => nil,
+              :address1 => '32 Oak Street',
+              :address2 => 'Suite 100',
+              :address3 => nil,
+              :city => 'Santa Clara',
+              :state => 'CA',
+              :postal_code => '90210',
+              :country => 'US',
+              :phone => '+1.4165550123x1248',
+              :fax => '+1.4165550125',
+              :email => 'burton@example.com',
+            }
+        }
+    }
+  end
+
+
+
+  def register_ssl(order_id)
+    return register_ssl_hash, "register_ssl_cert_response"
+  end
+
   #def response(item_open_srs_client)
   def response
     result = {}
@@ -617,38 +589,40 @@ class OpenSRSResponse
     when RESEND_CERT_EMAIL
       result[:data], result[:layout] = resend_cert_email(order_id), ACTION_RESPONSE[RESEND_CERT_EMAIL]
 
-    when "SW_REGISTER"
-        if reg_type == "upgrade"
-          result[:data] = item_open_srs_client.renew_an_order_to_upgrade(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
-          result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium"
+    when SW_REGISTER
+      result[:data], result[:layout] = register_ssl(order_id)
 
-        elsif reg_type == "new" && product_type == "quickssl"
-          result[:data] = item_open_srs_client.get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order(@request_hash["base_order_id"],@request_hash["csr"],@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"]["contact_set"]["dt_assoc"]["admin"]["dt_assoc"])
-          result[:layout] = "renew_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order"
-
-        elsif reg_type == "new" && product_type == "securesite_ft"
-          result[:data] = item_open_srs_client.get_renew_ssl_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
-          result[:layout] = "renew_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate"
-
-        elsif reg_type == "new" && product_type == "malwarescan"
-          result[:data] = item_open_srs_client.get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
-          result[:layout] = "renew_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate"
-
-        elsif reg_type == "renew" && !order_id.blank?
-          result[:data] = item_open_srs_client.get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
-          result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id"
-
-        elsif reg_type == "renew" && !inventory_item_id.blank?
-          result[:data] = item_open_srs_client.get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
-          result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id"
-
-        elsif reg_type == "renew" && !product_id.blank?
-          result[:data] = item_open_srs_client.get_renew_ssl_renewal_order_for_a_quickssl_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
-          result[:layout] = "renew_renewal_order_for_a_quickssl_certificate"
-        else
-          result[:data] = item_open_srs_client.register_ssl_cert(@request_hash["order_id"])
-          result[:layout] = "register_ssl_cert_response"
-        end
+        #if reg_type == "upgrade"
+        #  result[:data] = item_open_srs_client.renew_an_order_to_upgrade(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
+        #  result[:layout] = "renew_an_order_to_upgrade_a_sitelock_ssl_certificate_to_sitelock_premium"
+        #
+        #elsif reg_type == "new" && product_type == "quickssl"
+        #  result[:data] = item_open_srs_client.get_renew_ssl_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order(@request_hash["base_order_id"],@request_hash["csr"],@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"]["contact_set"]["dt_assoc"]["admin"]["dt_assoc"])
+        #  result[:layout] = "renew_a_new_order_for_a_quickssl_certificate_based_on_an_existing_order"
+        #
+        #elsif reg_type == "new" && product_type == "securesite_ft"
+        #  result[:data] = item_open_srs_client.get_renew_ssl_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
+        #  result[:layout] = "renew_an_order_for_a_30_day_free_trial_of_a_symantec_securesite_certificate"
+        #
+        #elsif reg_type == "new" && product_type == "malwarescan"
+        #  result[:data] = item_open_srs_client.get_renew_ssl_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
+        #  result[:layout] = "renew_an_order_for_a_geotrust_web_site_anti_malware_scan_certificate"
+        #
+        #elsif reg_type == "renew" && !order_id.blank?
+        #  result[:data] = item_open_srs_client.get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
+        #  result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_order_id"
+        #
+        #elsif reg_type == "renew" && !inventory_item_id.blank?
+        #  result[:data] = item_open_srs_client.get_renew_ssl_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
+        #  result[:layout] = "renew_a_renewal_order_for_a_quickssl_certificate_that_was_submitted_by_using_the_product_id"
+        #
+        #elsif reg_type == "renew" && !product_id.blank?
+        #  result[:data] = item_open_srs_client.get_renew_ssl_renewal_order_for_a_quickssl_certificate(@request_hash["full"]["dt_assoc"]["attributes"]["dt_assoc"])
+        #  result[:layout] = "renew_renewal_order_for_a_quickssl_certificate"
+        #else
+        #  result[:data] = item_open_srs_client.register_ssl_cert(@request_hash["order_id"])
+        #  result[:layout] = "register_ssl_cert_response"
+        #end
 
     when "CANCEL_ORDER"
         result[:data], result[:layout] = cancel_order(order_id), "cancel_order_response"
