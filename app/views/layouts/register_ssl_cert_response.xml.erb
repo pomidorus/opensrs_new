@@ -19,7 +19,7 @@
             <item key='period'><%= @data[:period] %></item>
             <item key='notes_list'>
               <dt_array>
-                <% @data[:notes_list].each do |item, index| %>
+                <% @data[:notes_list].each_with_index do |item, index| %>
                 <item key='<%= index %>'>
                   <dt_assoc>
                     <item key='date'><%= item[:date] %></item>

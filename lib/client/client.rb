@@ -140,13 +140,22 @@ opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov"
 #puts api.response_xml
 
 
-#action = "SW_REGISTER"
-#object = "TRUST_SERVICE"
-#attributes = { order_id: '333' }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------SW_REGISTER---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+action = "SW_REGISTER"
+object = "TRUST_SERVICE"
+attributes = { order_id: '333' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------SW_REGISTER NEW---------------------------------------"
+puts api.request_xml
+puts api.response_xml
+
+
+action = "SW_REGISTER"
+object = "TRUST_SERVICE"
+attributes = { reg_type: 'upgrade' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------SW_REGISTER UPGRADE---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 
 
   #def renew_ssl(attributes)
