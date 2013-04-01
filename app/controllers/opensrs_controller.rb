@@ -60,23 +60,6 @@ ssl_certificate = {
   :dcv_method => :string,
 }
 
-contact_person = {
-  #:first_name => :string,
-  #:last_name => :string,
-  #:phone => :string,
-  #:fax => :string,
-  #:email => :string,
-  #:title => :string,
-  #:organization_name => :string,
-  #:address_line_1 => :string,
-  #:address_line_2 => :string,
-  #:city => :string,
-  #:region => :string,
-  #:postal_code => :string,
-  #:country => :string,
-  #:country_id => :integer
-}
-
 # empty class for client class SslProxy
 class SslProxy
   # empty
@@ -224,6 +207,7 @@ class OpenSRSResponse
   SRS_PRODUCT_TYPE = "product_type"
   SRS_DOMAIN = "domain"
   SRS_CSR = "csr"
+  SRS_INVENTORY_ITEM_ID = "inventory_item_id"
 
   GET_ORDER_INFO = "GET_ORDER_INFO"
   GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
@@ -283,7 +267,7 @@ class OpenSRSResponse
   end
 
   def inventory_item_id
-    request_hash["inventory_item_id"]
+    request_hash[SRS_INVENTORY_ITEM_ID]
   end
 
   def product_id
@@ -296,6 +280,8 @@ class OpenSRSResponse
 
 
   def parse_csr(product_type, csr)
+    #client_function(product_type, csr)
+    #response client function
     {
       domain_name: 'example.ru',
       country: 'RU',
