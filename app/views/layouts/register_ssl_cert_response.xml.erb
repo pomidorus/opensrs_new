@@ -19,12 +19,12 @@
             <item key='period'><%= @data[:period] %></item>
             <item key='notes_list'>
               <dt_array>
-                <% @data[:notes_list].sort.each do |key, data| %>
-                <item key='<%= key %>'>
+                <% @data[:notes_list].each do |item, index| %>
+                <item key='<%= index %>'>
                   <dt_assoc>
-                    <item key='date'><%= data[:date] %></item>
-                    <item key='type'><%= data[:type] %></item>
-                    <item key='note'><%= data[:note] %></item>
+                    <item key='date'><%= item[:date] %></item>
+                    <item key='type'><%= item[:type] %></item>
+                    <item key='note'><%= item[:note] %></item>
                   </dt_assoc>
                 </item>
                 <% end %>

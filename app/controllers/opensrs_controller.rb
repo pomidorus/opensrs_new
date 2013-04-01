@@ -223,6 +223,7 @@ class OpenSRSResponse
   SRS_PRODUCT_ID = "product_id"
   SRS_PRODUCT_TYPE = "product_type"
   SRS_DOMAIN = "domain"
+  SRS_CSR = "csr"
 
   GET_ORDER_INFO = "GET_ORDER_INFO"
   GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
@@ -287,6 +288,10 @@ class OpenSRSResponse
 
   def product_id
     request_hash[SRS_PRODUCT_ID]
+  end
+
+  def crs
+    @request_hash[SRS_CSR]
   end
 
 
@@ -563,13 +568,10 @@ class OpenSRSResponse
     }
   end
 
-
-
   def register_ssl(order_id)
     return register_ssl_hash, "register_ssl_cert_response"
   end
 
-  #def response(item_open_srs_client)
   def response
     result = {}
 
@@ -628,7 +630,7 @@ class OpenSRSResponse
         result[:data], result[:layout] = cancel_order(order_id), "cancel_order_response"
 
     when "PARSE_CSR"
-        result[:data], result[:layout] = parse_csr(product_type, @request_hash["csr"]), "parse_csr_response"
+        result[:data], result[:layout] = parse_csr(product_type, crs), "parse_csr_response"
     end
 
     result
