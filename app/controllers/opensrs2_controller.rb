@@ -4,6 +4,23 @@ require 'xmlsimple'
 require "rexml/document"
 
 
+GET_PRODUCT_INFO_ALL_HASH = {
+
+}
+
+
+GET_PRODUCT_INFO_HASH = {
+  product_type: "truebizid_wildcard",
+  issue_date: "2010-09-14-04:00",
+  domain: "www.mail.ru",
+  product_id: "23",
+  contact_email: "qafive@example.com",
+  start_date: "2010-09-13-04:00",
+  expiry_date: "2010-09-22-04:00",
+  is_renewable: "0",
+  state: "expired"
+}
+
 
 GET_ORDER_INFO_HASH = {
  owner: {
@@ -173,18 +190,26 @@ class ApiCommand
   GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
 
 
-  SRS_ORDER_ID = "order_id"
   SRS_ACTION = "action"
+  SRS_OBJECT = "object"
+  SRS_REG_TYPE = "reg_type"
+  SRS_ORDER_ID = "order_id"
+  SRS_PRODUCT_ID = "product_id"
+  SRS_PRODUCT_TYPE = "product_type"
+  SRS_DOMAIN = "domain"
+  SRS_CSR = "csr"
+  SRS_INVENTORY_ITEM_ID = "inventory_item_id"
+  SRS_ALL_INFO = "all_info"
 
 
   class AttributeHash < Struct
 
     ATTRIBUTE_HASH_DOMAIN = {
       GET_ORDER_INFO => [
-        SRS_ORDER_ID, SRS_ACTION
+        SRS_ACTION, SRS_ORDER_ID
       ],
       GET_PRODUCT_INFO => [
-        SRS_ORDER_ID, SRS_ACTION
+        SRS_ACTION
       ]
     }
 
@@ -193,7 +218,7 @@ class ApiCommand
         SRS_ACTION
       ],
       GET_PRODUCT_INFO => [
-        SRS_ACTION
+        SRS_ACTION, SRS_PRODUCT_ID, SRS_ALL_INFO
       ]
     }
 
@@ -257,6 +282,55 @@ class ApiCommand
     RESEND_CERT_EMAIL_RESPONSE = "resend_certificate_email"
     GET_ORDER_INFO_RESPONSE = "order_info_response"
     GET_PRODUCT_INFO_RESPONSE = "product_info_response"
+    GET_PRODUCT_INFO_ALL_RESPONSE = "product_info_all_response"
+
+    class GPIInfo
+     attr :attributes
+     def initialize(attributes)
+       @attributes = attributes
+     end
+
+     def response
+       #attributes
+       ##client_function(attributes)
+       return GET_PRODUCT_INFO_RESPONSE, GET_PRODUCT_INFO_HASH
+     end
+    end
+
+    class GPIAll
+      attr :attributes
+     def initialize(attributes)
+       @attributes = attributes
+     end
+
+     def response
+       #attributes
+       ##client_function(attributes)
+       return GET_PRODUCT_INFO_ALL_RESPONSE, GET_PRODUCT_INFO_ALL_HASH
+     end
+    end
+
+    class GPIResponse
+      attr :attributes
+      def self.all_info
+        @attributes['all_info']
+      end
+
+      def initialize(attributes)
+        @attributes = attributes
+      end
+
+      def self.create(attributes)
+        @attributes = attributes
+        case all_info
+          when nil
+            return GPIInfo.new(attributes)
+          when "1"
+            return GPIAll.new(attributes)
+        end
+      end
+    end
+
 
     def action
       attributes['action'].downcase
@@ -272,12 +346,10 @@ class ApiCommand
     end
 
     def get_product_info
-      #
-      #r = {}
-      ##attributes
-      ###client_function(attributes)
-      #r[:layout], r[:data] = GET_PRODUCT_INFO_RESPONSE, GET_ORDER_INFO_HASH
-      #r
+      r = {}
+      gpi = GPIResponse.create(attributes)
+      r[:layout], r[:data] = gpi.response
+      r
     end
   end
 

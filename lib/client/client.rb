@@ -55,13 +55,13 @@ puts api.request_xml
 puts api.response_xml
 
 ##Retrieves all information for a Trust Service product.
-#action = "GET_PRODUCT_INFO"
-#object = "TRUST_SERVICE"
-#attributes = { product_id: '123746', all_info: 1 }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------GET_PRODUCT_INFO---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+action = "GET_PRODUCT_INFO"
+object = "TRUST_SERVICE"
+attributes = { product_id: '123746', all_info: 1 }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------GET_PRODUCT_INFO---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 ###
 ###
 
