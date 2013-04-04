@@ -1,5 +1,7 @@
 require 'nokogiri'
 #require 'opensrs'
+require 'xmlsimple'
+require "rexml/document"
 
 # empty class for client class SslProxy
 class SslProxy
@@ -38,8 +40,6 @@ class OpenSRSRequestParse
   def request_hash
     request = Nokogiri::XML(xml)
     rh = {}
-    Rails.logger.debug request.inspect
-
     request.xpath('//OPS_envelope/body/data_block/dt_assoc/item').each do |item|
       rh[item['key']] = item.content unless item['key'] == "attributes"
     end
@@ -48,6 +48,20 @@ class OpenSRSRequestParse
     end
     rh
   end
+
+  def request_hash_simplexml
+    XmlSimple.xml_in(xml, 'force_array' => ['item'], 'group_tags' => {'dt_assoc' => 'item'}, 'KeyAttr' => 'item')
+    #{ 'KeyAttr' => 'name' }
+  end
+
+  def request_hash_rexml
+    #getorderinfo = GetOrderInfo.new("12343")
+    doc = REXML::Document.new xml
+    h = {}
+    doc.elements.each("//dt_assoc/item") { |element| h[element.attributes['key']] = element.text}
+    h
+  end
+
 end
 
 class OpenSRSResponse
@@ -435,6 +449,95 @@ class OpenSRSResponse
 
 end
 
+
+#---------------------------------------------------------------------
+
+class ApiCommand
+  attr :request_hash, :object, :action
+
+  H_ACTION = 'action'
+  H_OBJECT = 'object'
+
+  GET_ORDER_INFO = "GET_ORDER_INFO"
+  GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
+
+
+  SRS_ORDER_ID = "order_id"
+  SRS_ACTION = "action"
+
+  ATTRIBUTE_HASH_DOMAIN = {
+    GET_ORDER_INFO => [
+      SRS_ORDER_ID, SRS_ACTION
+    ],
+    GET_PRODUCT_INFO => [
+      SRS_ORDER_ID
+    ]
+  }
+
+  ATTRIBUTE_HASH_SERVICE = {
+    GET_ORDER_INFO => [
+    ],
+    GET_PRODUCT_INFO => [
+    ]
+  }
+
+
+
+  class AttributeHash < Struct
+    def domain
+      ATTRIBUTE_HASH_DOMAIN[request_hash[H_ACTION]]
+    end
+
+    def trust_service
+      ATTRIBUTE_HASH_SERVICE[request_hash[H_ACTION]]
+    end
+  end
+
+  class ActionHash < Struct
+
+    def get_order_info
+      #attributes['order_id']
+      ##client_function(order_id)
+      ##response client function
+      #GET_ORDER_INFO_RESPONSE
+    end
+
+    def get_product_info
+      #"get_product_info"
+    end
+  end
+
+  AttrH = AttributeHash.new(:request_hash)
+  AH = ActionHash.new(:attributes)
+
+  def initialize(request_hash)
+    @request_hash = request_hash
+    @object = request_hash[H_OBJECT].downcase
+    @action = request_hash[H_ACTION].downcase
+  end
+
+  def create
+    #ch = {:order_id => '1212'}
+    attribute_hash = AttrH.new(@request_hash)
+    attr_value(attribute_hash.send(@object))
+    #action_hash = AH.new(av)
+    #puts action_hash.send(@action)
+  end
+
+  private
+  def attr_value(ch)
+    cc = {}
+    ch.each do |command|
+      cc[command] = @request_hash[command]
+    end
+    cc
+  end
+
+end
+
+#---------------------------------------------------------------------
+
+
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
 
@@ -445,13 +548,16 @@ class OpensrsController < ApplicationController
     username = request.headers[USERNAME]
     signature = request.headers[SIGNATURE]
 
-    opensrs_request_hash = OpenSRSRequestParse.new(request.body.read).request_hash
-    opensrs = OpenSRSClient.new(opensrs_request_hash,username,signature)
+    body_xml = request.body.read
+
+    rh = OpenSRSRequestParse.new(body_xml).request_hash_rexml
+    puts api = ApiCommand.new(rh).create
+    #opensrs_request_hash = OpenSRSRequestParse.new(body_xml).request_hash
+    opensrs = OpenSRSClient.new(api,username,signature)
 
     if opensrs.authenticate?
       response_hash = opensrs.response
       @data = response_hash[:data]
-      Rails.logger.debug @data
       render "layouts/#{response_hash[:layout]}", :formats => [:xml]
     else
       render "layouts/bad_authorization", :formats => [:xml]
@@ -459,3 +565,4 @@ class OpensrsController < ApplicationController
   end
 end
 
+    #Rails.logger.debug OpenSRSRequestParse.new(body_xml).request_hash_simplexml

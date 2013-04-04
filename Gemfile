@@ -10,6 +10,7 @@ gem 'rabl'
 gem 'oj'
 
 gem 'nokogiri'
+gem 'xml-simple'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

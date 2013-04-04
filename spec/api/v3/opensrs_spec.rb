@@ -32,3 +32,10 @@ describe OpenSRSRequestParse do
   end
 
 end
+
+
+describe ApiCommand do
+
+  it ""
+
+end

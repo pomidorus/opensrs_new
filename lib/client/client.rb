@@ -6,7 +6,7 @@ class OpenSRSRequest
   attr :server, :username, :password, :key
 
   def initialize(server,username,password,key)
-    #OpenSRS::Server.xml_processor = :libxml
+    OpenSRS::Server.xml_processor = :libxml
     @server, @username, @password, @key = server, username, password, key
   end
 
@@ -34,15 +34,18 @@ end
 opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 #opensrs_request = OpenSRSRequest.new("http://opensrs.herokuapp.com/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 
+#For a .RU domain order
 action = "GET_ORDER_INFO"
 object = "DOMAIN"
-attributes = { order_id: '123746' }
+attributes = { order_id: '123746'}
 api = opensrs_request.request_api(action,object,attributes)
 puts "------GET_ORDER_INFO---------------------------------------"
 puts api.request_xml
 puts api.response_xml
 #
 #
+
+##Retrieves the properties for a Trust Service product.
 #action = "GET_PRODUCT_INFO"
 #object = "TRUST_SERVICE"
 #attributes = { product_id: '123746' }
@@ -50,8 +53,18 @@ puts api.response_xml
 #puts "------GET_PRODUCT_INFO---------------------------------------"
 #puts api.request_xml
 #puts api.response_xml
-##
-##
+
+##Retrieves all information for a Trust Service product.
+#action = "GET_PRODUCT_INFO"
+#object = "TRUST_SERVICE"
+#attributes = { product_id: '123746', all_info: 1 }
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------GET_PRODUCT_INFO---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
+###
+###
+
 #action = "QUERY_APPROVER_LIST"
 #object = "TRUST_SERVICE"
 #attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
