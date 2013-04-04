@@ -123,28 +123,48 @@ class ApiCommand
 
 
   SRS_ORDER_ID = "order_id"
+  SRS_ACTION = "action"
+
+  QUERY_APPROVER_LIST_RESPONSE = "approver_list_response"
+  RESEND_APPROVE_EMAIL_RESPONSE = "resend_approve_email"
+  RESEND_CERT_EMAIL_RESPONSE = "resend_certificate_email"
+  GET_ORDER_INFO_RESPONSE = "order_info_response"
+  GET_PRODUCT_INFO_RESPONSE = "product_info_response"
+
 
   ATTRIBUTE_HASH_DOMAIN = {
     GET_ORDER_INFO => [
-      SRS_ORDER_ID
+      SRS_ORDER_ID, SRS_ACTION
     ],
     GET_PRODUCT_INFO => [
-      SRS_ORDER_ID
+      SRS_ORDER_ID, SRS_ACTION
     ]
   }
 
   ATTRIBUTE_HASH_SERVICE = {
     GET_ORDER_INFO => [
+      SRS_ACTION
     ],
     GET_PRODUCT_INFO => [
+      SRS_ACTION
     ]
   }
 
 
 
   class AttributeHash < Struct
+
+    def attr_value(ch)
+      cc = {}
+      ch.each do |command|
+        cc[command] = request_hash[command]
+      end
+      cc
+    end
+
     def domain
-      ATTRIBUTE_HASH_DOMAIN[request_hash[H_ACTION]]
+      request_parameters = attr_value(ATTRIBUTE_HASH_DOMAIN[request_hash[H_ACTION]])
+      ActionH.new(request_parameters).response
     end
 
     def trust_service
@@ -154,20 +174,31 @@ class ApiCommand
 
   class ActionHash < Struct
 
+    def action
+      attributes['action'].downcase
+    end
+
+    def response
+      self.send(action)
+    end
+
     def get_order_info
       #attributes['order_id']
       ##client_function(order_id)
       ##response client function
       #GET_ORDER_INFO_RESPONSE
+      "get_order_info"
+
+      return {:layout => "test", :data => {test: "test"}}
     end
 
     def get_product_info
-      #"get_product_info"
+      "get_product_info"
     end
   end
 
   AttrH = AttributeHash.new(:request_hash)
-  AH = ActionHash.new(:attributes)
+  ActionH = ActionHash.new(:attributes)
 
   def initialize(request_hash)
     @request_hash = request_hash
@@ -175,27 +206,15 @@ class ApiCommand
     @action = request_hash[H_ACTION].downcase
   end
 
-  def create
-    #ch = {:order_id => '1212'}
+  def response
     attribute_hash = AttrH.new(@request_hash)
-    attr_value(attribute_hash.send(@object))
-    #action_hash = AH.new(av)
-    #puts action_hash.send(@action)
-  end
-
-  private
-  def attr_value(ch)
-    cc = {}
-    ch.each do |command|
-      cc[command] = @request_hash[command]
-    end
-    cc
+    attribute_hash.send(@object)
   end
 
 end
 
-puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_ORDER_INFO", "object"=>"DOMAIN", "attributes"=>"\n          ", "order_id"=>"123746"}).create
-puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_ORDER_INFO", "object"=>"TRUST_SERVICE", "attributes"=>"\n          ", "order_id"=>"123746", "test"=>"lolo", "tro"=>"\n              ", "dfdf"=>"\n                  ", "d"=>"d", "f"=>"d", "sdsd"=>"\n                  ", "dd"=>"d", "ff"=>"d"}).create
+puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_ORDER_INFO", "object"=>"DOMAIN", "attributes"=>"\n          ", "order_id"=>"123746"}).response
+#puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_ORDER_INFO", "object"=>"TRUST_SERVICE", "attributes"=>"\n          ", "order_id"=>"123746", "test"=>"lolo", "tro"=>"\n              ", "dfdf"=>"\n                  ", "d"=>"d", "f"=>"d", "sdsd"=>"\n                  ", "dd"=>"d", "ff"=>"d"}).create
 
-puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_PRODUCT_INFO", "object"=>"DOMAIN", "attributes"=>"\n          ", "order_id"=>"123746", "test"=>"lolo", "tro"=>"\n              ", "dfdf"=>"\n                  ", "d"=>"d", "f"=>"d", "sdsd"=>"\n                  ", "dd"=>"d", "ff"=>"d"}).create
-puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_PRODUCT_INFO", "object"=>"TRUST_SERVICE", "attributes"=>"\n          ", "order_id"=>"123746", "test"=>"lolo", "tro"=>"\n              ", "dfdf"=>"\n                  ", "d"=>"d", "f"=>"d", "sdsd"=>"\n                  ", "dd"=>"d", "ff"=>"d"}).create
+#puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_PRODUCT_INFO", "object"=>"DOMAIN", "attributes"=>"\n          ", "order_id"=>"123746", "test"=>"lolo", "tro"=>"\n              ", "dfdf"=>"\n                  ", "d"=>"d", "f"=>"d", "sdsd"=>"\n                  ", "dd"=>"d", "ff"=>"d"}).create
+#puts ApiCommand.new({"protocol"=>"XCP", "action"=>"GET_PRODUCT_INFO", "object"=>"TRUST_SERVICE", "attributes"=>"\n          ", "order_id"=>"123746", "test"=>"lolo", "tro"=>"\n              ", "dfdf"=>"\n                  ", "d"=>"d", "f"=>"d", "sdsd"=>"\n                  ", "dd"=>"d", "ff"=>"d"}).create

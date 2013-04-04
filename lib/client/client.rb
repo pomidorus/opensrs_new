@@ -31,28 +31,28 @@ class OpenSRSRequest
 
 end
 
-opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
+opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs2","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 #opensrs_request = OpenSRSRequest.new("http://opensrs.herokuapp.com/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 
 #For a .RU domain order
-action = "GET_ORDER_INFO"
-object = "DOMAIN"
-attributes = { order_id: '123746'}
-api = opensrs_request.request_api(action,object,attributes)
-puts "------GET_ORDER_INFO---------------------------------------"
-puts api.request_xml
-puts api.response_xml
+#action = "GET_ORDER_INFO"
+#object = "DOMAIN"
+#attributes = { order_id: '123746'}
+#api = opensrs_request.request_api(action,object,attributes)
+#puts "------GET_ORDER_INFO---------------------------------------"
+#puts api.request_xml
+#puts api.response_xml
 #
 #
 
 ##Retrieves the properties for a Trust Service product.
-#action = "GET_PRODUCT_INFO"
-#object = "TRUST_SERVICE"
-#attributes = { product_id: '123746' }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------GET_PRODUCT_INFO---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+action = "GET_PRODUCT_INFO"
+object = "TRUST_SERVICE"
+attributes = { product_id: '123746' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------GET_PRODUCT_INFO---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 
 ##Retrieves all information for a Trust Service product.
 #action = "GET_PRODUCT_INFO"
