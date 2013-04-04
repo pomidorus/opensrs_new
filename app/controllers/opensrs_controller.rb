@@ -1,5 +1,5 @@
 require 'nokogiri'
-require 'opensrs'
+#require 'opensrs'
 
 # empty class for client class SslProxy
 class SslProxy
@@ -38,10 +38,12 @@ class OpenSRSRequestParse
   def request_hash
     request = Nokogiri::XML(xml)
     rh = {}
-    request.xpath('//OPS_envelope/dt_assoc/item').each do |item|
+    Rails.logger.debug request.inspect
+
+    request.xpath('//OPS_envelope/body/data_block/dt_assoc/item').each do |item|
       rh[item['key']] = item.content unless item['key'] == "attributes"
     end
-    request.xpath('//OPS_envelope/dt_assoc/item/dt_assoc/item').each do |item|
+    request.xpath('//OPS_envelope/body/data_block/dt_assoc/item/dt_assoc/item').each do |item|
       rh[item['key']] = item.content
     end
     rh
@@ -449,6 +451,7 @@ class OpensrsController < ApplicationController
     if opensrs.authenticate?
       response_hash = opensrs.response
       @data = response_hash[:data]
+      Rails.logger.debug @data
       render "layouts/#{response_hash[:layout]}", :formats => [:xml]
     else
       render "layouts/bad_authorization", :formats => [:xml]
