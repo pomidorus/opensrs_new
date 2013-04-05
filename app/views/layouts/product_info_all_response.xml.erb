@@ -34,101 +34,101 @@
                  <% @data[:notes_list].each_with_index do |item, index| %>
                     <item key='<%= index %>'>
                       <dt_assoc>
-                        <item key='date'><%= item[:timestamp] %></item>
-                        <item key='type'><%= item[:timestamp] %></item>
-                        <item key='note'><%= item[:timestamp] %></item>
+                        <item key='date'><%= item[:date] %></item>
+                        <item key='type'><%= item[:type] %></item>
+                        <item key='note'><%= item[:note] %></item>
                       </dt_assoc>
                     </item>
                  <% end %>
               </dt_array>
             </item>
-            <item key='expiry_date'>2013-04-12T18:59:59.000-05:00</item>
-            <item key='state'>active</item>
-            <item key='product_type'>sitelock_premium</item>
-            <item key='domain'>trust.example.org</item>
-            <item key='issue_date'>2012-04-12T10:02:01.000-05:00</item>
-            <item key='product_id'>2071</item>
-            <item key='is_renewable'>0</item>
-            <item key='contact_email'>qafive@example.com</item>
+            <item key='expiry_date'><%= @data[:expiry_date] %></item>
+            <item key='state'><%= @data[:state] %></item>
+            <item key='product_type'><%= @data[:product_type] %></item>
+            <item key='domain'><%= @data[:domain] %></item>
+            <item key='issue_date'><%= @data[:issue_date] %></item>
+            <item key='product_id'><%= @data[:product_id] %></item>
+            <item key='is_renewable'><%= @data[:is_renewable] %></item>
+            <item key='contact_email'><%= @data[:contact_email] %></item>
             <item key='contact_set'>
               <dt_assoc>
                 <item key='admin'>
                   <dt_assoc>
-                    <item key='first_name'>Adler</item>
-                    <item key='last_name'>Adams</item>
-                    <item key='title'>Administrator</item>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='country'>US</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='phone'>+1.4165550123x1812</item>
-                    <item key='email'>adams@example.com</item>
-                    <item key='fax'>+1.4165550125</item>
+                    <item key='first_name'><%= @data[:contact_set][:admin][:first_name] %></item>
+                    <item key='last_name'><%= @data[:contact_set][:admin][:last_name] %></item>
+                    <item key='title'><%= @data[:contact_set][:admin][:title] %></item>
+                    <item key='org_name'><%= @data[:contact_set][:admin][:org_name] %></item>
+                    <item key='address1'><%= @data[:contact_set][:admin][:address1] %></item>
+                    <item key='address2'><%= @data[:contact_set][:admin][:address2] %></item>
+                    <item key='city'><%= @data[:contact_set][:admin][:city] %></item>
+                    <item key='region'><%= @data[:contact_set][:admin][:region] %></item>
+                    <item key='country'><%= @data[:contact_set][:admin][:country] %></item>
+                    <item key='country_id'><%= @data[:contact_set][:admin][:country_id] %></item>
+                    <item key='postal_code'><%= @data[:contact_set][:admin][:postal_code] %></item>
+                    <item key='phone'><%= @data[:contact_set][:admin][:phone] %></item>
+                    <item key='email'><%= @data[:contact_set][:admin][:email] %></item>
+                    <item key='fax'><%= @data[:contact_set][:admin][:fax] %></item>
                   </dt_assoc>
                 </item>
                 <item key='tech'>
                   <dt_assoc>
-                    <item key='first_name'>Tim</item>
-                    <item key='last_name'>Tucker</item>
-                    <item key='title'/>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='country'>US</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='phone'>+1.4165550123x1243</item>
-                    <item key='fax'>+1.4165550125</item>
-                    <item key='email'>tucker@example.com</item>
+                    <item key='first_name'><%= @data[:contact_set][:tech][:first_name] %></item>
+                    <item key='last_name'><%= @data[:contact_set][:tech][:last_name] %></item>
+                    <item key='title'><%= @data[:contact_set][:tech][:title] %></item>
+                    <item key='org_name'><%= @data[:contact_set][:tech][:org_name] %></item>
+                    <item key='address1'><%= @data[:contact_set][:tech][:address1] %></item>
+                    <item key='address2'><%= @data[:contact_set][:tech][:address2] %></item>
+                    <item key='city'><%= @data[:contact_set][:tech][:city] %></item>
+                    <item key='region'><%= @data[:contact_set][:tech][:region] %></item>
+                    <item key='country'><%= @data[:contact_set][:tech][:country] %></item>
+                    <item key='country_id'><%= @data[:contact_set][:tech][:country_id] %></item>
+                    <item key='postal_code'><%= @data[:contact_set][:tech][:postal_code] %></item>
+                    <item key='phone'><%= @data[:contact_set][:tech][:phone] %></item>
+                    <item key='email'><%= @data[:contact_set][:tech][:email] %></item>
+                    <item key='fax'><%= @data[:contact_set][:tech][:fax] %></item>
                   </dt_assoc>
                 </item>
                 <item key='organization'>
                   <dt_assoc>
-                    <item key='first_name'>Jim</item>
-                    <item key='last_name'>Johnson</item>
-                    <item key='title'>Director</item>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 100</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='country'>US</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='email'>jjohnson@example.com</item>
-                    <item key='phone'>+1.4165550125x1224</item>
-                    <item key='fax'>+1.4165550126</item>
+                    <item key='first_name'><%= @data[:contact_set][:organization][:first_name] %></item>
+                    <item key='last_name'><%= @data[:contact_set][:organization][:last_name] %></item>
+                    <item key='title'><%= @data[:contact_set][:organization][:title] %></item>
+                    <item key='org_name'><%= @data[:contact_set][:organization][:org_name] %></item>
+                    <item key='address1'><%= @data[:contact_set][:organization][:address1] %></item>
+                    <item key='address2'><%= @data[:contact_set][:organization][:address2] %></item>
+                    <item key='city'><%= @data[:contact_set][:organization][:city] %></item>
+                    <item key='region'><%= @data[:contact_set][:organization][:region] %></item>
+                    <item key='country'><%= @data[:contact_set][:organization][:country] %></item>
+                    <item key='country_id'><%= @data[:contact_set][:organization][:country_id] %></item>
+                    <item key='postal_code'><%= @data[:contact_set][:organization][:postal_code] %></item>
+                    <item key='phone'><%= @data[:contact_set][:organization][:phone] %></item>
+                    <item key='email'><%= @data[:contact_set][:organization][:email] %></item>
+                    <item key='fax'><%= @data[:contact_set][:organization][:fax] %></item>
                   </dt_assoc>
                 </item>
                 <item key='billing'>
                   <dt_assoc>
-                    <item key='first_name'>Bill</item>
-                    <item key='last_name'>Burton</item>
-                    <item key='title'/>
-                    <item key='org_name'>Example Inc.</item>
-                    <item key='address1'>32 Oak Street</item>
-                    <item key='address2'>Suite 200</item>
-                    <item key='address3'/>
-                    <item key='city'>Santa Clara</item>
-                    <item key='state'>CA</item>
-                    <item key='country'>US</item>
-                    <item key='postal_code'>90210</item>
-                    <item key='phone'>+1.4165550123x1248</item>
-                    <item key='fax'>+1.4165550136</item>
-                    <item key='email'>burton@example.com</item>
+                    <item key='first_name'><%= @data[:contact_set][:billing][:first_name] %></item>
+                    <item key='last_name'><%= @data[:contact_set][:billing][:last_name] %></item>
+                    <item key='title'><%= @data[:contact_set][:billing][:title] %></item>
+                    <item key='org_name'><%= @data[:contact_set][:billing][:org_name] %></item>
+                    <item key='address1'><%= @data[:contact_set][:billing][:address1] %></item>
+                    <item key='address2'><%= @data[:contact_set][:billing][:address2] %></item>
+                    <item key='city'><%= @data[:contact_set][:billing][:city] %></item>
+                    <item key='region'><%= @data[:contact_set][:billing][:region] %></item>
+                    <item key='country'><%= @data[:contact_set][:billing][:country] %></item>
+                    <item key='country_id'><%= @data[:contact_set][:billing][:country_id] %></item>
+                    <item key='postal_code'><%= @data[:contact_set][:billing][:postal_code] %></item>
+                    <item key='phone'><%= @data[:contact_set][:billing][:phone] %></item>
+                    <item key='email'><%= @data[:contact_set][:billing][:email] %></item>
+                    <item key='fax'><%= @data[:contact_set][:billing][:fax] %></item>
                   </dt_assoc>
                 </item>
               </dt_assoc>
             </item>
-            <item key='csr'>-----BEGIN CERTIFICATE REQUEST----- MIIC2TCCAcECAQAwgZMxIDAeBgNVBAMTF3NzbDEyMy5xYXJlZ3Jlc3Npb24ub3Jn MQswCQYDVQQGEwJDQTELMAkGA1UECBMCT04xEDAOBgNVBAcTB1Rvcm9udG8xDzAN BgNVBAoTBlR1Y293czEQMA4GA1UECxMHUUEgRGVwdDEgMB4GCSqGSIb3DQEJARYR cWFmaXZlQHR1Y293cy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB AQDpKz48gJG4ImyJi76kH3AdDZoGNZCC8xgWBUDk4yNXPqe3NxJvZooZIoctP2o8 CX6+xoK8p6jMb9iIz7ZVC9LuoUmoYZZWdoatMUwaz3xIa4Fq7HeLtCE3misKMcZq +QomhLFv2yMSgyzWWitHdW5oVDuT83Xs8FTZG33rI8gut1J9+5fhJV4WKuncfLwM xMrj+5iWm+KwoE86dTarGAPwYhC2FepcblszVbz87Dp1clTJLaN4potMES83RHo1 teHHmJAilNzy2PfRoylbzlQ38x1n10wbhqjMcoDYk6CSB40PlduqbsMjpkOClwu4 H92c2Hmo3bqRGWM2K5SXkj29AgMBAAGgADANBgkqhkiG9w0BAQQFAAOCAQEAKUh6 WH4WtC/LtlJhj+p5i3sLEG/L//8DQh30eOxwMxrSGGZUGTfLBT4RaeDA5JEIF5pK v4MxvDw1+NExMQW3h/9eVWXpGGjvC2EoLgya3ri3OJlQNOyqSzOvNunk0EPaWoO+ v9o2yKdH88e7NQZp8Pw5jhE9RV9u3+mNw2sztqpzcXYDXW3kKI2UiIP3eur2/iiH nSAIRl5NfUPgAzCem/zpM1lc3s+EVKysn2wF4bwOkNyYPo4DmgHCb7ggSQyhh5vN UAoDkyqu2ZScDZTyDG7YOdobMqwbsCT5er5Bq+NWOZyUE+3zO/1VQpznJehaGLrQ N7UAJliUAO+SFFGdxQ== -----END CERTIFICATE REQUEST-----</item>
-            <item key='upgrade_options'>sitelock_enterprise</item>
-            <item key='start_date'>2012-04-11T19:00:00.000-05:00</item>
+            <item key='csr'><%= @data[:csr] %></item>
+            <item key='upgrade_options'><%= @data[:upgrade_options] %></item>
+            <item key='start_date'><%= @data[:start_date] %></item>
           </dt_assoc>
         </item>
       </dt_assoc>
