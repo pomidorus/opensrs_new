@@ -81,6 +81,10 @@ QUERY_APPROVER_LIST_HASH = {
   ]
 }
 
+RESEND_APPROVE_EMAIL_HASH = {
+  order_id: "1111"
+}
+
 
 
 GET_ORDER_INFO_HASH = {
@@ -372,6 +376,15 @@ class ApiCommand
       r[:layout], r[:data] = QUERY_APPROVER_LIST_RESPONSE, QUERY_APPROVER_LIST_HASH
       r
     end
+
+    def resend_approve_email
+      r = {}
+      #attributes
+      ##client_function(attributes)
+      r[:layout], r[:data] = RESEND_APPROVE_EMAIL_RESPONSE, RESEND_APPROVE_EMAIL_HASH
+      r
+    end
+
   end
 
 
