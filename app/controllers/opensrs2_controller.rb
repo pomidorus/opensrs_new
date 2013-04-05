@@ -4,6 +4,14 @@ require 'xmlsimple'
 require "rexml/document"
 
 
+CANCEL_ORDER_HASH = {
+   domain_name: "example.ru",
+   order_id: "5555",
+   state: "declined"
+ }
+
+
+
 CLIENT_CONTACT = {
   first_name: "Andrey",
   last_name: "Seleznov",
@@ -240,6 +248,9 @@ class ApiCommand
       ],
       RESEND_CERT_EMAIL => [
         SRS_ACTION, SRS_ORDER_ID
+      ],
+      CANCEL_ORDER => [
+        SRS_ACTION, SRS_ORDER_ID
       ]
     }
 
@@ -304,6 +315,8 @@ class ApiCommand
     GET_ORDER_INFO_RESPONSE = "order_info_response"
     GET_PRODUCT_INFO_RESPONSE = "product_info_response"
     GET_PRODUCT_INFO_ALL_RESPONSE = "product_info_all_response"
+    CANCEL_ORDER_RESPONSE = "cancel_order_response"
+    PARSE_CSR_RESPONSE = "parse_csr_response"
 
     class GPIInfo
      attr :attributes
@@ -394,6 +407,14 @@ class ApiCommand
       #attributes
       ##client_function(attributes)
       r[:layout], r[:data] = RESEND_CERT_EMAIL_RESPONSE, RESEND_CERT_EMAIL_HASH
+      r
+    end
+
+    def cancel_order
+      r = {}
+      #attributes
+      ##client_function(attributes)
+      r[:layout], r[:data] = CANCEL_ORDER_RESPONSE, CANCEL_ORDER_HASH
       r
     end
 
