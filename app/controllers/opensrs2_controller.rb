@@ -71,6 +71,18 @@ GET_PRODUCT_INFO_HASH = {
 }
 
 
+QUERY_APPROVER_LIST_HASH = {
+  approver_list: [
+    {email: "qafive@example.com", domain: "example.com", type: "MANUAL"},
+    {email: "ottway@example.com", domain: "example.com", type: "MANUAL"},
+    {email: "qafive@example.com", domain: "example.com", type: "MANUAL"},
+    {email: "admin@example.com", domain: "example.com", type: "MANUAL"},
+    {email: "qafive@example.com", domain: "example.com", type: "MANUAL"}
+  ]
+}
+
+
+
 GET_ORDER_INFO_HASH = {
  owner: CLIENT_CONTACT,
  admin: CLIENT_CONTACT,
@@ -177,6 +189,12 @@ class ApiCommand
 
   GET_ORDER_INFO = "GET_ORDER_INFO"
   GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
+  QUERY_APPROVER_LIST = "QUERY_APPROVER_LIST"
+  RESEND_APPROVE_EMAIL = "RESEND_APPROVE_EMAIL"
+  RESEND_CERT_EMAIL = "RESEND_CERT_EMAIL"
+  SW_REGISTER = "SW_REGISTER"
+  CANCEL_ORDER = "CANCEL_ORDER"
+  PARSE_CSR = "PARSE_CSR"
 
 
   SRS_ACTION = "action"
@@ -208,6 +226,9 @@ class ApiCommand
       ],
       GET_PRODUCT_INFO => [
         SRS_ACTION, SRS_PRODUCT_ID, SRS_ALL_INFO
+      ],
+      QUERY_APPROVER_LIST => [
+        SRS_ACTION, SRS_DOMAIN, SRS_PRODUCT_TYPE
       ]
     }
 
@@ -338,6 +359,14 @@ class ApiCommand
       r = {}
       gpi = GPIResponse.create(attributes)
       r[:layout], r[:data] = gpi.response
+      r
+    end
+
+    def query_approver_list
+      r = {}
+      #attributes
+      ##client_function(attributes)
+      r[:layout], r[:data] = QUERY_APPROVER_LIST_RESPONSE, QUERY_APPROVER_LIST_HASH
       r
     end
   end

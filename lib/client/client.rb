@@ -65,13 +65,13 @@ puts api.response_xml
 ###
 ###
 
-#action = "QUERY_APPROVER_LIST"
-#object = "TRUST_SERVICE"
-#attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------QUERY_APPROVER_LIST---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+action = "QUERY_APPROVER_LIST"
+object = "TRUST_SERVICE"
+attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------QUERY_APPROVER_LIST---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 ##
 ##
 #action = "RESEND_APPROVE_EMAIL"
