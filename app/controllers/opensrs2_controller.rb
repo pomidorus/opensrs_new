@@ -24,7 +24,7 @@ CLIENT_CONTACT = {
 
 GET_PRODUCT_INFO_ALL_HASH = {
   csr_data: {
-    country: "US",
+    country: "Ukraina",
     organization_unit: "QA Dept",
     valid_true_domain: "1",
     state: "CA",

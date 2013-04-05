@@ -17,27 +17,29 @@
           <dt_assoc>
             <item key='csr_data'>
               <dt_assoc>
-                <item key='country'>US</item>
-                <item key='organization_unit'>QA Dept</item>
-                <item key='valid_true_domain'>1</item>
-                <item key='state'>CA</item>
-                <item key='locality'>Santa Clara</item>
-                <item key='email'>qafive@example.com</item>
-                <item key='domain'>abc123.example.org</item>
-                <item key='valid_quick_domain'>1</item>
-                <item key='has_bad_extensions'>0</item>
-                <item key='organization'>Example Co.</item>
+                <item key='country'><%= @data[:csr_data][:country] %></item>
+                <item key='organization_unit'><%= @data[:csr_data][:organization_unit] %></item>
+                <item key='valid_true_domain'><%= @data[:csr_data][:valid_true_domain] %></item>
+                <item key='state'><%= @data[:csr_data][:state] %></item>
+                <item key='locality'><%= @data[:csr_data][:locality] %></item>
+                <item key='email'><%= @data[:csr_data][:email] %></item>
+                <item key='domain'><%= @data[:csr_data][:domain] %></item>
+                <item key='valid_quick_domain'><%= @data[:csr_data][:valid_quick_domain] %></item>
+                <item key='has_bad_extensions'><%= @data[:csr_data][:has_bad_extensions] %></item>
+                <item key='organization'><%= @data[:csr_data][:organization] %></item>
               </dt_assoc>
             </item>
             <item key='notes_list'>
               <dt_array>
-                <item key='0'>
-                  <dt_assoc>
-                    <item key='date'>2012-04-12T10:05:08.000-05:00</item>
-                    <item key='type'>product_active</item>
-                    <item key='note'>The product with the id [2071] has been created.</item>
-                  </dt_assoc>
-                </item>
+                 <% @data[:notes_list].each_with_index do |item, index| %>
+                    <item key='<%= index %>'>
+                      <dt_assoc>
+                        <item key='date'><%= item[:timestamp] %></item>
+                        <item key='type'><%= item[:timestamp] %></item>
+                        <item key='note'><%= item[:timestamp] %></item>
+                      </dt_assoc>
+                    </item>
+                 <% end %>
               </dt_array>
             </item>
             <item key='expiry_date'>2013-04-12T18:59:59.000-05:00</item>
