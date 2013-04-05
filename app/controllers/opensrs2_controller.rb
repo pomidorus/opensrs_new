@@ -229,6 +229,9 @@ class ApiCommand
       ],
       QUERY_APPROVER_LIST => [
         SRS_ACTION, SRS_DOMAIN, SRS_PRODUCT_TYPE
+      ],
+      RESEND_APPROVE_EMAIL => [
+        SRS_ACTION, SRS_ORDER_ID
       ]
     }
 

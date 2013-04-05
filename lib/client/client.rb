@@ -74,13 +74,14 @@ puts api.request_xml
 puts api.response_xml
 ##
 ##
-#action = "RESEND_APPROVE_EMAIL"
-#object = "TRUST_SERVICE"
-#attributes = { order_id: '123432' }
-#api = opensrs_request.request_api(action,object,attributes)
-#puts "------RESEND_APPROVE_EMAIL---------------------------------------"
-#puts api.request_xml
-#puts api.response_xml
+
+action = "RESEND_APPROVE_EMAIL"
+object = "TRUST_SERVICE"
+attributes = { order_id: '123432' }
+api = opensrs_request.request_api(action,object,attributes)
+puts "------RESEND_APPROVE_EMAIL---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 ##
 ##
 #action = "RESEND_CERT_EMAIL"
