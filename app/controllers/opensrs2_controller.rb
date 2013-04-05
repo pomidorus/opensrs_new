@@ -85,6 +85,9 @@ RESEND_APPROVE_EMAIL_HASH = {
   order_id: "1111"
 }
 
+RESEND_CERT_EMAIL_HASH = {
+  order_id: "1111"
+}
 
 
 GET_ORDER_INFO_HASH = {
@@ -200,7 +203,6 @@ class ApiCommand
   CANCEL_ORDER = "CANCEL_ORDER"
   PARSE_CSR = "PARSE_CSR"
 
-
   SRS_ACTION = "action"
   SRS_OBJECT = "object"
   SRS_REG_TYPE = "reg_type"
@@ -211,7 +213,6 @@ class ApiCommand
   SRS_CSR = "csr"
   SRS_INVENTORY_ITEM_ID = "inventory_item_id"
   SRS_ALL_INFO = "all_info"
-
 
   class AttributeHash < Struct
 
@@ -235,6 +236,9 @@ class ApiCommand
         SRS_ACTION, SRS_DOMAIN, SRS_PRODUCT_TYPE
       ],
       RESEND_APPROVE_EMAIL => [
+        SRS_ACTION, SRS_ORDER_ID
+      ],
+      RESEND_CERT_EMAIL => [
         SRS_ACTION, SRS_ORDER_ID
       ]
     }
@@ -382,6 +386,14 @@ class ApiCommand
       #attributes
       ##client_function(attributes)
       r[:layout], r[:data] = RESEND_APPROVE_EMAIL_RESPONSE, RESEND_APPROVE_EMAIL_HASH
+      r
+    end
+
+    def resend_cert_email
+      r = {}
+      #attributes
+      ##client_function(attributes)
+      r[:layout], r[:data] = RESEND_CERT_EMAIL_RESPONSE, RESEND_CERT_EMAIL_HASH
       r
     end
 
