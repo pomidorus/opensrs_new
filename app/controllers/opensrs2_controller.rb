@@ -133,6 +133,20 @@ GET_ORDER_INFO_HASH = {
 }
 
 
+PARSE_CSR_HASH = {
+  :country => 'RU',
+  :organization_unit => 'IT',
+  :valid_true_domain => true,
+  :state => 'Moscow',
+  :locality => 'Moscow locality',
+  :email => 'info@example.ru',
+  :domain_name => 'example.ru',
+  :valid_quick_domain => true,
+  :has_bad_extensions => false,
+  :organization => 'ZAO Example',
+}
+
+
 # empty class for client class SslProxy
 class SslProxy
   # empty
@@ -251,6 +265,9 @@ class ApiCommand
       ],
       CANCEL_ORDER => [
         SRS_ACTION, SRS_ORDER_ID
+      ],
+      PARSE_CSR => [
+        SRS_ACTION, SRS_CSR, SRS_PRODUCT_TYPE
       ]
     }
 
