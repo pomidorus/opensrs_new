@@ -112,7 +112,7 @@ GET_ORDER_INFO_RESPONSE = {
 
 
 
-class ApiCommand
+class ApiCommand2
   attr :request_hash, :object, :action
 
   H_ACTION = 'action'

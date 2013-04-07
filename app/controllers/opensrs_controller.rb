@@ -30,7 +30,7 @@ class OpenSRSClient < SslProxy
   end
 
 
-class OpenSRSRequestParse
+class OpenSRSRequestParse2
   attr :xml
 
   def initialize(xml)
@@ -452,7 +452,7 @@ end
 
 #---------------------------------------------------------------------
 
-class ApiCommand
+class ApiCommand2
   attr :request_hash, :object, :action
 
   H_ACTION = 'action'

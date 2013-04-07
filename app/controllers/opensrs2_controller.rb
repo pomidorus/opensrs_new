@@ -181,28 +181,38 @@ class OpenSRSRequestParse
     @xml = xml
   end
 
-  def request_hash
-    request = Nokogiri::XML(xml)
-    rh = {}
-    request.xpath('//OPS_envelope/body/data_block/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content unless item['key'] == "attributes"
-    end
-    request.xpath('//OPS_envelope/body/data_block/dt_assoc/item/dt_assoc/item').each do |item|
-      rh[item['key']] = item.content
-    end
-    rh
-  end
+  #def request_hash
+  #  request = Nokogiri::XML(xml)
+  #  rh = {}
+  #  request.xpath('//OPS_envelope/body/data_block/dt_assoc/item').each do |item|
+  #    rh[item['key']] = item.content unless item['key'] == "attributes"
+  #  end
+  #  request.xpath('//OPS_envelope/body/data_block/dt_assoc/item/dt_assoc/item').each do |item|
+  #    rh[item['key']] = item.content
+  #  end
+  #  rh
+  #end
 
-  def request_hash_simplexml
-    XmlSimple.xml_in(xml, 'force_array' => ['item'], 'group_tags' => {'dt_assoc' => 'item'}, 'KeyAttr' => 'item')
-    #{ 'KeyAttr' => 'name' }
-  end
+  #def request_hash_simplexml
+  #  XmlSimple.xml_in(xml, 'force_array' => ['item'], 'group_tags' => {'dt_assoc' => 'item'}, 'KeyAttr' => 'item')
+  #  #{ 'KeyAttr' => 'name' }
+  #end
 
   def request_hash_rexml
-    #getorderinfo = GetOrderInfo.new("12343")
     doc = REXML::Document.new xml
     h = {}
     doc.elements.each("//dt_assoc/item") { |element| h[element.attributes['key']] = element.text}
+    p "---------"
+    p h
+    test = {}
+    doc.elements.each('//dt_assoc/item[@key = "contact_set"]/dt_assoc/item') do |element|
+      contact = {}
+      element.elements.each("./dt_assoc/item") {|e| contact[e.attributes['key']] = e.text}
+      test[element.attributes['key']] = contact
+    end
+    p "-----------"
+    p test
+    h["contact_set"] = test
     h
   end
 
@@ -253,7 +263,9 @@ class ApiCommand
         SRS_ACTION
       ],
       SW_REGISTER => [
-        SRS_ACTION, SRS_REGISTRANT_IP, SRS_ORDER_ID, SRS_CONTACT_SET
+        SRS_ACTION, SRS_REGISTRANT_IP, SRS_ORDER_ID, SRS_CONTACT_SET,
+        SRS_CUSTOM_NAMESERVERS, SRS_REG_TYPE, SRS_REG_PASSWORD, SRS_REG_USERNAME,
+        SRS_DOMAIN, SRS_CUSTOM_TECH_CONTACT
       ]
     }
 
@@ -329,6 +341,13 @@ class ApiCommand
     def get_product_info
       #attributes
       ##client_function(attributes)
+    end
+
+    def sw_register
+      p attributes
+      r = {}
+      r[:layout], r[:data] = "bad_authorization", {}
+      r
     end
   end
 
@@ -461,6 +480,15 @@ class ApiCommand
   AttrH = AttributeHash.new(:request_hash)
   ActionH = ActionHash.new(:attributes)
   ActionHService = ActionHashService.new(:attributes)
+
+  #-------------------------------------------------------
+
+  class SWRegister < Struct
+
+  end
+
+
+  SWReg = SWRegister.new(:attributes)
 
   def initialize(request_hash)
     @request_hash = request_hash
