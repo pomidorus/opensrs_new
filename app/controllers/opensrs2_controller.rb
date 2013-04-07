@@ -488,8 +488,11 @@ class ApiCommand
   #-------------------------------------------------------
 
   class SWRegisterDomain < Struct
+
+    SWREGISTER_NEW_DOMAIN_RESPONSE = "sw_register_new_domain_response"
+
     def new
-      return "bad_authorization", {}
+      return SWREGISTER_NEW_DOMAIN_RESPONSE, {}
     end
   end
 
