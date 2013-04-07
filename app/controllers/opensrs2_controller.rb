@@ -343,10 +343,14 @@ class ApiCommand
       ##client_function(attributes)
     end
 
+    def reg_type
+      attributes['reg_type'].downcase
+    end
+
     def sw_register
-      p attributes
       r = {}
-      r[:layout], r[:data] = "bad_authorization", {}
+      swregister = SWRegDomain.new(attributes)
+      r[:layout], r[:data] = swregister.send(reg_type)
       r
     end
   end
@@ -483,12 +487,15 @@ class ApiCommand
 
   #-------------------------------------------------------
 
-  class SWRegister < Struct
-
+  class SWRegisterDomain < Struct
+    def new
+      return "bad_authorization", {}
+    end
   end
 
+  SWRegDomain = SWRegisterDomain.new(:attributes)
 
-  SWReg = SWRegister.new(:attributes)
+  #-------------------------------------------------------
 
   def initialize(request_hash)
     @request_hash = request_hash
