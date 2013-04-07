@@ -435,6 +435,15 @@ class ApiCommand
       r
     end
 
+    #Parses the CSR and identifies its data elements.
+    def parse_csr
+      r = {}
+      #attributes
+      ##client_function(attributes)
+      r[:layout], r[:data] = PARSE_CSR_RESPONSE, PARSE_CSR_HASH
+      r
+    end
+
   end
 
 
