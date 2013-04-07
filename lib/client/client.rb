@@ -125,10 +125,53 @@ puts api.response_xml
 #object = "TRUST_SERVICE"
 #attributes = { order_id: '333' }
 #api = opensrs_request.request_api(action,object,attributes)
-#puts "------SW_REGISTER NEW---------------------------------------"
+#puts "------SW_REGISTER NEW TRUST_SERVICE---------------------------------------"
 #puts api.request_xml
 #puts api.response_xml
 #
+#
+
+CONTACT = {
+  first_name: "Andrey",
+  last_name: "Seleznov",
+  org_name: "Example Inc.",
+  address1: "32 Oak St.",
+  address2: "Suite 500",
+  city: "Santa Clara",
+  region: "Donbass",
+  country: "RU",
+  postal_code: "90210",
+  phone: "+1.4165550123x1902",
+  fax: "+1.4165550124",
+  email: "owner@example.com",
+  title: "mr",
+  country_id: "1"
+}
+
+test_contact_set =  {
+    admin: CONTACT,
+    tech: CONTACT,
+    organization: CONTACT,
+    billing: CONTACT
+  }
+
+action = "SW_REGISTER"
+object = "DOMAIN"
+attributes = {
+  order_id: '333',
+  registrant_ip: '192.168.0.1',
+  contact_set: test_contact_set,
+  custom_nameservers: '1',
+  reg_type: 'new',
+  reg_password: 'test',
+  reg_username: 'aseleznov',
+  domain: 'www.mail.ru',
+  custom_tech_contact: '0'
+}
+api = opensrs_request.request_api(action,object,attributes)
+puts "------SW_REGISTER NEW DOMAIN---------------------------------------"
+puts api.request_xml
+puts api.response_xml
 #
 ##action = "SW_REGISTER"
 ##object = "TRUST_SERVICE"

@@ -8,7 +8,7 @@ CANCEL_ORDER_HASH = {
    domain_name: "example.ru",
    order_id: "5555",
    state: "declined"
- }
+ }.freeze
 
 
 
@@ -27,7 +27,7 @@ CLIENT_CONTACT = {
   email: "owner@example.com",
   title: "mr",
   country_id: "1"
-}
+}.freeze
 
 
 GET_PRODUCT_INFO_ALL_HASH = {
@@ -63,7 +63,7 @@ GET_PRODUCT_INFO_ALL_HASH = {
   csr: "-----BEGIN CERTIFICATE REQUEST----- MIIC2TCCAcECAQAwgZMxIDAeBgNVBAMTF3NzbDEyMy5xYXJlZ3Jlc3Npb24ub3Jn MQswCQYDVQQGEwJDQTELMAkGA1UECBMCT04xEDAOBgNVBAcTB1Rvcm9udG8xDzAN BgNVBAoTBlR1Y293czEQMA4GA1UECxMHUUEgRGVwdDEgMB4GCSqGSIb3DQEJARYR cWFmaXZlQHR1Y293cy5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB AQDpKz48gJG4ImyJi76kH3AdDZoGNZCC8xgWBUDk4yNXPqe3NxJvZooZIoctP2o8 CX6+xoK8p6jMb9iIz7ZVC9LuoUmoYZZWdoatMUwaz3xIa4Fq7HeLtCE3misKMcZq +QomhLFv2yMSgyzWWitHdW5oVDuT83Xs8FTZG33rI8gut1J9+5fhJV4WKuncfLwM xMrj+5iWm+KwoE86dTarGAPwYhC2FepcblszVbz87Dp1clTJLaN4potMES83RHo1 teHHmJAilNzy2PfRoylbzlQ38x1n10wbhqjMcoDYk6CSB40PlduqbsMjpkOClwu4 H92c2Hmo3bqRGWM2K5SXkj29AgMBAAGgADANBgkqhkiG9w0BAQQFAAOCAQEAKUh6 WH4WtC/LtlJhj+p5i3sLEG/L//8DQh30eOxwMxrSGGZUGTfLBT4RaeDA5JEIF5pK v4MxvDw1+NExMQW3h/9eVWXpGGjvC2EoLgya3ri3OJlQNOyqSzOvNunk0EPaWoO+ v9o2yKdH88e7NQZp8Pw5jhE9RV9u3+mNw2sztqpzcXYDXW3kKI2UiIP3eur2/iiH nSAIRl5NfUPgAzCem/zpM1lc3s+EVKysn2wF4bwOkNyYPo4DmgHCb7ggSQyhh5vN UAoDkyqu2ZScDZTyDG7YOdobMqwbsCT5er5Bq+NWOZyUE+3zO/1VQpznJehaGLrQ N7UAJliUAO+SFFGdxQ== -----END CERTIFICATE REQUEST-----",
   upgrade_options: "sitelock_enterprise",
   start_date: "2012-04-11T19:00:00.000-05:00"
-}
+}.freeze
 
 
 GET_PRODUCT_INFO_HASH = {
@@ -227,7 +227,6 @@ class ApiCommand
 
   SRS_ACTION = "action"
   SRS_OBJECT = "object"
-  SRS_REG_TYPE = "reg_type"
   SRS_ORDER_ID = "order_id"
   SRS_PRODUCT_ID = "product_id"
   SRS_PRODUCT_TYPE = "product_type"
@@ -235,6 +234,14 @@ class ApiCommand
   SRS_CSR = "csr"
   SRS_INVENTORY_ITEM_ID = "inventory_item_id"
   SRS_ALL_INFO = "all_info"
+
+  SRS_REG_TYPE = "reg_type"
+  SRS_REGISTRANT_IP = "registrant_ip"
+  SRS_CONTACT_SET = "contact_set"
+  SRS_CUSTOM_NAMESERVERS = "custom_nameservers"
+  SRS_REG_PASSWORD = "reg_password"
+  SRS_REG_USERNAME = "reg_username"
+  SRS_CUSTOM_TECH_CONTACT = "custom_tech_contact"
 
   class AttributeHash < Struct
 
@@ -244,6 +251,9 @@ class ApiCommand
       ],
       GET_PRODUCT_INFO => [
         SRS_ACTION
+      ],
+      SW_REGISTER => [
+        SRS_ACTION, SRS_REGISTRANT_IP, SRS_ORDER_ID, SRS_CONTACT_SET
       ]
     }
 
