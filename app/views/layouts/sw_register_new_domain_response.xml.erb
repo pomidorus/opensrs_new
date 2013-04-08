@@ -15,15 +15,16 @@
             <item key="response_text">Domain registration successfully completed. WHOIS Privacy successfully enabled. Domain successfully locked.</item>
             <item key="attributes">
                <dt_assoc>
-                  <item key="admin_email">jsmith@example.com</item>
-                  <item key="whois_privacy_state">enabled</item>
-                  <item key="registration_text">Domain registration successfully completed. WHOIS Privacy successfully enabled. Domain successfully locked.</item>
-                  <item key="registration_code">200</item>
-                  <item key="id">3735281</item>
+                  <item key="admin_email"><%= @data[:admin_email] %></item>
+                  <item key="whois_privacy_state"><%= @data[:whois_privacy_state] %></item>
+                  <item key="registration_text"><%= @data[:registration_text] %></item>
+                  <item key="registration_code"><%= @data[:registration_code] %></item>
+                  <item key="id"><%= @data[:id] %></item>
                   <item key="cancelled_orders">
                     <dt_array>
-                      <item key="0">3764860</item>
-                      <item key="1">3764861</item>
+                      <% @data[:cancelled_orders].each_with_index do |item, index| %>
+                        <item key='<%= index %>'><%= item %></item>
+                      <% end %>
                     </dt_array>
                   </item>
                </dt_assoc>

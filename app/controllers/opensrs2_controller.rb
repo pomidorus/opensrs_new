@@ -4,12 +4,21 @@ require 'xmlsimple'
 require "rexml/document"
 
 
+SWREGISTER_NEW_DOMAIN_HASH = {
+  admin_email: "jsmith@example.com",
+  whois_privacy_state: "enabled",
+  registration_text: "Domain registration successfully completed. WHOIS Privacy successfully enabled. Domain successfully locked.",
+  registration_code: "200",
+  id: "3735281",
+  cancelled_orders: ["3764860","3764861"]
+}
+
+
 CANCEL_ORDER_HASH = {
    domain_name: "example.ru",
    order_id: "5555",
    state: "declined"
  }.freeze
-
 
 
 CLIENT_CONTACT = {
@@ -349,6 +358,7 @@ class ApiCommand
 
     def sw_register
       r = {}
+      p attributes
       swregister = SWRegDomain.new(attributes)
       r[:layout], r[:data] = swregister.send(reg_type)
       r
@@ -492,7 +502,7 @@ class ApiCommand
     SWREGISTER_NEW_DOMAIN_RESPONSE = "sw_register_new_domain_response"
 
     def new
-      return SWREGISTER_NEW_DOMAIN_RESPONSE, {}
+      return SWREGISTER_NEW_DOMAIN_RESPONSE, SWREGISTER_NEW_DOMAIN_HASH
     end
   end
 
