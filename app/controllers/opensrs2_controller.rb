@@ -1,6 +1,6 @@
-require 'nokogiri'
+#require 'nokogiri'
 #require 'opensrs'
-require 'xmlsimple'
+#require 'xmlsimple'
 require "rexml/document"
 
 

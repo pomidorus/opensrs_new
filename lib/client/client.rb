@@ -195,7 +195,6 @@ puts api.response_xml
 
 
 #This example shows a renewal order for a QuickSSL certificate.
-
 action = "SW_REGISTER"
 object = "TRUST_SERVICE"
 registrant_ip = "192.168.0.1"
