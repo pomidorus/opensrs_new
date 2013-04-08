@@ -1,6 +1,3 @@
-#require 'nokogiri'
-#require 'opensrs'
-#require 'xmlsimple'
 require "rexml/document"
 
 
@@ -197,38 +194,17 @@ class OpenSRSRequestParse
     @xml = xml
   end
 
-  #def request_hash
-  #  request = Nokogiri::XML(xml)
-  #  rh = {}
-  #  request.xpath('//OPS_envelope/body/data_block/dt_assoc/item').each do |item|
-  #    rh[item['key']] = item.content unless item['key'] == "attributes"
-  #  end
-  #  request.xpath('//OPS_envelope/body/data_block/dt_assoc/item/dt_assoc/item').each do |item|
-  #    rh[item['key']] = item.content
-  #  end
-  #  rh
-  #end
-
-  #def request_hash_simplexml
-  #  XmlSimple.xml_in(xml, 'force_array' => ['item'], 'group_tags' => {'dt_assoc' => 'item'}, 'KeyAttr' => 'item')
-  #  #{ 'KeyAttr' => 'name' }
-  #end
-
   def request_hash_rexml
     doc = REXML::Document.new xml
     h = {}
     doc.elements.each("//dt_assoc/item") { |element| h[element.attributes['key']] = element.text}
-    p "---------"
-    p h
-    test = {}
+    contact_set = {}
     doc.elements.each('//dt_assoc/item[@key = "contact_set"]/dt_assoc/item') do |element|
       contact = {}
       element.elements.each("./dt_assoc/item") {|e| contact[e.attributes['key']] = e.text}
-      test[element.attributes['key']] = contact
+      contact_set[element.attributes['key']] = contact
     end
-    p "-----------"
-    p test
-    h["contact_set"] = test
+    h["contact_set"] = contact_set
     h
   end
 
