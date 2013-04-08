@@ -122,20 +122,6 @@ puts api.response_xml
 #
 #
 
-
-
-action = "SW_REGISTER"
-object = "TRUST_SERVICE"
-attributes = { order_id: '333' }
-api = opensrs_request.request_api(action,object,attributes)
-puts "------SW_REGISTER NEW TRUST_SERVICE---------------------------------------"
-puts api.request_xml
-puts api.response_xml
-#
-#
-
-#--------------------------------------------------------------------
-
 CONTACT = {
   first_name: "Andrey",
   last_name: "Seleznov",
@@ -159,6 +145,33 @@ test_contact_set =  {
     organization: CONTACT,
     billing: CONTACT
   }
+
+
+#This example shows an order for a Symantec SecureSite certificate with seal-in-search and trust seal.
+action = "SW_REGISTER"
+object = "TRUST_SERVICE"
+attributes = {
+  handle: "process",
+  reg_type: "new",
+  product_type: "securesite",
+  contact_set: test_contact_set,
+
+  trust_seal: "1",
+  seal_in_search: "1",
+  special_instructions: "Test ABC",
+  csr: "-----BEGIN CERTIFICATE REQUEST----- MIIC4TCCAckCAQAwgZsxKTAnBgNVBAMTIHNlY3VyZXNpdGUudGVzdDEyODU4NzYwMzY2MDgub3JnMQswCQYDVQQGEwJDQTELMAkGA1UECBMCT04xEDAOBgNVBAcTB1Rvcm9udG8xDzANBgNVBAoTBm5ld29yZzEPMA0GA1UECxMGUUFEZXB0MSAwHgYJKoZIhvcNAQkBFhFxYWZpdmVAdHVjb3dzLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ0FDLurKaddUzayM5FgICBhy8DkOaBuYzCiHSFw6xRUf9CjAHpC/MiUM5TnegMiU02COAPmfeHZAERv21CoB/HPDcshewHJywzs8nwcbGncz37eFhNGFQNIif5ExoGAcLS9+d1EAmR1CupTBCCq86lGBa/RdwgUNlvLF5IgZZeKphd/FKaYB2KZmRBxM51WvV6AYmRKb6IsuUZCfHO2FCelThDE0EF99GbfSapVj7woSIu0/PTJcEX4sHURq6pY3ELfNG0BOzrTsT3Af8T3N5xwD0FMatkDrCPCgVx7sRZ05UqenxBOVWBJQcr5QRZSykxBosGjbqO3QSyGsElIKgkCAwEAAaAAMA0GCSqGSIb3DQEBBAUAA4IBAQCEUGNk45qCJiR4Yuce4relbP22EwK7pyX0+0VZ+F3eUxhpZ6S5WN1Juuru8w48RchQBjGK1jjUfXJIqn/DgX+yAfMj4aW/ohBmovN2ViuNILvNaj0volwoqyMlNrTmBze69qHMfnMGUUUehMr/Nq4QdQTqxy7EYQkNOqx21gfZcUi6zWCeFTRkasD+SYAKsOUIKdrt/Jq5lWFXxhkJHuyA+q1yr/w6zh18JmFAT4y/0q/odFGyIr9yKhQ9usW1sQ8CT3e3AnU4jq7sBrYFxN0f+92W8gX7WADortA7+6PcSFPrZEoQlr5Brki7GSwIuTTSlKFRyZ53DbEGjp2ELnnl -----END CERTIFICATE REQUEST----- ",
+  period: "1",
+  server_type: "apachessl",
+  server_count: "1"
+}
+api = opensrs_request.request_api(action,object,attributes)
+puts "------SW_REGISTER NEW TRUST_SERVICE---------------------------------------"
+puts api.request_xml
+puts api.response_xml
+#
+#
+
+#--------------------------------------------------------------------
 
 action = "SW_REGISTER"
 object = "DOMAIN"
