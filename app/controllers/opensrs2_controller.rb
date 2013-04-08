@@ -532,10 +532,16 @@ class ApiCommand
 
   class SWRegisterService < Struct
     SWREGISTER_NEW_RESPONSE = "sw_register_new_service_response"
+    SWREGISTER_RENEW_RESPONSE = "sw_register_renew_service_response"
 
     def new
       return SWREGISTER_NEW_RESPONSE, SWREGISTER_NEW_SERVICE_HASH
     end
+
+    def renew
+      return SWREGISTER_RENEW_RESPONSE, SWREGISTER_RENEW_SERVICE_HASH
+    end
+
   end
 
 

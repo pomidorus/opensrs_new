@@ -194,12 +194,26 @@ puts api.response_xml
 #
 
 
-##action = "SW_REGISTER"
-##object = "TRUST_SERVICE"
-##attributes = { reg_type: 'upgrade' }
-##api = opensrs_request.request_api(action,object,attributes)
-##puts "------SW_REGISTER UPGRADE---------------------------------------"
-##puts api.request_xml
-##puts api.response_xml
-##
-##
+#This example shows a renewal order for a QuickSSL certificate.
+
+action = "SW_REGISTER"
+object = "TRUST_SERVICE"
+registrant_ip = "192.168.0.1"
+attributes = {
+  handle: "process",
+  reg_type: "renew",
+  product_type: "quickssl",
+  contact_set: test_contact_set,
+
+  approver_email: "admin@example.com",
+  special_instructions: "",
+  product_id: "2342",
+  domain: 'www.mail.ru',
+  csr: "-----BEGIN CERTIFICATE REQUEST----- MIIC4TCCAckCAQAwgZsxKTAnBgNVBAMTIHNlY3VyZXNpdGUudGVzdDEyODU4NzYwMzY2MDgub3JnMQswCQYDVQQGEwJDQTELMAkGA1UECBMCT04xEDAOBgNVBAcTB1Rvcm9udG8xDzANBgNVBAoTBm5ld29yZzEPMA0GA1UECxMGUUFEZXB0MSAwHgYJKoZIhvcNAQkBFhFxYWZpdmVAdHVjb3dzLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJ0FDLurKaddUzayM5FgICBhy8DkOaBuYzCiHSFw6xRUf9CjAHpC/MiUM5TnegMiU02COAPmfeHZAERv21CoB/HPDcshewHJywzs8nwcbGncz37eFhNGFQNIif5ExoGAcLS9+d1EAmR1CupTBCCq86lGBa/RdwgUNlvLF5IgZZeKphd/FKaYB2KZmRBxM51WvV6AYmRKb6IsuUZCfHO2FCelThDE0EF99GbfSapVj7woSIu0/PTJcEX4sHURq6pY3ELfNG0BOzrTsT3Af8T3N5xwD0FMatkDrCPCgVx7sRZ05UqenxBOVWBJQcr5QRZSykxBosGjbqO3QSyGsElIKgkCAwEAAaAAMA0GCSqGSIb3DQEBBAUAA4IBAQCEUGNk45qCJiR4Yuce4relbP22EwK7pyX0+0VZ+F3eUxhpZ6S5WN1Juuru8w48RchQBjGK1jjUfXJIqn/DgX+yAfMj4aW/ohBmovN2ViuNILvNaj0volwoqyMlNrTmBze69qHMfnMGUUUehMr/Nq4QdQTqxy7EYQkNOqx21gfZcUi6zWCeFTRkasD+SYAKsOUIKdrt/Jq5lWFXxhkJHuyA+q1yr/w6zh18JmFAT4y/0q/odFGyIr9yKhQ9usW1sQ8CT3e3AnU4jq7sBrYFxN0f+92W8gX7WADortA7+6PcSFPrZEoQlr5Brki7GSwIuTTSlKFRyZ53DbEGjp2ELnnl -----END CERTIFICATE REQUEST----- ",
+  period: "1",
+  server_type: "apachessl",
+}
+api = opensrs_request.request_api(action,object,attributes,registrant_ip)
+puts "------SW_REGISTER NEW TRUST_SERVICE---------------------------------------"
+puts api.request_xml
+puts api.response_xml
