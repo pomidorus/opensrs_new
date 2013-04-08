@@ -15,8 +15,8 @@ SWREGISTER_NEW_DOMAIN_HASH = {
 
 
 SWREGISTER_NEW_SERVICE_HASH = {
-  domain: "example.com",
-  order_id: "1860",
+  domain: "google.com",
+  order_id: "5555",
   state: "awaiting-approval"
 }
 
