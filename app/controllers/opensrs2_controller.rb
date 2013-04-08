@@ -352,7 +352,6 @@ class ApiCommand
 
     def sw_register
       r = {}
-      p attributes
       swregister = SWRegDomain.new(attributes)
       r[:layout], r[:data] = swregister.send(reg_type)
       r
@@ -488,7 +487,6 @@ class ApiCommand
     #Submits a new domain registration or Trust Service request or transfer order that obeys the Reseller's 'process immediately' flag setting
     def sw_register
       r = {}
-      p attributes
       swregister = SWRegService.new(attributes)
       r[:layout], r[:data] = swregister.send(reg_type)
       r

@@ -40,8 +40,9 @@ action = "GET_ORDER_INFO"
 object = "DOMAIN"
 attributes = { order_id: '123746'}
 api = opensrs_request.request_api(action,object,attributes)
-puts "------GET_ORDER_INFO---------------------------------------"
+puts "##GET_ORDER_INFO"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 #
 #
@@ -51,8 +52,9 @@ action = "GET_PRODUCT_INFO"
 object = "TRUST_SERVICE"
 attributes = { product_id: '123746' }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------GET_PRODUCT_INFO---------------------------------------"
+puts "##GET_PRODUCT_INFO---------------------------------------"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 
 ##Retrieves all information for a Trust Service product.
@@ -60,8 +62,9 @@ action = "GET_PRODUCT_INFO"
 object = "TRUST_SERVICE"
 attributes = { product_id: '123746', all_info: 1 }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------GET_PRODUCT_INFO_ALL---------------------------------------"
+puts "##GET_PRODUCT_INFO_ALL---------------------------------------"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 ###
 ###
@@ -70,8 +73,9 @@ action = "QUERY_APPROVER_LIST"
 object = "TRUST_SERVICE"
 attributes = { domain: 'www.mail.ru', product_type: "quickssl" }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------QUERY_APPROVER_LIST---------------------------------------"
+puts "##QUERY_APPROVER_LIST---------------------------------------"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 ##
 ##
@@ -80,8 +84,9 @@ action = "RESEND_APPROVE_EMAIL"
 object = "TRUST_SERVICE"
 attributes = { order_id: '123432' }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------RESEND_APPROVE_EMAIL---------------------------------------"
+puts "##RESEND_APPROVE_EMAIL---------------------------------------"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 ##
 ##
@@ -89,16 +94,18 @@ action = "RESEND_CERT_EMAIL"
 object = "TRUST_SERVICE"
 attributes = { order_id: '12' }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------RESEND_CERT_EMAIL---------------------------------------"
+puts "##RESEND_CERT_EMAIL---------------------------------------"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 #
 action = "CANCEL_ORDER"
 object = "TRUST_SERVICE"
 attributes = { order_id: '12' }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------CANCEL_ORDER---------------------------------------"
+puts "##CANCEL_ORDER---------------------------------------"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 
 #
@@ -117,8 +124,9 @@ action = "PARSE_CSR"
 object = "TRUST_SERVICE"
 attributes = { product_type: 'quickssl', csr: sslcert }
 api = opensrs_request.request_api(action,object,attributes)
-puts "------PARSE_CSR---------------------------------------"
+puts "##PARSE_CSR---------------------------------------"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 #
 #
@@ -164,8 +172,9 @@ attributes = {
   custom_tech_contact: '0'
 }
 api = opensrs_request.request_api(action,object,attributes,registrant_ip)
-puts "------SW_REGISTER NEW DOMAIN---------------------------------------"
+puts "##SW_REGISTER NEW DOMAIN"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 #
 
@@ -188,8 +197,9 @@ attributes = {
   server_count: "1"
 }
 api = opensrs_request.request_api(action,object,attributes,registrant_ip)
-puts "------SW_REGISTER NEW TRUST_SERVICE---------------------------------------"
+puts "##SW_REGISTER NEW TRUST_SERVICE"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
 #
 
@@ -213,6 +223,7 @@ attributes = {
   server_type: "apachessl",
 }
 api = opensrs_request.request_api(action,object,attributes,registrant_ip)
-puts "------SW_REGISTER NEW TRUST_SERVICE---------------------------------------"
+puts "##SW_REGISTER NEW TRUST_SERVICE"
 puts api.request_xml
+puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
