@@ -21,10 +21,11 @@ class OpenSRSRequest
   end
 
   # request api with parameters
-  def request_api(action,object,attributes)
+  def request_api(action,object,attributes,registrant_ip="")
     remote_server.call(
           :action => action,
           :object => object,
+          :registrant_ip => registrant_ip,
           :attributes => attributes
         )
   end
@@ -147,9 +148,31 @@ test_contact_set =  {
   }
 
 
+#--------------------------------------------------------------------
+
+action = "SW_REGISTER"
+object = "DOMAIN"
+registrant_ip = "192.168.0.1"
+attributes = {
+  order_id: '333',
+  contact_set: test_contact_set,
+  custom_nameservers: '1',
+  reg_type: 'new',
+  reg_password: 'test',
+  reg_username: 'aseleznov',
+  domain: 'www.mail.ru',
+  custom_tech_contact: '0'
+}
+api = opensrs_request.request_api(action,object,attributes,registrant_ip)
+puts "------SW_REGISTER NEW DOMAIN---------------------------------------"
+puts api.request_xml
+puts api.response_xml
+#
+
 #This example shows an order for a Symantec SecureSite certificate with seal-in-search and trust seal.
 action = "SW_REGISTER"
 object = "TRUST_SERVICE"
+registrant_ip = "192.168.0.1"
 attributes = {
   handle: "process",
   reg_type: "new",
@@ -164,33 +187,13 @@ attributes = {
   server_type: "apachessl",
   server_count: "1"
 }
-api = opensrs_request.request_api(action,object,attributes)
+api = opensrs_request.request_api(action,object,attributes,registrant_ip)
 puts "------SW_REGISTER NEW TRUST_SERVICE---------------------------------------"
 puts api.request_xml
 puts api.response_xml
 #
-#
 
-#--------------------------------------------------------------------
 
-action = "SW_REGISTER"
-object = "DOMAIN"
-attributes = {
-  order_id: '333',
-  registrant_ip: '192.168.0.1',
-  contact_set: test_contact_set,
-  custom_nameservers: '1',
-  reg_type: 'new',
-  reg_password: 'test',
-  reg_username: 'aseleznov',
-  domain: 'www.mail.ru',
-  custom_tech_contact: '0'
-}
-api = opensrs_request.request_api(action,object,attributes)
-puts "------SW_REGISTER NEW DOMAIN---------------------------------------"
-puts api.request_xml
-puts api.response_xml
-#
 ##action = "SW_REGISTER"
 ##object = "TRUST_SERVICE"
 ##attributes = { reg_type: 'upgrade' }

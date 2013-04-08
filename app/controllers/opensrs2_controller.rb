@@ -14,6 +14,13 @@ SWREGISTER_NEW_DOMAIN_HASH = {
 }
 
 
+SWREGISTER_NEW_SERVICE_HASH = {
+  domain: "example.com",
+  order_id: "1860",
+  state: "awaiting-approval"
+}
+
+
 CANCEL_ORDER_HASH = {
    domain_name: "example.ru",
    order_id: "5555",
@@ -261,6 +268,7 @@ class ApiCommand
   SRS_REG_PASSWORD = "reg_password"
   SRS_REG_USERNAME = "reg_username"
   SRS_CUSTOM_TECH_CONTACT = "custom_tech_contact"
+  SRS_HANDLE = "handle"
 
   class AttributeHash < Struct
 
@@ -299,6 +307,10 @@ class ApiCommand
       ],
       PARSE_CSR => [
         SRS_ACTION, SRS_CSR, SRS_PRODUCT_TYPE
+      ],
+      SW_REGISTER => [
+        SRS_ACTION, SRS_REGISTRANT_IP, SRS_REG_TYPE, SRS_PRODUCT_TYPE,
+        SRS_CONTACT_SET, SRS_HANDLE
       ]
     }
 
@@ -487,6 +499,19 @@ class ApiCommand
       r
     end
 
+    def reg_type
+      attributes['reg_type'].downcase
+    end
+
+    #Submits a new domain registration or Trust Service request or transfer order that obeys the Reseller's 'process immediately' flag setting
+    def sw_register
+      r = {}
+      p attributes
+      swregister = SWRegService.new(attributes)
+      r[:layout], r[:data] = swregister.send(reg_type)
+      r
+    end
+
   end
 
 
@@ -498,15 +523,24 @@ class ApiCommand
   #-------------------------------------------------------
 
   class SWRegisterDomain < Struct
-
-    SWREGISTER_NEW_DOMAIN_RESPONSE = "sw_register_new_domain_response"
+    SWREGISTER_NEW_RESPONSE = "sw_register_new_domain_response"
 
     def new
-      return SWREGISTER_NEW_DOMAIN_RESPONSE, SWREGISTER_NEW_DOMAIN_HASH
+      return SWREGISTER_NEW_RESPONSE, SWREGISTER_NEW_DOMAIN_HASH
     end
   end
 
+  class SWRegisterService < Struct
+    SWREGISTER_NEW_RESPONSE = "sw_register_new_service_response"
+
+    def new
+      return SWREGISTER_NEW_RESPONSE, SWREGISTER_NEW_SERVICE_HASH
+    end
+  end
+
+
   SWRegDomain = SWRegisterDomain.new(:attributes)
+  SWRegService = SWRegisterService.new(:attributes)
 
   #-------------------------------------------------------
 
