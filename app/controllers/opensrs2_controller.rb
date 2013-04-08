@@ -270,6 +270,11 @@ class ApiCommand
   SRS_CUSTOM_TECH_CONTACT = "custom_tech_contact"
   SRS_HANDLE = "handle"
 
+  SRS_APPROVER_EMAIL = "approver_email"
+  SRS_SPECIAL_INSTRUCTIONS = "special_instructions"
+  SRS_PERIOD = "period"
+  SRS_SERVER_TYPE = "server_type"
+
   class AttributeHash < Struct
 
     ATTRIBUTE_HASH_DOMAIN = {
@@ -310,7 +315,8 @@ class ApiCommand
       ],
       SW_REGISTER => [
         SRS_ACTION, SRS_REGISTRANT_IP, SRS_REG_TYPE, SRS_PRODUCT_TYPE,
-        SRS_CONTACT_SET, SRS_HANDLE
+        SRS_CONTACT_SET, SRS_HANDLE, SRS_APPROVER_EMAIL, SRS_SPECIAL_INSTRUCTIONS,
+        SRS_PERIOD, SRS_SERVER_TYPE, SRS_DOMAIN, SRS_PRODUCT_ID
       ]
     }
 
@@ -515,7 +521,6 @@ class ApiCommand
   end
 
 
-
   AttrH = AttributeHash.new(:request_hash)
   ActionH = ActionHash.new(:attributes)
   ActionHService = ActionHashService.new(:attributes)
@@ -526,6 +531,8 @@ class ApiCommand
     SWREGISTER_NEW_RESPONSE = "sw_register_new_domain_response"
 
     def new
+      #attributes
+      ##client_function(attributes)
       return SWREGISTER_NEW_RESPONSE, SWREGISTER_NEW_DOMAIN_HASH
     end
   end
@@ -535,11 +542,15 @@ class ApiCommand
     SWREGISTER_RENEW_RESPONSE = "sw_register_renew_service_response"
 
     def new
+      #attributes
+      ##client_function(attributes)
       return SWREGISTER_NEW_RESPONSE, SWREGISTER_NEW_SERVICE_HASH
     end
 
     def renew
-      return SWREGISTER_RENEW_RESPONSE, SWREGISTER_RENEW_SERVICE_HASH
+      #attributes
+      ##client_function(attributes)
+      return SWREGISTER_NEW_RESPONSE, SWREGISTER_NEW_SERVICE_HASH
     end
 
   end
