@@ -1,4 +1,4 @@
-module ApiOpenSRS
+module ApiOpenSRS2
 
   #START: Заглушки ответов для функций заказчика
 
@@ -118,12 +118,11 @@ module ApiOpenSRS
 
   RESEND_APPROVE_EMAIL_HASH = {
     order_id: "1111"
-  }
+  }.freeze
 
   RESEND_CERT_EMAIL_HASH = {
     order_id: "1111"
   }.freeze
-
 
   SWREGISTER_NEW_DOMAIN_HASH = {
     admin_email: "jsmith@example.com",
@@ -133,7 +132,6 @@ module ApiOpenSRS
     id: "3735281",
     cancelled_orders: ["3764860","3764861"]
   }
-
 
   SWREGISTER_NEW_SERVICE_HASH = {
     domain: "google.com",

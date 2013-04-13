@@ -1,4 +1,6 @@
-require 'api_opensrs/opensrs'
+require "api_opensrs/api_opensrs"
+require 'plugins/api_opensrs/api_opensrs'
+
 
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
@@ -11,6 +13,8 @@ class OpensrsController < ApplicationController
     signature = request.headers[SIGNATURE]
 
     body_xml = request.body.read
+
+    Rails.logger.debug ApiOpenSRS.gav
     #request_hash = OpenSRSRequestParse.new(body_xml).request_hash_rexml
     #opensrs = SRSClient.new(request_hash,username,signature)
     #
