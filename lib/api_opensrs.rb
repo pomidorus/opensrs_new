@@ -9,6 +9,8 @@ require 'api_opensrs/opensrs_client'
 require 'api_opensrs/opensrs_conf'
 
 module ApiOpenSRS
+  VERSION = 0.2.freeze
+
   def self.gav
     "gav"
   end
