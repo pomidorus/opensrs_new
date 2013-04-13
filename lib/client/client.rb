@@ -1,4 +1,4 @@
-require 'opensrs_request'
+load "/home/andrus/Dropbox/dev/opensrs/lib/opensrs_request.rb"
 
 opensrs_request = SRSClient::OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 #opensrs_request = OpenSRSRequest.new("http://opensrs.herokuapp.com/opensrs2","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")

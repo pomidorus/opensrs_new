@@ -1,5 +1,22 @@
 module ApiOpenSRS
 
+  CONTACT_TYPES = %w{ owner admin tech billing }
+  CONTACT_SET = [
+ 		'first_name', 'last_name', 'title', 'org_name', 'address1', 'address2',
+ 		'city', 'region', 'country', 'country_id', 'postal_code', 'phone', 'fax', 'email'
+ 		]
+
+  COMMAND_MAP = {
+    :getOrderInfo => 'GetOrderInfo',
+    :getProductInfo => 'GetProductInfo',
+    :queryApproverList => 'QueryApproverList',
+    :resendApproveEmail => 'ResendApproveEmail',
+    :resendCertEmail => 'ResendCertEmail',
+    :cancelOrder => 'CancelOrder',
+    :parseCSR => 'ParseCSR',
+    :SWRegister => 'SWRegister'
+  }
+
   #START: Заглушки ответов для функций заказчика
 
   CANCEL_ORDER_HASH = {

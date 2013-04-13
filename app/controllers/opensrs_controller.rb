@@ -13,7 +13,7 @@ class OpensrsController < ApplicationController
 
     body_xml = request.body.read
 
-    Rails.logger.debug ApiOpenSRS::VERSION
+    Rails.logger.debug ApiOpenSRS::GET_ORDER_INFO_HASH
     #request_hash = OpenSRSRequestParse.new(body_xml).request_hash_rexml
     #opensrs = SRSClient.new(request_hash,username,signature)
     #
