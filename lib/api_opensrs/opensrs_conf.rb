@@ -1,4 +1,4 @@
-module ApiOpenSRS2
+module ApiOpenSRS
 
   #START: Заглушки ответов для функций заказчика
 
@@ -106,6 +106,19 @@ module ApiOpenSRS2
     start_date: "2012-04-11T19:00:00.000-05:00"
   }.freeze
 
+  PARSE_CSR_HASH = {
+    :country => 'RU',
+    :organization_unit => 'IT',
+    :valid_true_domain => true,
+    :state => 'Moscow',
+    :locality => 'Moscow locality',
+    :email => 'info@example.ru',
+    :domain_name => 'example.ru',
+    :valid_quick_domain => true,
+    :has_bad_extensions => false,
+    :organization => 'ZAO Example',
+  }.freeze
+
   QUERY_APPROVER_LIST_HASH = {
     approver_list: [
       {email: "qafive@example.com", domain: "example.com", type: "MANUAL"},
@@ -138,35 +151,5 @@ module ApiOpenSRS2
     order_id: "5555",
     state: "awaiting-approval"
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  PARSE_CSR_HASH = {
-    :country => 'RU',
-    :organization_unit => 'IT',
-    :valid_true_domain => true,
-    :state => 'Moscow',
-    :locality => 'Moscow locality',
-    :email => 'info@example.ru',
-    :domain_name => 'example.ru',
-    :valid_quick_domain => true,
-    :has_bad_extensions => false,
-    :organization => 'ZAO Example',
-  }.freeze
-
-
 
 end

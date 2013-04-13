@@ -1,38 +1,6 @@
-require 'opensrs'
-require 'libxml'
+require 'opensrs_request'
 
-
-class OpenSRSRequest
-  attr :server, :username, :password, :key
-
-  def initialize(server,username,password,key)
-    OpenSRS::Server.xml_processor = :libxml
-    @server, @username, @password, @key = server, username, password, key
-  end
-
-  # init remote server
-  def remote_server
-    OpenSRS::Server.new(
-      :server   => server,
-      :username => username,
-      :password => password,
-      :key      => key
-    )
-  end
-
-  # request api with parameters
-  def request_api(action,object,attributes,registrant_ip="")
-    remote_server.call(
-          :action => action,
-          :object => object,
-          :registrant_ip => registrant_ip,
-          :attributes => attributes
-        )
-  end
-
-end
-
-opensrs_request = OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
+opensrs_request = SRSClient::OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 #opensrs_request = OpenSRSRequest.new("http://opensrs.herokuapp.com/opensrs2","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 
 #For a .RU domain order

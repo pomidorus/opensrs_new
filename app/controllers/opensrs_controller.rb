@@ -1,6 +1,5 @@
-#require "api_opensrs/api_opensrs"
-#require 'plugins/api_opensrs/api_opensrs'
-require 'api_opensrs'
+#require 'api_opensrs'
+load "/home/andrus/Dropbox/dev/opensrs/lib/api_opensrs.rb"
 
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
@@ -14,7 +13,7 @@ class OpensrsController < ApplicationController
 
     body_xml = request.body.read
 
-    Rails.logger.debug TestApi.lol
+    Rails.logger.debug ApiOpenSRS::VERSION
     #request_hash = OpenSRSRequestParse.new(body_xml).request_hash_rexml
     #opensrs = SRSClient.new(request_hash,username,signature)
     #
