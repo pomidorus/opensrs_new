@@ -9,6 +9,9 @@ module ApiOpenSRS
       GET_ORDER_INFO_RESPONSE = "order_info_response"
       GET_PRODUCT_INFO_RESPONSE = "product_info_response"
 
+      include ApiOpenSRS::ActionService::SWRegister
+      SWRegDomain = SWRegisterDomain.new(:attributes)
+
       def action
         attributes['action'].downcase
       end

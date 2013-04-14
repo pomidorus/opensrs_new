@@ -14,6 +14,9 @@ module ApiOpenSRS
 
       include ApiOpenSRS::ActionService::GetProductInfo
 
+      include ApiOpenSRS::ActionService::SWRegister
+      SWRegService = SWRegisterService.new(:attributes)
+
       def action
         attributes['action'].downcase
       end

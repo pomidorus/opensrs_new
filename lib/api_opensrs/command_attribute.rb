@@ -55,11 +55,15 @@ module ApiOpenSRS
         cc
       end
 
+      ActionH = ActionHash.new(:attributes)
+
       #
       def domain
         request_parameters = attr_value(ATTRIBUTE_HASH_DOMAIN[request_hash[H_ACTION]])
         ActionH.new(request_parameters).response
       end
+
+      ActionHService = ActionHashService.new(:attributes)
 
       #
       def trust_service
