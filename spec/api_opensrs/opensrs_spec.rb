@@ -32,16 +32,7 @@ describe "ApiOpenSRS" do
       billing: CONTACT
     }
 
-    SSLCERT = %q(-----BEGIN CERTIFICATE REQUEST----- MIIBqTCCARICAQAwaTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAm9uMRAwDgYDVQQH
-    Ewd0b3JvbnRvMQ8wDQYDVQQKEwZ0dWNvd3MxCzAJBgNVBAsTAnFhMR0wGwYDVQQD
-    ExR3d3cucWFyZWdyZXNzaW9uLm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkC
-    gYEAz+hbqqnE5BSW0THf7txxsJxF8Vtca2uL52iutI1SRTm9J6NNtAjgMbL9upOm
-    SFnObpWKriUIlvxKrecygGWkjiMeyU/F6auAS9/vwDdxYEVT2szK+Q2At1FgU433
-    Pds53v2J/vyB6SL+k/w54H2gF4ORpU1hjUggo7fM353TeeMCAwEAAaAAMA0GCSqG
-    SIb3DQEBBAUAA4GBAIYvVThVeocN7N7HbsO/au9AXnx6LULQ5LMDWx6FlyBB5g9h
-    5HYZa6xieYCYDxYIsjLjR3qx1BWl9+0kSL2MW4EdDPzbcrZvHAtrw2/hPrm9EGA3
-    2w3a26W79N3clCkrahnpcNFLFyzU3CtZASJ+VuixGXTEkdiBAliqtGp+QBhf -----END
-    CERTIFICATE REQUEST-----)
+    SSLCERT = %q(-----BEGIN CERTIFICATE REQUEST----- MIIBqTCCARICAQAwaTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAm9uMRAwDgYDVQQHEwd0b3JvbnRvMQ8wDQYDVQQKEwZ0dWNvd3MxCzAJBgNVBAsTAnFhMR0wGwYDVQQDExR3d3cucWFyZWdyZXNzaW9uLm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAz+hbqqnE5BSW0THf7txxsJxF8Vtca2uL52iutI1SRTm9J6NNtAjgMbL9upOmSFnObpWKriUIlvxKrecygGWkjiMeyU/F6auAS9/vwDdxYEVT2szK+Q2At1FgU433Pds53v2J/vyB6SL+k/w54H2gF4ORpU1hjUggo7fM353TeeMCAwEAAaAAMA0GCSqGSIb3DQEBBAUAA4GBAIYvVThVeocN7N7HbsO/au9AXnx6LULQ5LMDWx6FlyBB5g9h5HYZa6xieYCYDxYIsjLjR3qx1BWl9+0kSL2MW4EdDPzbcrZvHAtrw2/hPrm9EGA32w3a26W79N3clCkrahnpcNFLFyzU3CtZASJ+VuixGXTEkdiBAliqtGp+QBhf -----END CERTIFICATE REQUEST-----)
 
   end
 
@@ -219,10 +210,13 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/resend_cert_email_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/resend_cert_email_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 
@@ -240,10 +234,13 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/cancel_order_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/cancel_order_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 
@@ -261,10 +258,13 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/parse_csr_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/parse_csr_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 

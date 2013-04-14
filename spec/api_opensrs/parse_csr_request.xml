@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OPS_envelope>
+  <header>
+    <version>0.9</version>
+  </header>
+  <body>
+    <data_block>
+      <dt_assoc>
+        <item key="protocol">XCP</item>
+        <item key="action">PARSE_CSR</item>
+        <item key="object">TRUST_SERVICE</item>
+        <item key="registrant_ip"/>
+        <item key="attributes">
+          <dt_assoc>
+            <item key="product_type">quickssl</item>
+            <item key="csr">-----BEGIN CERTIFICATE REQUEST----- MIIBqTCCARICAQAwaTELMAkGA1UEBhMCQ0ExCzAJBgNVBAgTAm9uMRAwDgYDVQQHEwd0b3JvbnRvMQ8wDQYDVQQKEwZ0dWNvd3MxCzAJBgNVBAsTAnFhMR0wGwYDVQQDExR3d3cucWFyZWdyZXNzaW9uLm9yZzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAz+hbqqnE5BSW0THf7txxsJxF8Vtca2uL52iutI1SRTm9J6NNtAjgMbL9upOmSFnObpWKriUIlvxKrecygGWkjiMeyU/F6auAS9/vwDdxYEVT2szK+Q2At1FgU433Pds53v2J/vyB6SL+k/w54H2gF4ORpU1hjUggo7fM353TeeMCAwEAAaAAMA0GCSqGSIb3DQEBBAUAA4GBAIYvVThVeocN7N7HbsO/au9AXnx6LULQ5LMDWx6FlyBB5g9h5HYZa6xieYCYDxYIsjLjR3qx1BWl9+0kSL2MW4EdDPzbcrZvHAtrw2/hPrm9EGA32w3a26W79N3clCkrahnpcNFLFyzU3CtZASJ+VuixGXTEkdiBAliqtGp+QBhf -----END CERTIFICATE REQUEST-----</item>
+          </dt_assoc>
+        </item>
+      </dt_assoc>
+    </data_block>
+  </body>
+</OPS_envelope>

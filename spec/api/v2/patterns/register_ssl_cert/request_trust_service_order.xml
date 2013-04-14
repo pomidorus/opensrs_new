@@ -1,2 +1,0 @@
-<?xml version="1.0"?>
-<OPS_envelope><header/><version/>0.9<body/><data_block/><dt_assoc><item key="protocol">XCP</item><item key="action">SW_REGISTER</item><item key="object">TRUST_SERVICE</item><item key="attributes"><dt_assoc><item key="order_id">327</item></dt_assoc></item></dt_assoc></OPS_envelope>
