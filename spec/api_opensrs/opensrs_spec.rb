@@ -306,7 +306,7 @@ describe "ApiOpenSRS" do
   #------------------------------------------------------------------------
   #------------------------------------------------------------------------
 
-  context 'SW_REGISTER NEW TRUST_SERVICE' do
+  context 'when action is SW_REGISTER and object is TRUST_SERVICE' do
     before (:all) do
       #This example shows an order for a Symantec SecureSite certificate with seal-in-search and trust seal.
       action = "SW_REGISTER"
@@ -316,7 +316,7 @@ describe "ApiOpenSRS" do
         handle: "process",
         reg_type: "new",
         product_type: "securesite",
-        contact_set: test_contact_set,
+        contact_set: TEST_CONTACT_SET,
 
         trust_seal: "1",
         seal_in_search: "1",
@@ -345,7 +345,7 @@ describe "ApiOpenSRS" do
   #------------------------------------------------------------------------
 
   #Request renewal of certificate using existing CSR and other information pulled from existing Order using Order ID
-  context 'SW_REGISTER RENEW TRUST_SERVICE' do
+  context 'when action is SW_REGISTER and object is TRUST_SERVICE and reg_type is renew' do
     before (:all) do
       #This example shows a renewal order for a QuickSSL certificate.
       action = "SW_REGISTER"
@@ -369,10 +369,13 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/register_renew_service_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/register_renew_service_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 
