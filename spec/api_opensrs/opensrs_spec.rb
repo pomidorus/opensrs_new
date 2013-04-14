@@ -7,6 +7,7 @@ describe "ApiOpenSRS" do
 
   before (:all) do
     @opensrs_request = SlobodaClient::Request.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
+    @bad_opensrs_request = SlobodaClient::Request.new("http://localhost:3000/opensrs","sokolov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 
     CONTACT = {
       first_name: "Andrey",
@@ -41,8 +42,25 @@ describe "ApiOpenSRS" do
   #------------------------------------------------------------------------
 
   context 'authorization' do
-    it 'user Seleznov should login'
-    it 'user Sokolov should not login'
+    before (:all) do
+      action = "GET_ORDER_INFO"
+      object = "DOMAIN"
+      attributes = { order_id: '123746'}
+      #For Seleznov
+      @api = @opensrs_request.request_api(action,object,attributes)
+      #For Sokolov
+      @bad_api = @bad_opensrs_request.request_api(action,object,attributes)
+    end
+
+    it 'user Seleznov should return correct response' do
+      xml_response = open("#{dir}/response/get_order_info_response.xml", 'r').readlines.join
+      @api.response_xml.should eql(xml_response)
+    end
+
+    it 'user Sokolov should return bad_auth response' do
+      xml_response = open("#{dir}/response/bad_authorization_response.xml", 'r').readlines.join
+      @bad_api.response_xml.should eql(xml_response)
+    end
   end
 
   #------------------------------------------------------------------------
@@ -60,12 +78,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/get_order_info_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/get_order_info_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/get_order_info_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/get_order_info_response.xml", 'r').readlines.join
       @api.response_xml.should eql(xml_response)
     end
 
@@ -76,8 +94,6 @@ describe "ApiOpenSRS" do
     it 'Product ID should not be empty' do
       @api.response["attributes"]["field_hash"]["id"].empty?.should_not be_true
     end
-
-    it 'request without required attribute should return correct message'
   end
 
   #------------------------------------------------------------------------
@@ -96,23 +112,14 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/get_product_info_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/get_product_info_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/get_product_info_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/get_product_info_response.xml", 'r').readlines.join
       @api.response_xml.should eql(xml_response)
     end
-
-    it 'certificate body should be present' do
-      pending
-    end
-
-    it 'certificate body should not be blank' do
-      pending
-    end
-    it 'request without required attribute should return correct message'
   end
 
   #------------------------------------------------------------------------
@@ -129,12 +136,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/get_product_info_all_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/get_product_info_all_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/get_product_info_all_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/get_product_info_all_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
 
@@ -162,12 +169,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/query_list_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/query_list_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/query_list_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/query_list_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end
@@ -186,12 +193,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/resend_approve_email_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/resend_approve_email_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/resend_approve_email_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/resend_approve_email_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end
@@ -210,12 +217,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/resend_cert_email_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/resend_cert_email_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/resend_cert_email_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/resend_cert_email_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end
@@ -234,12 +241,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/cancel_order_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/cancel_order_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/cancel_order_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/cancel_order_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end
@@ -258,12 +265,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/parse_csr_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/parse_csr_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/parse_csr_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/parse_csr_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end
@@ -292,12 +299,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/register_new_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/register_new_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/register_new_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/register_new_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end
@@ -330,12 +337,12 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/register_new_service_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/register_new_service_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
     it 'response should be correct' do
-      xml_response = open("#{dir}/register_new_service_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/register_new_service_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end
@@ -369,12 +376,14 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-      xml_request = open("#{dir}/register_renew_service_request.xml", 'r').readlines.join
+      xml_request = open("#{dir}/request/register_renew_service_request.xml", 'r').readlines.join
       @api.request_xml.should  eql(xml_request)
     end
 
+    it 'request without required attribute should return correct message'
+
     it 'response should be correct' do
-      xml_response = open("#{dir}/register_renew_service_response.xml", 'r').readlines.join
+      xml_response = open("#{dir}/response/register_renew_service_response.xml", 'r').readlines.join
       @api.response_xml.should  eql(xml_response)
     end
   end

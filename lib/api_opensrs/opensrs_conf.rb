@@ -126,13 +126,13 @@ module ApiOpenSRS
   PARSE_CSR_HASH = {
     :country => 'RU',
     :organization_unit => 'IT',
-    :valid_true_domain => true,
+    :valid_true_domain => 1,
     :state => 'Moscow',
     :locality => 'Moscow locality',
     :email => 'info@example.ru',
     :domain_name => 'example.ru',
-    :valid_quick_domain => true,
-    :has_bad_extensions => false,
+    :valid_quick_domain => 1,
+    :has_bad_extensions => 0,
     :organization => 'ZAO Example',
   }.freeze
 
