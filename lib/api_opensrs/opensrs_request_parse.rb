@@ -1,4 +1,8 @@
 module ApiOpenSRS
+
+  #
+  #
+  #
   class OpenSRSRequestParse
     attr :xml
 
