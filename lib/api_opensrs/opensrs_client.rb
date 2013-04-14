@@ -1,10 +1,10 @@
 module ApiOpenSRS
 
-  #
+  #Класс для обработки входящих реквестов и отдачи необходимого респонса
   class SRSClient < SslProxy
     attr :request, :username, :signature, :api_command
 
-    # authenticate function
+    # метод авторизации на клиенте
     def authenticate?
       # code for authentication
       return false if @username == "sokolov"

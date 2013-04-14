@@ -169,4 +169,43 @@ module ApiOpenSRS
     state: "awaiting-approval"
   }
 
+  #--------------------------------------------------------------------------------------------------
+  #--------------------------------------------------------------------------------------------------
+
+  H_ACTION = 'action'
+  H_OBJECT = 'object'
+
+  GET_ORDER_INFO = "GET_ORDER_INFO"
+  GET_PRODUCT_INFO = "GET_PRODUCT_INFO"
+  QUERY_APPROVER_LIST = "QUERY_APPROVER_LIST"
+  RESEND_APPROVE_EMAIL = "RESEND_APPROVE_EMAIL"
+  RESEND_CERT_EMAIL = "RESEND_CERT_EMAIL"
+  SW_REGISTER = "SW_REGISTER"
+  CANCEL_ORDER = "CANCEL_ORDER"
+  PARSE_CSR = "PARSE_CSR"
+
+  SRS_ACTION = "action"
+  SRS_OBJECT = "object"
+  SRS_ORDER_ID = "order_id"
+  SRS_PRODUCT_ID = "product_id"
+  SRS_PRODUCT_TYPE = "product_type"
+  SRS_DOMAIN = "domain"
+  SRS_CSR = "csr"
+  SRS_INVENTORY_ITEM_ID = "inventory_item_id"
+  SRS_ALL_INFO = "all_info"
+
+  SRS_REG_TYPE = "reg_type"
+  SRS_REGISTRANT_IP = "registrant_ip"
+  SRS_CONTACT_SET = "contact_set"
+  SRS_CUSTOM_NAMESERVERS = "custom_nameservers"
+  SRS_REG_PASSWORD = "reg_password"
+  SRS_REG_USERNAME = "reg_username"
+  SRS_CUSTOM_TECH_CONTACT = "custom_tech_contact"
+  SRS_HANDLE = "handle"
+
+  SRS_APPROVER_EMAIL = "approver_email"
+  SRS_SPECIAL_INSTRUCTIONS = "special_instructions"
+  SRS_PERIOD = "period"
+  SRS_SERVER_TYPE = "server_type"
+
 end
