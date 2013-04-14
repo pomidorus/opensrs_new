@@ -13,18 +13,16 @@ class OpensrsController < ApplicationController
 
     body_xml = request.body.read
 
-    Rails.logger.debug ApiOpenSRS::GET_ORDER_INFO_HASH
-    #request_hash = OpenSRSRequestParse.new(body_xml).request_hash_rexml
-    #opensrs = SRSClient.new(request_hash,username,signature)
-    #
-    #if opensrs.authenticate?
-    #  response_hash = opensrs.response
-    #  @data = response_hash[:data]
-    #  render "layouts/#{response_hash[:layout]}", :formats => [:xml]
-    #else
-    #  render "layouts/bad_authorization", :formats => [:xml]
-    #end
+    #Rails.logger.debug ApiOpenSRS::GET_ORDER_INFO_HASH
+    Rails.logger.debug request_hash = ApiOpenSRS::OpenSRSRequestParse.new(body_xml).request_hash_rexml
+    opensrs = ApiOpenSRS::SRSClient.new(request_hash,username,signature)
 
-    render "layouts/bad_authorization", :formats => [:xml]
+    if opensrs.authenticate?
+      response_hash = opensrs.response
+      @data = response_hash[:data]
+      render "layouts/#{response_hash[:layout]}", :formats => [:xml]
+    else
+      render "layouts/bad_authorization", :formats => [:xml]
+    end
   end
 end

@@ -1,8 +1,8 @@
-module SRSClient
+module SlobodaClient
   require 'opensrs'
   require 'libxml'
 
-  class OpenSRSRequest
+  class Request
     attr :server, :username, :password, :key
 
     def initialize(server,username,password,key)

@@ -1,6 +1,6 @@
-load "/home/andrus/Dropbox/dev/opensrs/lib/opensrs_request.rb"
+load "/home/andrus/Dropbox/dev/opensrs/lib/sloboda_client.rb"
 
-opensrs_request = SRSClient::OpenSRSRequest.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
+opensrs_request = SlobodaClient::Request.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 #opensrs_request = OpenSRSRequest.new("http://opensrs.herokuapp.com/opensrs2","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
 
 #For a .RU domain order
