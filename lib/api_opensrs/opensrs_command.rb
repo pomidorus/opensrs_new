@@ -4,8 +4,6 @@ module ApiOpenSRS
     attr :request_hash, :object, :action
 
     include ApiOpenSRS::Attribute
-    include ApiOpenSRS::ActionDomain
-    include ApiOpenSRS::ActionService
 
     AttrH = AttributeHash.new(:request_hash)
 

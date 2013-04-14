@@ -46,6 +46,9 @@ module ApiOpenSRS
         ]
       }
 
+      include ApiOpenSRS::ActionDomain
+      include ApiOpenSRS::ActionService
+
       #
       def attr_value(ch)
         cc = {}
