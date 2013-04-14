@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OPS_envelope>
+  <header>
+    <version>0.9</version>
+  </header>
+  <body>
+    <data_block>
+      <dt_assoc>
+        <item key="protocol">XCP</item>
+        <item key="action">SW_REGISTER</item>
+        <item key="object">DOMAIN</item>
+        <item key="registrant_ip">192.168.0.1</item>
+        <item key="attributes">
+          <dt_assoc>
+            <item key="order_id">333</item>
+            <item key="contact_set">
+              <dt_assoc>
+                <item key="admin">
+                  <dt_assoc>
+                    <item key="first_name">Andrey</item>
+                    <item key="last_name">Seleznov</item>
+                    <item key="org_name">Example Inc.</item>
+                    <item key="address1">32 Oak St.</item>
+                    <item key="address2">Suite 500</item>
+                    <item key="city">Santa Clara</item>
+                    <item key="region">Donbass</item>
+                    <item key="country">RU</item>
+                    <item key="postal_code">90210</item>
+                    <item key="phone">+1.4165550123x1902</item>
+                    <item key="fax">+1.4165550124</item>
+                    <item key="email">owner@example.com</item>
+                    <item key="title">mr</item>
+                    <item key="country_id">1</item>
+                  </dt_assoc>
+                </item>
+                <item key="tech">
+                  <dt_assoc>
+                    <item key="first_name">Andrey</item>
+                    <item key="last_name">Seleznov</item>
+                    <item key="org_name">Example Inc.</item>
+                    <item key="address1">32 Oak St.</item>
+                    <item key="address2">Suite 500</item>
+                    <item key="city">Santa Clara</item>
+                    <item key="region">Donbass</item>
+                    <item key="country">RU</item>
+                    <item key="postal_code">90210</item>
+                    <item key="phone">+1.4165550123x1902</item>
+                    <item key="fax">+1.4165550124</item>
+                    <item key="email">owner@example.com</item>
+                    <item key="title">mr</item>
+                    <item key="country_id">1</item>
+                  </dt_assoc>
+                </item>
+                <item key="organization">
+                  <dt_assoc>
+                    <item key="first_name">Andrey</item>
+                    <item key="last_name">Seleznov</item>
+                    <item key="org_name">Example Inc.</item>
+                    <item key="address1">32 Oak St.</item>
+                    <item key="address2">Suite 500</item>
+                    <item key="city">Santa Clara</item>
+                    <item key="region">Donbass</item>
+                    <item key="country">RU</item>
+                    <item key="postal_code">90210</item>
+                    <item key="phone">+1.4165550123x1902</item>
+                    <item key="fax">+1.4165550124</item>
+                    <item key="email">owner@example.com</item>
+                    <item key="title">mr</item>
+                    <item key="country_id">1</item>
+                  </dt_assoc>
+                </item>
+                <item key="billing">
+                  <dt_assoc>
+                    <item key="first_name">Andrey</item>
+                    <item key="last_name">Seleznov</item>
+                    <item key="org_name">Example Inc.</item>
+                    <item key="address1">32 Oak St.</item>
+                    <item key="address2">Suite 500</item>
+                    <item key="city">Santa Clara</item>
+                    <item key="region">Donbass</item>
+                    <item key="country">RU</item>
+                    <item key="postal_code">90210</item>
+                    <item key="phone">+1.4165550123x1902</item>
+                    <item key="fax">+1.4165550124</item>
+                    <item key="email">owner@example.com</item>
+                    <item key="title">mr</item>
+                    <item key="country_id">1</item>
+                  </dt_assoc>
+                </item>
+              </dt_assoc>
+            </item>
+            <item key="custom_nameservers">1</item>
+            <item key="reg_type">new</item>
+            <item key="reg_password">test</item>
+            <item key="reg_username">aseleznov</item>
+            <item key="domain">www.mail.ru</item>
+            <item key="custom_tech_contact">0</item>
+          </dt_assoc>
+        </item>
+      </dt_assoc>
+    </data_block>
+  </body>
+</OPS_envelope>

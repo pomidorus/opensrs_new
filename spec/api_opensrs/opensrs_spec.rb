@@ -42,7 +42,7 @@ describe "ApiOpenSRS" do
 
   context 'authorization' do
     it 'user Seleznov should login'
-    it 'user Sokoliv should not login'
+    it 'user Sokolov should not login'
   end
 
   #------------------------------------------------------------------------
@@ -292,10 +292,13 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/register_new_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/register_new_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 
@@ -327,10 +330,13 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/register_new_service_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/register_new_service_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 
