@@ -12,6 +12,7 @@ puts "##GET_ORDER_INFO"
 puts api.request_xml
 puts "------------------------RESPONSE---------------------------------------"
 puts api.response_xml
+puts api.response.inspect
 #
 #
 

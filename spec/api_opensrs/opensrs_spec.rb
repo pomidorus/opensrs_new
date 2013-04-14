@@ -3,6 +3,12 @@ require 'sloboda_client'
 
 describe "ApiOpenSRS" do
 
+  let(:dir) { File.dirname(__FILE__) }
+
+  before (:all) do
+    @opensrs_request = SlobodaClient::Request.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
+  end
+
   context 'authorization' do
     it 'user Seleznov should login'
     it 'user Sokoliv should not login'
@@ -10,13 +16,31 @@ describe "ApiOpenSRS" do
 
   #returns Order information, including the order state. If the state is complete, returns the Product ID
   context 'GET_ORDER_INFO' do
-    it 'request should be correct' do
-      pending
-      true.should == false
+    before (:all) do
+      #For a .RU domain order
+      action = "GET_ORDER_INFO"
+      object = "DOMAIN"
+      attributes = { order_id: '123746'}
+      @api = @opensrs_request.request_api(action,object,attributes)
     end
-    it 'response should be correct'
-    it 'Product ID should be present'
-    it 'Product ID should not be blank'
+
+    it 'request should be correct' do
+      xml_request = open("#{dir}/get_order_info_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
+    end
+
+    it 'response should be correct' do
+      xml_response = open("#{dir}/get_order_info_response.xml", 'r').readlines.join
+      @api.response_xml.should eql(xml_response)
+    end
+
+    it 'Product ID should be present' do
+      @api.response["attributes"]["field_hash"]["id"].should_not eql(nil)
+    end
+
+    it 'Product ID should not be empty' do
+      @api.response["attributes"]["field_hash"]["id"].empty?.should_not be_true
+    end
   end
 
   #Returns information about the issued certificate.

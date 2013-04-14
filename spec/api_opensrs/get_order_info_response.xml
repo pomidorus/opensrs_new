@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<!DOCTYPE OPS_envelope SYSTEM 'ops.dtd'>
+<OPS_envelope>
+   <header>
+     <version>0.9</version>
+   </header>
+   <body>
+      <data_block>
+         <dt_assoc>
+            <item key='protocol'>XCP</item>
+            <item key='action'>REPLY</item>
+            <item key='object'>DOMAIN</item>
+            <item key='is_success'>1</item>
+            <item key='response_code'>200</item>
+            <item key='response_text'>Command completed successfully</item>
+            <item key='attributes'>
+               <dt_assoc>
+                  <item key='field_hash'>
+                     <dt_assoc>
+                        <item key='owner_first_name'>Andrey</item>
+                        <item key='owner_last_name'>Seleznov</item>
+                        <item key='owner_org_name'>Example Inc.</item>
+                        <item key='owner_address1'>32 Oak St.</item>
+                        <item key='owner_address2'>Suite 500</item>
+                        <item key='owner_city'>Santa Clara</item>
+                        <item key='owner_region'>Donbass</item>
+                        <item key='owner_country'>RU</item>
+                        <item key='owner_country_id'>1</item>
+                        <item key='owner_postal_code'>90210</item>
+                        <item key='owner_phone'>+1.4165550123x1902</item>
+                        <item key='owner_fax'>+1.4165550124</item>
+                        <item key='owner_email'>owner@example.com</item>
+                        <item key='owner_title'>mr</item>
+                        <item key='admin_first_name'>Andrey</item>
+                        <item key='admin_last_name'>Seleznov</item>
+                        <item key='admin_org_name'>Example Inc.</item>
+                        <item key='admin_address1'>32 Oak St.</item>
+                        <item key='admin_address2'>Suite 500</item>
+                        <item key='admin_city'>Santa Clara</item>
+                        <item key='admin_region'>Donbass</item>
+                        <item key='admin_country'>RU</item>
+                        <item key='admin_country_id'>1</item>
+                        <item key='admin_postal_code'>90210</item>
+                        <item key='admin_phone'>+1.4165550123x1902</item>
+                        <item key='admin_fax'>+1.4165550124</item>
+                        <item key='admin_email'>owner@example.com</item>
+                        <item key='admin_title'>mr</item>
+                        <item key='billing_first_name'>Andrey</item>
+                        <item key='billing_last_name'>Seleznov</item>
+                        <item key='billing_org_name'>Example Inc.</item>
+                        <item key='billing_address1'>32 Oak St.</item>
+                        <item key='billing_address2'>Suite 500</item>
+                        <item key='billing_city'>Santa Clara</item>
+                        <item key='billing_region'>Donbass</item>
+                        <item key='billing_country'>RU</item>
+                        <item key='billing_country_id'>1</item>
+                        <item key='billing_postal_code'>90210</item>
+                        <item key='billing_phone'>+1.4165550123x1902</item>
+                        <item key='billing_fax'>+1.4165550124</item>
+                        <item key='billing_email'>owner@example.com</item>
+                        <item key='billing_title'>mr</item>
+                        <item key='tech_first_name'>Andrey</item>
+                        <item key='tech_last_name'>Seleznov</item>
+                        <item key='tech_org_name'>Example Inc.</item>
+                        <item key='tech_address1'>32 Oak St.</item>
+                        <item key='tech_address2'>Suite 500</item>
+                        <item key='tech_city'>Santa Clara</item>
+                        <item key='tech_region'>Donbass</item>
+                        <item key='tech_country'>RU</item>
+                        <item key='tech_country_id'>1</item>
+                        <item key='tech_postal_code'>90210</item>
+                        <item key='tech_phone'>+1.4165550123x1902</item>
+                        <item key='tech_fax'>+1.4165550124</item>
+                        <item key='tech_email'>owner@example.com</item>
+                        <item key='tech_title'>mr</item>
+                        <item key='comments'></item>
+                        <item key='reg_domain'></item>
+                        <item key='domain'></item>
+                        <item key='transfer_notes'>
+                           <dt_array>
+                              <item key='0'>
+                                 <dt_assoc>
+                                    <item key='timestamp'>05-OCT-2007 17:07:42</item>
+                                    <item key='note'>Transfer Request message sent to owner@example.com</item>
+                                 </dt_assoc>
+                              </item>
+                           </dt_array>
+                        </item>
+                        <item key='affiliate_id'></item>
+                        <item key='order_date'>1083590189</item>
+                        <item key='status'>completed</item>
+                        <item key='f_lock_domain'>0</item>
+                        <item key='forwarding_email'></item>
+                        <item key='flag_saved_ns_fields'>1</item>
+                        <item key='processed_date'></item>
+                        <item key='id'>3515690</item>
+                        <item key='encoding_type'>undef</item>
+                        <item key='flag_saved_tech_fields'>1</item>
+                        <item key='completed_date'>1083590192</item>
+                        <item key='f_auto_renew'>Y</item>
+                        <item key='fqdn1'>ns1.systemdns.com</item>
+                        <item key='fqdn2'>ns2.systemdns.com</item>
+                        <item key='fqdn3'></item>
+                        <item key='fqdn4'></item>
+                        <item key='fqdn5'></item>
+                        <item key='fqdn6'></item>
+                        <item key='reg_type'>new</item>
+                        <item key='notes'>
+                           <dt_array>
+                              <item key='0'>
+                                 <dt_assoc>
+                                    <item key='timestamp'>27-OCT-2007 11:15:03</item>
+                                    <item key='note'>RSP Note: testing first note</item>
+                                 </dt_assoc>
+                              </item>
+                              <item key='1'>
+                                 <dt_assoc>
+                                    <item key='timestamp'>27-OCT-2007 11:15:03</item>
+                                    <item key='note'>RSP Note: testing first note</item>
+                                 </dt_assoc>
+                              </item>
+                           </dt_array>
+                        </item>
+                        <item key='master_order_id'>0</item>
+                        <item key='period'>1</item>
+                        <item key='cost'>15</item>
+                     </dt_assoc>
+                  </item>
+               </dt_assoc>
+            </item>
+         </dt_assoc>
+      </data_block>
+   </body>
+</OPS_envelope>
