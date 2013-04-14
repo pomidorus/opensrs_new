@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OPS_envelope>
+  <header>
+    <version>0.9</version>
+  </header>
+  <body>
+    <data_block>
+      <dt_assoc>
+        <item key="protocol">XCP</item>
+        <item key="action">QUERY_APPROVER_LIST</item>
+        <item key="object">TRUST_SERVICE</item>
+        <item key="registrant_ip"/>
+        <item key="attributes">
+          <dt_assoc>
+            <item key="domain">www.mail.ru</item>
+            <item key="product_type">quickssl</item>
+          </dt_assoc>
+        </item>
+      </dt_assoc>
+    </data_block>
+  </body>
+</OPS_envelope>

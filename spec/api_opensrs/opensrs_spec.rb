@@ -158,6 +158,8 @@ describe "ApiOpenSRS" do
   end
 
   #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
 
   #Query a list of approver email addresses allowed for the domain to which the request's approval email will be sent
   context 'QUERY_APPROVER_LIST' do
@@ -169,13 +171,18 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/query_list_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/query_list_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
   #------------------------------------------------------------------------
 
   #Request the approval email be re-sent based on an Order ID
@@ -188,13 +195,18 @@ describe "ApiOpenSRS" do
     end
 
     it 'request should be correct' do
-
+      xml_request = open("#{dir}/resend_approve_email_request.xml", 'r').readlines.join
+      @api.request_xml.should  eql(xml_request)
     end
-    it 'response should be correct' do
 
+    it 'response should be correct' do
+      xml_response = open("#{dir}/resend_approve_email_response.xml", 'r').readlines.join
+      @api.response_xml.should  eql(xml_response)
     end
   end
 
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
   #------------------------------------------------------------------------
 
   #Request the certificate email be re-sent based on an Order ID
@@ -215,6 +227,8 @@ describe "ApiOpenSRS" do
   end
 
   #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
 
   #A request can only be cancelled if the order is in progress. It can not be canceled after the order has completed
   context 'CANCEL_ORDER' do
@@ -234,6 +248,8 @@ describe "ApiOpenSRS" do
   end
 
   #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
 
   #Parse the CSR submitted by the user to present them back the configured values to then finally confirm and process their request
   context 'PARSE_CSR' do
@@ -252,6 +268,8 @@ describe "ApiOpenSRS" do
     end
   end
 
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
   #------------------------------------------------------------------------
 
   #Submit order information for processing immediately, and obtain an Order ID
@@ -281,6 +299,8 @@ describe "ApiOpenSRS" do
     end
   end
 
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
   #------------------------------------------------------------------------
 
   context 'SW_REGISTER NEW TRUST_SERVICE' do
@@ -314,6 +334,8 @@ describe "ApiOpenSRS" do
     end
   end
 
+  #------------------------------------------------------------------------
+  #------------------------------------------------------------------------
   #------------------------------------------------------------------------
 
   #Request renewal of certificate using existing CSR and other information pulled from existing Order using Order ID
