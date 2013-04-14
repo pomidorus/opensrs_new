@@ -9,10 +9,14 @@ describe "ApiOpenSRS" do
     @opensrs_request = SlobodaClient::Request.new("http://localhost:3000/opensrs","aseleznov","53cr3t","c633be3170c7fb3fb29e2f99b84be2410")
   end
 
+  #------------------------------------------------------------------------
+
   context 'authorization' do
     it 'user Seleznov should login'
     it 'user Sokoliv should not login'
   end
+
+  #------------------------------------------------------------------------
 
   #returns Order information, including the order state. If the state is complete, returns the Product ID
   context 'GET_ORDER_INFO' do
@@ -41,26 +45,53 @@ describe "ApiOpenSRS" do
     it 'Product ID should not be empty' do
       @api.response["attributes"]["field_hash"]["id"].empty?.should_not be_true
     end
+
+    it 'request without required attribute should return correct message'
   end
+
+  #------------------------------------------------------------------------
 
   #Returns information about the issued certificate.
   #В методе Get Product Info помимо информации о сертификате нужно возвращать сам сертификат (certificate body).
   context 'GET_PRODUCT_INFO' do
-    it 'request should be correct' do
-      pending
-      true.should == false
+    before (:all) do
+      ##Retrieves the properties for a Trust Service product.
+      action = "GET_PRODUCT_INFO"
+      object = "TRUST_SERVICE"
+      attributes = { product_id: '123746' }
+      @api = @opensrs_request.request_api(action,object,attributes)
     end
-    it 'response should be correct'
-    it 'certificate body should be present'
-    it 'certificate body should not be blank'
+
+    it 'request should be correct' do
+      xml_request = ""
+      @api.request_xml.should  eql(xml_request)
+    end
+
+    it 'response should be correct' do
+      xml_response = ""
+      @api.response_xml.should eql(xml_response)
+    end
+
+    it 'certificate body should be present' do
+      pending
+    end
+
+    it 'certificate body should not be blank' do
+      pending
+    end
+    it 'request without required attribute should return correct message'
   end
+
+  #------------------------------------------------------------------------
 
   context 'GET_PRODUCT_INFO_ALL' do
     it 'request should be correct' do
-      pending
-      true.should == false
+
     end
-    it 'response should be correct'
+
+    it 'response should be correct' do
+
+    end
   end
 
   #Query a list of approver email addresses allowed for the domain to which the request's approval email will be sent
