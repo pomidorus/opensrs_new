@@ -2,7 +2,7 @@ module ApiOpenSRS
 
   #
   class SRSClient < SslProxy
-    attr :request, :username, :signature, :response
+    attr :request, :username, :signature, :api_command
 
     # authenticate function
     def authenticate?
@@ -13,11 +13,11 @@ module ApiOpenSRS
 
     def initialize(request, username, signature)
       @request, @username, @signature = request, username, signature
-      @response =  ApiCommand.new(request)
+      @api_command =  ApiCommand.new(request)
     end
 
     def response
-      @response.response
+      @api_command.response
     end
   end
 end
