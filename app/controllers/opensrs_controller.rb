@@ -1,5 +1,5 @@
-#require 'api_opensrs'
-load "/home/andrus/Dropbox/dev/opensrs/lib/api_opensrs.rb"
+require 'api_opensrs'
+#load "/home/andrus/Dropbox/dev/opensrs/lib/api_opensrs.rb"
 
 class OpensrsController < ApplicationController
   respond_to :xml, :only => :index
