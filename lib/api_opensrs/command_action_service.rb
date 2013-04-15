@@ -7,8 +7,6 @@ module ApiOpenSRS
       RESEND_APPROVE_EMAIL_RESPONSE = "resend_approve_email"
       RESEND_CERT_EMAIL_RESPONSE = "resend_certificate_email"
       GET_ORDER_INFO_RESPONSE = "order_info_response"
-      GET_PRODUCT_INFO_RESPONSE = "product_info_response"
-      GET_PRODUCT_INFO_ALL_RESPONSE = "product_info_all_response"
       CANCEL_ORDER_RESPONSE = "cancel_order_response"
       PARSE_CSR_RESPONSE = "parse_csr_response"
 

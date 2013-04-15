@@ -4,6 +4,9 @@ module ApiOpenSRS
       #response for get_product_info command
       class GPIInfo
         attr :attributes
+
+        GET_PRODUCT_INFO_RESPONSE = "product_info_response"
+
         def initialize(attributes)
           @attributes = attributes
         end
@@ -18,6 +21,9 @@ module ApiOpenSRS
       #response for get_product_info command with attribute all_info
       class GPIAll
         attr :attributes
+
+        GET_PRODUCT_INFO_ALL_RESPONSE = "product_info_all_response"
+
         def initialize(attributes)
           @attributes = attributes
         end
